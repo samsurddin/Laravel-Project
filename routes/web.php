@@ -26,3 +26,10 @@ Route::group(['prefix' => '{locale}', 'where' => ['locale' => '[a-zA-Z]{2}']], f
     require __DIR__.'/auth.php';
     
 });
+
+Route::get('/', function () {
+    if (app()->getLocale() == null) {
+        app()->setLocale(config('app.locale'));
+    }    
+    return redirect('/'.app()->getLocale());
+});
