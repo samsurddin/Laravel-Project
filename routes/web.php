@@ -27,9 +27,8 @@ Route::group(['prefix' => '{locale}', 'where' => ['locale' => '[a-zA-Z]{2}']], f
     
 });
 
-Route::get('/', function () {
-    if (app()->getLocale() == null) {
-        app()->setLocale(config('app.locale'));
-    }    
-    return redirect('/'.app()->getLocale());
-});
+Route::get('{any}', function ($any) {
+    if (request()->segment(1) && strlen(request()->segment(1)) != 2) {
+        return redirect('/'.app()->getLocale().'/'.request()->path());
+    }
+})->where('any', '.*');
