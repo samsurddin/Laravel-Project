@@ -19,10 +19,16 @@ Route::group(['prefix' => '{locale}', 'where' => ['locale' => '[a-zA-Z]{2}']], f
         return view('welcome');
     });
 
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->middleware(['auth'])->name('dashboard');
+    Route::group(['middleware' => ['auth']], function()
+    {
+        Route::get('/dashboard', function () {
+            return view('dashboard');
+        })->name('dashboard');
+
+        Route::get('/profile', function () {
+            return view('dashboard');
+        })->name('dashboard');
+    });
 
     require __DIR__.'/auth.php';
-    
 });
