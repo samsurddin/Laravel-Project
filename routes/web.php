@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\User;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,12 +20,33 @@ Route::group(['prefix' => '{locale}', 'where' => ['locale' => '[a-zA-Z]{2}']], f
         return view('welcome');
     });
 
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->middleware(['auth'])->name('dashboard');
+    Route::group(['middleware' => ['auth']], function()
+    {
+        Route::get('/dashboard', function () {
+            return view('dashboard');
+        })->name('dashboard');
+
+        Route::get('/profile', function () {
+            return view('dashboard');
+        })->name('profile');
+    });
+
+    Route::get('media-test', function()
+    {
+        $url = 'https://images.unsplash.com/photo-1649667271518-707cabd28ad2';
+        $user = User::find(1);
+        $user->addMediaFromUrl($url)
+        ->toMediaCollection();
+    });
+
+    Route::get('get-media', function()
+    {
+        $user = User::find(1);
+        $mediaItems = $user->getMedia();
+        dd($mediaItems);
+    });
 
     require __DIR__.'/auth.php';
-    
 });
 
 Route::get('{any}', function ($any) {
