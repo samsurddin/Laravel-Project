@@ -1,7 +1,10 @@
 <?php
 
 use App\Models\User;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Route;
+use Spatie\Multitenancy\Models\Tenant;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,7 +20,22 @@ use Illuminate\Support\Facades\Route;
 Route::group(['prefix' => '{locale}', 'where' => ['locale' => '[a-zA-Z]{2}']], function()
 {
     Route::get('/', function () {
+        if (!Tenant::checkCurrent()) {
+            dd(\App\Models\LandlordUser::all());
+        }
+        // dd(DB::connection()->getDatabaseName());
+        // dd(\Spatie\Multitenancy\Models\Tenant::current());
         return view('welcome');
+    });
+
+    Route::middleware('tenant')->group(function ()
+    {
+        Route::get('/tenant', function()
+        {
+            // $con_name = DB::connection()->getDatabaseName();
+            // dd(DB::connection()->getDatabaseName());
+            dd(config('database.connections'));
+        });
     });
 
     Route::group(['middleware' => ['auth']], function()

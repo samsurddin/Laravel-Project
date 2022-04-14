@@ -38,6 +38,10 @@ class Kernel extends HttpKernel
             \App\Http\Middleware\VerifyCsrfToken::class,
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
             \App\Http\Middleware\Localization::class,
+
+            // all web application routes are tenant-aware
+            // \Spatie\Multitenancy\Http\Middleware\NeedsTenant::class,
+            // \Spatie\Multitenancy\Http\Middleware\EnsureValidTenantSession::class,
         ],
 
         'api' => [
@@ -45,6 +49,12 @@ class Kernel extends HttpKernel
             'throttle:api',
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
         ],
+
+        // all tenant application routes are tenant-aware
+        'tenant' => [
+            \Spatie\Multitenancy\Http\Middleware\NeedsTenant::class,
+            \Spatie\Multitenancy\Http\Middleware\EnsureValidTenantSession::class,
+        ]
     ];
 
     /**
