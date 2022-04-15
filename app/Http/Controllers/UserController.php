@@ -73,9 +73,13 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($lang, User $user)
     {
-        //
+        $roles = Role::pluck('name', 'name')->all();
+        $userRole = $user->roles->pluck('name', 'name')->all();
+        // dd($userRole, $roles);
+    
+        return view('users.edit', compact('user', 'roles', 'userRole'));
     }
 
     /**
