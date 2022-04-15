@@ -9,10 +9,13 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
+use Spatie\Multitenancy\Models\Tenant;
 
 class User extends Authenticatable implements HasMedia
 {
     use HasApiTokens, HasFactory, Notifiable, InteractsWithMedia;
+    
+    protected $connection = 'tenant';
 
     /**
      * The attributes that are mass assignable.
@@ -43,4 +46,12 @@ class User extends Authenticatable implements HasMedia
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function __construct(array $attributes = array()) {
+        parent::__construct($attributes);
+
+        if (!Tenant::checkCurrent()) {
+            $this->connection = 'landlord';
+        }
+    }
 }
