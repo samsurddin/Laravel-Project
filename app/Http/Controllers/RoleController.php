@@ -58,7 +58,10 @@ class RoleController extends Controller
         ]);
     
         $role = Role::create(['name' => $input['name']]);
-        $role->syncPermissions($input['permission']);
+
+        if (isset($input['permission'])) {
+            $role->syncPermissions($input['permission']);
+        }
     
         return redirect()->route('roles.index', app()->getLocale())
                         ->with('success','Role created successfully');
@@ -115,7 +118,9 @@ class RoleController extends Controller
         $role->name = $input['name'];
         $role->save();
     
-        $role->syncPermissions($input['permission']);
+        if (isset($input['permission'])) {
+            $role->syncPermissions($input['permission']);
+        }
     
         return redirect()->route('roles.index', app()->getLocale())
                         ->with('success','Role updated successfully');
