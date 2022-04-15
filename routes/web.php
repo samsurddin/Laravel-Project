@@ -3,6 +3,7 @@
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Request;
+use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use Spatie\Multitenancy\Models\Tenant;
@@ -51,6 +52,8 @@ Route::group(['prefix' => '{locale}', 'where' => ['locale' => '[a-zA-Z]{2}']], f
             return view('dashboard');
         })->name('profile');
     });
+    Route::resource('users', UserController::class);
+    Route::resource('roles', RoleController::class);
 
     Route::get('media-test', function()
     {
