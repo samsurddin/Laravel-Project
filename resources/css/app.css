@@ -1,3 +1,93 @@
 @import 'tailwindcss/base';
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
+
+.label {
+	@apply block text-sm font-medium text-gray-700;
+}
+.input {
+	@apply mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md;
+}
+.input-check {
+	@apply focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded;
+}
+.input-invalid {
+	@apply input;
+	@apply border-red-400;
+}
+.submit-btn {
+	@apply inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500;
+}
+.btn {
+	@apply bg-gray-900 hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-2 focus:ring-offset-gray-50 text-white font-semibold h-12 px-6 rounded-lg w-full flex items-center justify-center sm:w-auto
+	/*@apply h-10 px-6 font-semibold rounded-md bg-black text-white;*/
+}
+.btn-rounded {
+	@apply h-10 px-6 font-semibold rounded-full bg-violet-600 text-white flex items-center justify-center;
+}
+.btn-sm {
+	@apply inline-flex items-center px-4 py-2 border rounded-md font-semibold text-xs uppercase tracking-widest disabled:opacity-25 transition ease-in-out duration-150 ml-3 focus:ring ring-gray-300
+}
+.btn-primary {
+	@apply btn-sm border-transparent text-white bg-gray-800 hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900
+}
+.btn-secondary {
+	@apply btn-sm bg-transparent border-gray-300 hover:border-gray-800 focus:outline-none focus:border-gray-900
+}
+.alert {
+	@apply shadow-sm rounded-md mt-2 px-3 py-2 text-sm;
+}
+.alert-box {
+	@apply shadow-md rounded-md px-5 py-4 text-sm;
+}
+.alert-success {
+	@apply bg-green-100 text-green-800;
+}
+.alert-error {
+	@apply bg-red-100 text-red-800;
+}
+.alert-info {
+	@apply bg-violet-100 text-violet-800;
+}
+.alert-secondary {
+	@apply bg-yellow-100 text-yellow-800;
+}
+.selected {
+	@apply alert-success border-4 border-green-300;
+}
+.non-selected {
+	@apply alert-secondary;
+}
+
+.paginate-links {
+	@apply px-4 py-3 border-t border-gray-200 sm:px-6;
+}
+
+.profile_pic {
+	@apply rounded-full p-4 text-white bg-gray-900 h-14 w-14 font-bold text-center;
+}
+
+.online::before {
+    content: "";
+	@apply rounded-full w-3 h-3 bg-green-600 mr-2 inline-block;
+}
+
+.offline::before {
+    content: "";
+	@apply rounded-full w-3 h-3 bg-rose-600 mr-2 inline-block;
+}
+
+@media print {
+	header {
+		display: none;
+	}
+	nav {
+		display: none;
+	}
+	.content-footer {
+		display: none;
+	}
+	* {
+		font-size: 85%;
+	}
+}
