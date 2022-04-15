@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Spatie\Permission\Models\Role;
-use Spatie\Permission\Models\Permission;
+use App\Models\TenantRole as Role;
+// use Spatie\Permission\Models\Role;
+use App\Models\TenantPermission as Permission;
+// use Spatie\Permission\Models\Permission;
 use DB;
     
 class RoleController extends Controller
@@ -52,8 +54,9 @@ class RoleController extends Controller
      */
     public function store($lang, Request $request)
     {
+        // dd($request);
         $input = $this->validate($request, [
-            'name' => 'required|unique:roles,name',
+            'name' => 'required|unique:App\Models\TenantRole,name',
             'permission' => 'nullable',
         ]);
     
