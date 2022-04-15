@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -21,6 +22,7 @@ Route::group(['prefix' => '{locale}', 'where' => ['locale' => '[a-zA-Z]{2}']], f
     });
 
     Route::resource('users', UserController::class);
+    Route::resource('roles', RoleController::class);
 
     Route::get('/dashboard', function () {
         return view('dashboard');
