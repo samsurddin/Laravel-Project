@@ -89,9 +89,27 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update($lang, Request $request, User $user)
     {
-        //
+        $input = $this->validate($request, [
+            'name' => 'required',
+            'email' => 'required|email',
+            'password' => 'confirmed',
+            'roles' => 'required'
+        ]);
+    
+        if(!empty($input['password'])){ 
+            $input['password'] = Hash::make($input['password']);
+        } else {
+            unset($input['password']);
+        }
+    
+        $user->update($input);
+        // $user->syncRoles($request->input('roles'));
+        $user->syncRoles($input['roles']);
+    
+        return redirect()->route('users.index', app()->getLocale())
+                        ->with('success', 'User updated successfully');
     }
 
     /**
