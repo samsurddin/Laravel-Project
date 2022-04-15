@@ -37,7 +37,11 @@ class Kernel extends HttpKernel
             \Illuminate\View\Middleware\ShareErrorsFromSession::class,
             \App\Http\Middleware\VerifyCsrfToken::class,
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
+
+            // Kawsar
             \App\Http\Middleware\Localization::class,
+            // \App\Http\Middleware\TenantDatabase::class,
+            
 
             // all web application routes are tenant-aware
             // \Spatie\Multitenancy\Http\Middleware\NeedsTenant::class,
