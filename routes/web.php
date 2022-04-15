@@ -3,6 +3,7 @@
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Request;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use Spatie\Multitenancy\Models\Tenant;
 
@@ -21,7 +22,7 @@ Route::group(['prefix' => '{locale}', 'where' => ['locale' => '[a-zA-Z]{2}']], f
 {
     Route::get('/', function () {
         if (!Tenant::checkCurrent()) {
-            dd(\App\Models\LandlordUser::all());
+            // dd(\App\Models\LandlordUser::all());
         }
         // dd(DB::connection()->getDatabaseName());
         // dd(\Spatie\Multitenancy\Models\Tenant::current());
@@ -43,6 +44,8 @@ Route::group(['prefix' => '{locale}', 'where' => ['locale' => '[a-zA-Z]{2}']], f
         Route::get('/dashboard', function () {
             return view('dashboard');
         })->name('dashboard');
+        
+        Route::resource('users', UserController::class);
 
         Route::get('/profile', function () {
             return view('dashboard');
