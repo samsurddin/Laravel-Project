@@ -64,17 +64,6 @@ class RoleController extends Controller
         $role = Role::create(['name' => $input['name']]);
         // dd($role->id, $input['permission']);
 
-        $deleted = DB::connection('landlord')->table('role_has_permissions')->where('role_id', $role->id)->delete();
-        
-        if ($deleted && !empty($input['permission'])) {
-            $permission_inputs = [];
-            foreach ($input['permission'] as $permission) {
-                $permission_inputs[] = ['permission_id' => $permission, 'role_id' => $role->id];
-            }
-            DB::connection('landlord')->table('role_has_permissions')->insert($permission_inputs);
-        }
-        
-
         // if (isset($input['permission'])) {
         //     $role->syncPermissions($input['permission']);
         // }
