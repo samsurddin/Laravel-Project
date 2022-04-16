@@ -18,6 +18,7 @@ class TenantRole extends BaseRole
         if (!Tenant::checkCurrent()) {
             $this->connection = 'landlord';
         }
+        // dd(Tenant::checkCurrent());
         // dd($this->connection);
     }
 
