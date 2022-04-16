@@ -5,9 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\TenantRole as Role;
 // use Spatie\Permission\Models\Role;
-use App\Models\TenantPermission as Permission;
+// use App\Models\TenantPermission as Permission;
 // use Spatie\Permission\Models\Permission;
-use Illuminate\Support\Facades\DB;
+// use Illuminate\Support\Facades\DB;
 
 class RoleController extends Controller
 {
@@ -42,9 +42,8 @@ class RoleController extends Controller
      */
     public function create()
     {
-        $permissions = Permission::get();
-        // DB::table('users');
-        return view('roles.create', compact('permissions'));
+        // $permissions = Permission::get();
+        return view('roles.create');
     }
     
     /**
