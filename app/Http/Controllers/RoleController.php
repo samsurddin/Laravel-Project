@@ -42,8 +42,8 @@ class RoleController extends Controller
      */
     public function create()
     {
-        $permissions = Permission::get();
-        return view('roles.create', compact('permissions'));
+        // $permissions = Permission::get();
+        return view('roles.create');
     }
     
     /**
@@ -57,14 +57,14 @@ class RoleController extends Controller
         // dd($request);
         $input = $this->validate($request, [
             'name' => 'required|unique:App\Models\TenantRole,name',
-            'permission' => 'nullable',
+            // 'permission' => 'nullable',
         ]);
     
         $role = Role::create(['name' => $input['name']]);
 
-        if (isset($input['permission'])) {
-            $role->syncPermissions($input['permission']);
-        }
+        // if (isset($input['permission'])) {
+        //     $role->syncPermissions($input['permission']);
+        // }
     
         return redirect()->route('roles.index', app()->getLocale())
                         ->with('success','Role created successfully');
@@ -80,9 +80,9 @@ class RoleController extends Controller
         // $rolePermissions = Permission::join("role_has_permissions","role_has_permissions.permission_id","=","permissions.id")
         //     ->where("role_has_permissions.role_id", $id)
         //     ->get();
-        $rolePermissions = $role->permissions;
+        // $rolePermissions = $role->permissions;
     
-        return view('roles.show', compact('role', 'rolePermissions'));
+        return view('roles.show', compact('role'));
     }
     
     /**
@@ -94,13 +94,13 @@ class RoleController extends Controller
     public function edit($lang, Role $role)
     {
         // $role = Role::find($id);
-        $permissions = Permission::get();
+        // $permissions = Permission::get();
         // $rolePermissions = DB::table("role_has_permissions")->where("role_has_permissions.role_id",$id)
         //     ->pluck('role_has_permissions.permission_id','role_has_permissions.permission_id')
         //     ->all();
-        $rolePermissions = $role->permissions->toArray();
+        // $rolePermissions = $role->permissions->toArray();
     
-        return view('roles.edit', compact('role', 'permissions', 'rolePermissions'));
+        return view('roles.edit', compact('role'));
     }
     
     /**
@@ -114,16 +114,17 @@ class RoleController extends Controller
     {
         $input = $this->validate($request, [
             'name' => 'required',
-            'permission' => 'nullable',
+            // 'permission' => 'nullable',
         ]);
     
         // $role = Role::find($id);
         $role->name = $input['name'];
         $role->save();
     
-        if (isset($input['permission'])) {
-            $role->syncPermissions($input['permission']);
-        }
+        // if (isset($input['permission'])) {
+        //     dd($role->syncPermissions($input['permission']));
+        //     $role->syncPermissions($input['permission']);
+        // }
     
         return redirect()->route('roles.index', app()->getLocale())
                         ->with('success','Role updated successfully');

@@ -31,18 +31,18 @@
                                 {{ $role->name }}
                             </div>
                         </div>
+                        @if(isset($rolePermissions) && !empty($rolePermissions))
                         <div class="col-xs-12 col-sm-12 col-md-12">
                             <div class="form-group">
                                 <strong>Permissions:</strong>
-                                @if(!empty($rolePermissions))
                                 <ul>
                                     @foreach($rolePermissions as $v)
                                     <li>{{ $v->name }}</li>
                                     @endforeach
                                 </ul>
-                                @endif
                             </div>
                         </div>
+                        @endif
                     </div>
                 </div>
             </div>

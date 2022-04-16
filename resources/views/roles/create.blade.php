@@ -45,6 +45,7 @@
                                             <input type="text" name="name" id="name" autocomplete="name" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
                                         </div>
 
+                                        @if (isset($permissions) && !empty($permissions))
                                         <div class="col-span-6">
                                             <label for="permission[]" class="block text-sm font-medium text-gray-700">Permissions</label>
                                             @foreach ($permissions as $permission)
@@ -59,6 +60,7 @@
                                             </div>
                                             @endforeach
                                         </div>
+                                        @endif
                                     </div>
                                 </div>
                                 <div class="px-4 py-3 bg-gray-50 text-right sm:px-6">
