@@ -51,9 +51,10 @@ Route::group(['prefix' => '{locale}', 'where' => ['locale' => '[a-zA-Z]{2}']], f
         Route::get('/profile', function () {
             return view('dashboard');
         })->name('profile');
+        
+        Route::resource('users', UserController::class);
+        Route::resource('roles', RoleController::class);
     });
-    Route::resource('users', UserController::class);
-    Route::resource('roles', RoleController::class);
 
     Route::get('media-test', function()
     {
