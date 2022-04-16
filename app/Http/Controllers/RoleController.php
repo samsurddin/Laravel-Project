@@ -7,8 +7,8 @@ use App\Models\TenantRole as Role;
 // use Spatie\Permission\Models\Role;
 use App\Models\TenantPermission as Permission;
 // use Spatie\Permission\Models\Permission;
-use DB;
-    
+use Illuminate\Support\Facades\DB;
+
 class RoleController extends Controller
 {
     /**
@@ -42,8 +42,9 @@ class RoleController extends Controller
      */
     public function create()
     {
-        // $permissions = Permission::get();
-        return view('roles.create');
+        $permissions = Permission::get();
+        // DB::table('users');
+        return view('roles.create', compact('permissions'));
     }
     
     /**
@@ -57,10 +58,22 @@ class RoleController extends Controller
         // dd($request);
         $input = $this->validate($request, [
             'name' => 'required|unique:App\Models\TenantRole,name',
-            // 'permission' => 'nullable',
+            'permission' => 'nullable',
         ]);
     
         $role = Role::create(['name' => $input['name']]);
+        // dd($role->id, $input['permission']);
+
+        $deleted = DB::connection('landlord')->table('role_has_permissions')->where('role_id', $role->id)->delete();
+        
+        if ($deleted && !empty($input['permission'])) {
+            $permission_inputs = [];
+            foreach ($input['permission'] as $permission) {
+                $permission_inputs[] = ['permission_id' => $permission, 'role_id' => $role->id];
+            }
+            DB::connection('landlord')->table('role_has_permissions')->insert($permission_inputs);
+        }
+        
 
         // if (isset($input['permission'])) {
         //     $role->syncPermissions($input['permission']);
@@ -69,6 +82,7 @@ class RoleController extends Controller
         return redirect()->route('roles.index', app()->getLocale())
                         ->with('success','Role created successfully');
     }
+
     /**
      * Display the specified resource.
      *
@@ -129,6 +143,7 @@ class RoleController extends Controller
         return redirect()->route('roles.index', app()->getLocale())
                         ->with('success','Role updated successfully');
     }
+
     /**
      * Remove the specified resource from storage.
      *
