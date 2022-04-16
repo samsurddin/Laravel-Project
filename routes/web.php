@@ -30,14 +30,14 @@ Route::group(['prefix' => '{locale}', 'where' => ['locale' => '[a-zA-Z]{2}']], f
         return view('welcome');
     });
 
+    // tenants public routes
     Route::middleware('tenant')->group(function ()
     {
-        Route::get('/tenant', function()
-        {
-            // $con_name = DB::connection()->getDatabaseName();
-            // dd(DB::connection()->getDatabaseName());
-            dd(config('database.connections'));
-        });
+    });
+
+    // landlord public routes
+    Route::middleware('landlord')->group(function ()
+    {
     });
 
     Route::group(['middleware' => ['auth']], function()
@@ -45,15 +45,37 @@ Route::group(['prefix' => '{locale}', 'where' => ['locale' => '[a-zA-Z]{2}']], f
         Route::get('/dashboard', function () {
             return view('dashboard');
         })->name('dashboard');
-        
-        Route::resource('users', UserController::class);
 
         Route::get('/profile', function () {
             return view('dashboard');
         })->name('profile');
         
-        Route::resource('users', UserController::class);
-        Route::resource('roles', RoleController::class);
+        // admin routes for all
+        Route::prefix('admin')->group(function()
+        {
+            Route::resource('users', UserController::class);
+            Route::resource('roles', RoleController::class);
+
+            // tenants admin routes
+            Route::middleware('tenant')->group(function ()
+            {
+            });
+
+            // landlord admin routes
+            Route::middleware('landlord')->group(function ()
+            {
+            });
+        });
+
+        // tenants routes for authenticated users
+        Route::middleware('tenant')->group(function ()
+        {
+        });
+
+        // landlord routes for authenticated users
+        Route::middleware('landlord')->group(function ()
+        {
+        });
     });
 
     Route::get('media-test', function()
