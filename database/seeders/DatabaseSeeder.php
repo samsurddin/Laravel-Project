@@ -24,14 +24,25 @@ class DatabaseSeeder extends Seeder
     public function runTenantSpecificSeeders()
     {
         \App\Models\User::factory(10)->create();
+
+        $this->call([
+            PermissionTableSeeder::class,
+            CreateAdminUserSeeder::class,
+        ]);
     }
 
     public function runLandlordSpecificSeeders()
     {
         \App\Models\User::factory(10)->create();
+
         DB::table('tenants')->insert([
             ['name' => 'KaCom', 'domain' => 'ka.com', 'database' => 'kacom'],
             ['name' => 'AhMad', 'domain' => 'ah.mad', 'database' => 'ahmad']
+        ]);
+
+        $this->call([
+            PermissionTableSeeder::class,
+            CreateAdminUserSeeder::class,
         ]);
     }
 }
