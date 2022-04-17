@@ -34,13 +34,20 @@
                     </x-slot>
 
                     <x-slot name="content">
+                        <x-dropdown-link :href="route('users.index', app()->getLocale())" :active="request()->routeIs('users.index')">
+                            {{ __('User Manager') }}
+                        </x-dropdown-link>
+                        <x-dropdown-link :href="route('roles.index', app()->getLocale())" :active="request()->routeIs('roles.index')">
+                            {{ __('Role Manager') }}
+                        </x-dropdown-link>
+
                         <!-- Authentication -->
                         <form method="POST" action="{{ route('logout', app()->getLocale()) }}">
                             @csrf
 
                             <x-dropdown-link :href="route('logout', app()->getLocale())"
                                     onclick="event.preventDefault();
-                                                this.closest('form').submit();">
+                                                this.closest('form').submit();" class="border-t">
                                 {{ __('Log Out') }}
                             </x-dropdown-link>
                         </form>
