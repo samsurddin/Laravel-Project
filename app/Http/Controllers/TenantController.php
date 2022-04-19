@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Tenant;
 use App\Http\Requests\StoreTenantRequest;
 use App\Http\Requests\UpdateTenantRequest;
+use App\Models\User;
 
 class TenantController extends Controller
 {
@@ -15,7 +16,8 @@ class TenantController extends Controller
      */
     public function index()
     {
-        //
+        $tenants = Tenant::with('user')->orderBy('id','DESC')->paginate(5);
+        return view('tenants.index', compact('tenants'));
     }
 
     /**
@@ -25,7 +27,8 @@ class TenantController extends Controller
      */
     public function create()
     {
-        //
+        $users = User::all();
+        return view('tenants.create', compact('users'));
     }
 
     /**
@@ -45,9 +48,9 @@ class TenantController extends Controller
      * @param  \App\Models\Tenant  $tenant
      * @return \Illuminate\Http\Response
      */
-    public function show(Tenant $tenant)
+    public function show($lang, Tenant $tenant)
     {
-        //
+        dd($tenant);
     }
 
     /**
@@ -56,7 +59,7 @@ class TenantController extends Controller
      * @param  \App\Models\Tenant  $tenant
      * @return \Illuminate\Http\Response
      */
-    public function edit(Tenant $tenant)
+    public function edit($lang, Tenant $tenant)
     {
         //
     }
