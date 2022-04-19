@@ -13,6 +13,10 @@ class CreateLandlordTenantsTable extends Migration
             $table->string('name');
             $table->string('domain')->unique();
             $table->string('database')->unique();
+            $table->foreignId('user_id')
+                ->constrained()
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
             $table->timestamps();
         });
     }
