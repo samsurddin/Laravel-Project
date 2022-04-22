@@ -42,11 +42,11 @@
                                     <div class="grid grid-cols-6 gap-6">
                                         <div class="col-span-6">
                                             <label for="name" class="block text-sm font-medium text-gray-700">Tenant Name</label>
-                                            <input type="text" name="name" id="name" autocomplete="name" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                                            <input type="text" name="name" id="name" autocomplete="name" class="input">
                                         </div>
                                         <div class="col-span-6">
                                             <label for="domain" class="block text-sm font-medium text-gray-700">Domain Name</label>
-                                            <input type="text" name="domain" id="domain" autocomplete="domain" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                                            <input type="text" name="domain" id="domain" autocomplete="domain" class="input">
                                         </div>
                                         <div class="col-span-6">
                                             <label for="user_id" class="block text-sm font-medium text-gray-700">Choose User</label>
@@ -60,23 +60,6 @@
                                             <label for="plan" class="block text-sm font-medium text-gray-700">Plan</label>
                                             <input type="text" name="plan" id="plan" autocomplete="plan" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
                                         </div>
-
-                                        @if (isset($permissions) && !empty($permissions))
-                                        <div class="col-span-6">
-                                            <label for="permission[]" class="block text-sm font-medium text-gray-700">Permissions</label>
-                                            @foreach ($permissions as $permission)
-                                            <div class="flex items-start my-2">
-                                                <div class="flex items-center h-5">
-                                                    <input id="{{ $permission->id }}" name="permission[]" type="checkbox" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" value="{{ $permission->id }}">
-                                                </div>
-                                                <div class="ml-3 text-sm">
-                                                    <label for="{{ $permission->id }}" class="font-medium text-gray-700">{{ $permission->name }}</label>
-                                                    <p class="text-gray-500"><span class="text-gray-300">Guard</span> {{ $permission->guard_name }}</p>
-                                                </div>
-                                            </div>
-                                            @endforeach
-                                        </div>
-                                        @endif
                                     </div>
                                 </div>
                                 <div class="px-4 py-3 bg-gray-50 text-right sm:px-6">
