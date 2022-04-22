@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Spatie\Multitenancy\Models\Tenant;
 
 class Plan extends Model
@@ -25,5 +26,15 @@ class Plan extends Model
         if (!Tenant::checkCurrent()) {
             $this->connection = 'landlord';
         }
+    }
+
+    /**
+     * Get all of the tenants for the Plan
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function tenants(): HasMany
+    {
+        return $this->hasMany(Tenant::class);
     }
 }

@@ -21,4 +21,14 @@ class Tenant extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    /**
+     * Get the plan that owns the Tenant
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function plan(): BelongsTo
+    {
+        return $this->belongsTo(Plan::class);
+    }
 }

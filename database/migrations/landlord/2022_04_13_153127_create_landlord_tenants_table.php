@@ -17,6 +17,18 @@ class CreateLandlordTenantsTable extends Migration
                 ->constrained()
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
+            $table->foreignId('plan_id')->default(1)
+                ->constrained()
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
+            $table->timestamp('plan_expire_datetime')
+                ->nullable()
+                ->default(
+                    date(
+                        'Y-m-d H:i:s', 
+                        strtotime('+30 day', time())
+                    )
+                );
             $table->timestamps();
         });
     }

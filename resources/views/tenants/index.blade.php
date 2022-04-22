@@ -51,7 +51,7 @@
                                         <tbody class="bg-white divide-y divide-gray-200">
                                             @foreach ($tenants as $tenant)
                                             {{-- @php
-                                                dd($tenant)
+                                                dd($tenant->name)
                                             @endphp --}}
                                             <tr>
                                                 <td class="px-6 py-4 whitespace-nowrap">
@@ -65,7 +65,7 @@
                                                             </div>
                                                             <div class="text-sm text-gray-500">
                                                                 {{-- updated at {{ \Carbon\Carbon->diffForHumans($tenant->updated_at) }} --}}
-                                                                {{ empty($tenant->updated_at)?$tenant->created_at->diffForHumans():$tenant->updated_at->diffForHumans() }}
+                                                                {{ $tenant->updated_at->diffForHumans() }}
                                                             </div>
                                                         </div>
                                                     </div>
