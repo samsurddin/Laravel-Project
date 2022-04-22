@@ -3,8 +3,9 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
-class StorePlanRequest extends FormRequest
+class PlanRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,13 +24,26 @@ class StorePlanRequest extends FormRequest
      */
     public function rules()
     {
-        return [
+        $rules = [
             'name' => 'required|unique:App\Models\Plan,name',
             'description' => 'nullable',
             'features' => 'nullable',
             'price' => 'required',
             'price_yearly' => 'nullable'
         ];
+
+        if (in_array($this->method(), ['PUT', 'PATCH'])) {
+            $plan = $this->route()->parameter('plan');
+
+            $rules['name'] = [
+                'required',
+                'string',
+                'max:255',
+                Rule::unique('App\Models\Plan')->ignore($plan),
+            ];
+        }
+
+        return $rules;
     }
 
     /**
