@@ -61,23 +61,20 @@
                                                                 {{ $plan->name }}
                                                             </div>
                                                             <div class="text-sm text-gray-500">
-                                                                {{-- updated at {{ \Carbon\Carbon->diffForHumans($plan->updated_at) }} --}}
-                                                                updated at {{ $plan->updated_at }}
+                                                                {{ $plan->updated_at->diffForHumans() }}
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </td>
                                                 <td class="px-6 py-4 whitespace-nowrap">
-                                                    <div class="text-sm text-gray-900">Regional Paradigm Technician</div>
-                                                    <div class="text-sm text-gray-500">Optimization</div>
+                                                    {{ $plan->description }}
                                                 </td>
                                                 <td class="px-6 py-4 whitespace-nowrap">
-                                                    <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
-                                                        Active
-                                                    </span>
+                                                    {{ $plan->features }}
                                                 </td>
                                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                                    <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full text-violet-800">{{ $plan->guard_name }}</span>
+                                                    <div class="text-sm text-gray-900">{{ $plan->price }}</div>
+                                                    <div class="text-sm text-gray-500">{{ $plan->price_yearly }}</div>
                                                 </td>
                                                 <td class="px-6 py-4 whitespace-nowrap text-right text-xs font-semibold">
                                                     {{-- <a href="#" class="text-indigo-600 hover:text-indigo-900">Edit</a> --}}
