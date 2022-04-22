@@ -2,14 +2,14 @@
     <x-slot name="header">
         <div class="flex-item">
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                {{ __('Edit Role') }}
+                {{ __('Edit Plan') }}
             </h2>
         </div>
         <div class="flex-item">
             {{-- <a class="btn-rounded" href="{{ route('users.create') }}"> Create New User</a>
             <a class="btn" href="{{ route('users.create') }}"> Create New User</a> --}}
-            <a class="btn-primary" href="{{ route('roles.show', [app()->getLocale(), $role->id]) }}"> Show Role</a>
-            <a class="btn-sm" href="{{ route('roles.index', app()->getLocale()) }}"> All Roles</a>
+            <a class="btn-primary" href="{{ route('plans.show', [app()->getLocale(), $plan->id]) }}"> Show Plan</a>
+            <a class="btn-sm" href="{{ route('plans.index', app()->getLocale()) }}"> All Plans</a>
         </div>
     </x-slot>
 
@@ -43,7 +43,7 @@
                         </div>
                     </div>
                     <div class="mt-5 md:mt-0 md:col-span-2">
-                        <form action="{{ route('roles.update', [app()->getLocale(), $role->id]) }}" method="POST">
+                        <form action="{{ route('plans.update', [app()->getLocale(), $plan->id]) }}" method="POST">
                             @method('PATCH')
                             @csrf
 
@@ -51,33 +51,25 @@
                                 <div class="px-4 py-5 bg-white sm:p-6">
                                     <div class="grid grid-cols-6 gap-6">
                                         <div class="col-span-6">
-                                            <label for="name" class="block text-sm font-medium text-gray-700">Role Name</label>
-                                            <input type="text" name="name" id="name" autocomplete="name" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" value="{{ old('name', $role->name) }}">
+                                            <label for="name" class="block text-sm font-medium text-gray-700">Plan Name</label>
+                                            <input type="text" name="name" id="name" autocomplete="name" class="input" value="{{ old('name', $plan->name) }}">
                                         </div>
-
-                                        @if (isset($permissions) && !empty($permissions))
                                         <div class="col-span-6">
-                                            <label for="permission[]" class="block text-sm font-medium text-gray-700">Permissions</label>
-
-                                            {{-- @foreach($permission as $value)
-                                                <label>{{ Form::checkbox('permission[]', $value->id, in_array($value->id, $rolePermissions) ? true : false, array('class' => 'name')) }}
-                                                {{ $value->name }}</label>
-                                            <br/>
-                                            @endforeach --}}
-
-                                            @foreach ($permissions as $permission)
-                                            <div class="flex items-start my-2">
-                                                <div class="flex items-center h-5">
-                                                    <input id="{{ $permission->id }}" name="permission[]" type="checkbox" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" value="{{ $permission->id }}" @if (in_array($permission->id, $rolePermissions)) checked @endif>
-                                                </div>
-                                                <div class="ml-3 text-sm">
-                                                    <label for="{{ $permission->id }}" class="font-medium text-gray-700">{{ $permission->name }}</label>
-                                                    <p class="text-gray-500"><span class="text-gray-300">Guard</span> {{ $permission->guard_name }}</p>
-                                                </div>
-                                            </div>
-                                            @endforeach
+                                            <label for="description" class="block text-sm font-medium text-gray-700">Description</label>
+                                            <textarea name="description" id="description" cols="30" rows="3" class="input">{{ old('description', $plan->description) }}</textarea>
                                         </div>
-                                        @endif
+                                        <div class="col-span-6">
+                                            <label for="features" class="block text-sm font-medium text-gray-700">Features</label>
+                                            <textarea name="features" id="features" cols="30" rows="3" class="input">{{ old('features', $plan->features) }}</textarea>
+                                        </div>
+                                        <div class="col-span-3">
+                                            <label for="price" class="block text-sm font-medium text-gray-700">Price</label>
+                                            <input type="number" name="price" id="price" autocomplete="price" class="input" value="{{ old('price', $plan->price) }}">
+                                        </div>
+                                        <div class="col-span-3">
+                                            <label for="price_yearly" class="block text-sm font-medium text-gray-700">Price Yearly Format</label>
+                                            <input type="number" name="price_yearly" id="price_yearly" autocomplete="price_yearly" class="input" value="{{ old('price_yearly', $plan->price_yearly) }}">
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="px-4 py-3 bg-gray-50 text-right sm:px-6">

@@ -3,8 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Plan;
-use App\Http\Requests\StorePlanRequest;
-use App\Http\Requests\UpdatePlanRequest;
+use App\Http\Requests\PlanRequest;
 
 class PlanController extends Controller
 {
@@ -32,10 +31,10 @@ class PlanController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \App\Http\Requests\StorePlanRequest  $request
+     * @param  \App\Http\Requests\PlanRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store($lang, StorePlanRequest $request)
+    public function store($lang, PlanRequest $request)
     {
         $input = $request->validated();
     
@@ -70,22 +69,15 @@ class PlanController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \App\Http\Requests\UpdatePlanRequest  $request
+     * @param  \App\Http\Requests\PlanRequest  $request
      * @param  \App\Models\Plan  $plan
      * @return \Illuminate\Http\Response
      */
-    public function update($lang, UpdatePlanRequest $request, Plan $plan)
+    public function update($lang, PlanRequest $request, Plan $plan)
     {
-        $input = $this->validate($request, [
-            'name' => 'required',
-            'description' => 'nullable',
-            'features' => 'nullable',
-            'price' => 'required',
-            'price_yearly' => 'nullable',
-        ]);
-    
-        // $plan->name = $input['name'];
-        $plan->save($input);
+        $input = $request->validated();
+
+        $plan->update($input);
     
         return redirect()->route('plans.index', app()->getLocale())
                         ->with('success','Plan updated successfully');
