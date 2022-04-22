@@ -15,7 +15,8 @@ class PlanController extends Controller
      */
     public function index()
     {
-        //
+        $plans = Plan::orderBy('id','DESC')->paginate(5);
+        return view('plans.index', compact('plans'));
     }
 
     /**
@@ -25,7 +26,7 @@ class PlanController extends Controller
      */
     public function create()
     {
-        //
+        return view('plans.create');
     }
 
     /**
@@ -34,9 +35,17 @@ class PlanController extends Controller
      * @param  \App\Http\Requests\StorePlanRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StorePlanRequest $request)
+    public function store($lang, StorePlanRequest $request)
     {
-        //
+        $input = $this->validate($request, [
+            'name' => 'required|unique:App\Models\TenantRole,name',
+            'permission' => 'nullable',
+        ]);
+    
+        $plan = Plan::create($input);
+    
+        return redirect()->route('plans.index', app()->getLocale())
+                        ->with('success','Plan created successfully');
     }
 
     /**
@@ -45,9 +54,9 @@ class PlanController extends Controller
      * @param  \App\Models\Plan  $plan
      * @return \Illuminate\Http\Response
      */
-    public function show(Plan $plan)
+    public function show($lang, Plan $plan)
     {
-        //
+        return view('plans.show', compact('plan'));
     }
 
     /**
@@ -56,9 +65,9 @@ class PlanController extends Controller
      * @param  \App\Models\Plan  $plan
      * @return \Illuminate\Http\Response
      */
-    public function edit(Plan $plan)
+    public function edit($lang, Plan $plan)
     {
-        //
+        return view('plans.edit', compact('plan'));
     }
 
     /**
@@ -68,9 +77,21 @@ class PlanController extends Controller
      * @param  \App\Models\Plan  $plan
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdatePlanRequest $request, Plan $plan)
+    public function update($lang, UpdatePlanRequest $request, Plan $plan)
     {
-        //
+        $input = $this->validate($request, [
+            'name' => 'required',
+            'description' => 'nullable',
+            'features' => 'nullable',
+            'price' => 'required',
+            'price_yearly' => 'nullable',
+        ]);
+    
+        // $plan->name = $input['name'];
+        $plan->save($input);
+    
+        return redirect()->route('plans.index', app()->getLocale())
+                        ->with('success','Plan updated successfully');
     }
 
     /**
@@ -79,8 +100,10 @@ class PlanController extends Controller
      * @param  \App\Models\Plan  $plan
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Plan $plan)
+    public function destroy($lang, Plan $plan)
     {
-        //
+        $plan->delete();
+        return redirect()->route('plans.index', app()->getLocale())
+                        ->with('success','Plan deleted successfully');
     }
 }
