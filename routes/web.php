@@ -3,8 +3,11 @@
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Request;
+
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\PlanController;
+
 use Illuminate\Support\Facades\Route;
 use Spatie\Multitenancy\Models\Tenant;
 
@@ -64,6 +67,7 @@ Route::group(['prefix' => '{locale}', 'where' => ['locale' => '[a-zA-Z]{2}']], f
             // landlord admin routes
             Route::middleware('landlord')->group(function ()
             {
+                Route::resource('plans', PlanController::class);
             });
         });
 
