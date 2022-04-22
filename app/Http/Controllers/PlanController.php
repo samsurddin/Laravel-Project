@@ -37,10 +37,7 @@ class PlanController extends Controller
      */
     public function store($lang, StorePlanRequest $request)
     {
-        $input = $this->validate($request, [
-            'name' => 'required|unique:App\Models\TenantRole,name',
-            'permission' => 'nullable',
-        ]);
+        $input = $request->validated();
     
         $plan = Plan::create($input);
     

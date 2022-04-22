@@ -13,7 +13,7 @@ class StorePlanRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,23 @@ class StorePlanRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'name' => 'required|unique:App\Models\Plan,name',
+            'description' => 'nullable',
+            'features' => 'nullable',
+            'price' => 'required',
+            'price_yearly' => 'nullable'
+        ];
+    }
+
+    /**
+     * Get custom attributes for validator errors.
+     *
+     * @return array
+     */
+    public function attributes()
+    {
+        return [
+            'name' => 'plan name',
         ];
     }
 }
