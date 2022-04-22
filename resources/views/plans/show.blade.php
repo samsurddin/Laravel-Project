@@ -2,14 +2,14 @@
     <x-slot name="header">
         <div class="flex-item">
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                {{ __('Show Role') }}
+                {{ __('Show Plan') }}
             </h2>
         </div>
         <div class="flex-item">
             {{-- <a class="btn-rounded" href="{{ route('users.create') }}"> Create New User</a>
             <a class="btn" href="{{ route('users.create') }}"> Create New User</a> --}}
-            <a class="btn-primary" href="{{ route('roles.edit', [app()->getLocale(), $role->id]) }}"> Edit Role</a>
-            <a class="btn-secondary" href="{{ route('roles.index', app()->getLocale()) }}"> All Roles</a>
+            <a class="btn-primary" href="{{ route('plans.edit', [app()->getLocale(), $plan->id]) }}"> Edit Plan</a>
+            <a class="btn-secondary" href="{{ route('plans.index', app()->getLocale()) }}"> All Plans</a>
         </div>
     </x-slot>
 
@@ -27,22 +27,26 @@
                     <div class="row">
                         <div class="col-xs-12 col-sm-12 col-md-12">
                             <div class="form-group">
-                                <strong>Role Name:</strong>
-                                {{ $role->name }}
+                                <strong>Plan Name:</strong>
+                                {{ $plan->name }}
                             </div>
-                        </div>
-                        @if(isset($rolePermissions) && !empty($rolePermissions))
-                        <div class="col-xs-12 col-sm-12 col-md-12">
                             <div class="form-group">
-                                <strong>Permissions:</strong>
-                                <ul>
-                                    @foreach($rolePermissions as $v)
-                                    <li>{{ $v->name }}</li>
-                                    @endforeach
-                                </ul>
+                                <strong>Description:</strong><br>
+                                {{ $plan->description }}
+                            </div>
+                            <div class="form-group">
+                                <strong>Features:</strong>
+                                {{ $plan->features }}
+                            </div>
+                            <div class="form-group">
+                                <strong>Price:</strong>
+                                {{ $plan->price }}
+                            </div>
+                            <div class="form-group">
+                                <strong>Price Yearly:</strong>
+                                {{ $plan->price_yearly }}
                             </div>
                         </div>
-                        @endif
                     </div>
                 </div>
             </div>
