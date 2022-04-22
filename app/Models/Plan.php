@@ -10,6 +10,13 @@ class Plan extends Model
 {
     use HasFactory;
 
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = ['name', 'description', 'features', 'price', 'price_yearly'];
+
     protected $connection = 'tenant';
 
     public function __construct(array $attributes = array()) {
