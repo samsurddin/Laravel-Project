@@ -18,6 +18,9 @@
                     <x-nav-link :href="route('tenants.index', app()->getLocale())" :active="request()->routeIs('tenants.index')">
                         {{ __('Tenants') }}
                     </x-nav-link>
+                    <x-nav-link :href="route('plans.index', app()->getLocale())" :active="request()->routeIs('plans.*')">
+                        {{ __('Plans') }}
+                    </x-nav-link>
                 </div>
             </div>
 
@@ -37,10 +40,10 @@
                     </x-slot>
 
                     <x-slot name="content">
-                        <x-dropdown-link :href="route('users.index', app()->getLocale())" :active="request()->routeIs('users.index')">
+                        <x-dropdown-link :href="route('users.index', app()->getLocale())" :active="request()->routeIs('users.*')">
                             {{ __('User Manager') }}
                         </x-dropdown-link>
-                        <x-dropdown-link :href="route('roles.index', app()->getLocale())" :active="request()->routeIs('roles.index')">
+                        <x-dropdown-link :href="route('roles.index', app()->getLocale())" :active="request()->routeIs('roles.*')">
                             {{ __('Role Manager') }}
                         </x-dropdown-link>
 
