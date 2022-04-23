@@ -40,17 +40,17 @@
                                     <div class="grid grid-cols-6 gap-6">
                                         <div class="col-span-6">
                                             <label for="name" class="block text-sm font-medium text-gray-700">Tenant Name</label>
-                                            <input type="text" name="name" id="name" autocomplete="name" class="input">
+                                            <input type="text" name="name" id="name" autocomplete="name" class="input" value="{{ old('name') }}">
                                         </div>
                                         <div class="col-span-6">
                                             <label for="domain" class="block text-sm font-medium text-gray-700">Domain Name</label>
-                                            <input type="text" name="domain" id="domain" autocomplete="domain" class="input">
+                                            <input type="text" name="domain" id="domain" autocomplete="domain" class="input" value="{{ old('domain') }}">
                                         </div>
                                         <div class="col-span-3">
                                             <label for="plan" class="block text-sm font-medium text-gray-700">Plan</label>
                                             <select name="plan_id" id="plan_id" class="input">
                                                 @foreach ($plans as $plan)
-                                                    <option value="{{ $plan->id }}">{{ $plan->name }}</option>
+                                                    <option value="{{ $plan->id }}" {{ old('plan_id')==$plan->id?"selected":"" }}>{{ $plan->name }}</option>
                                                 @endforeach
                                             </select>
                                         </div>
@@ -58,7 +58,7 @@
                                             <label for="user_id" class="block text-sm font-medium text-gray-700">Choose User</label>
                                             <select name="user_id" id="user_id" class="input">
                                                 @foreach ($users as $user)
-                                                    <option value="{{ $user->id }}">{{ $user->name }}</option>
+                                                    <option value="{{ $user->id }}" {{ old('user_id')==$user->id?"selected":"" }}>{{ $user->name }}</option>
                                                 @endforeach
                                             </select>
                                         </div>

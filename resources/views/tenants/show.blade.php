@@ -2,14 +2,14 @@
     <x-slot name="header">
         <div class="flex-item">
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                {{ __('Show Role') }}
+                {{ __('Show Tenant') }}
             </h2>
         </div>
         <div class="flex-item">
             {{-- <a class="btn-rounded" href="{{ route('users.create') }}"> Create New User</a>
             <a class="btn" href="{{ route('users.create') }}"> Create New User</a> --}}
-            <a class="btn-primary" href="{{ route('roles.edit', [app()->getLocale(), $role->id]) }}"> Edit Role</a>
-            <a class="btn-secondary" href="{{ route('roles.index', app()->getLocale()) }}"> All Roles</a>
+            <a class="btn-primary" href="{{ route('tenants.edit', [app()->getLocale(), $tenant->id]) }}"> Edit Tenant</a>
+            <a class="btn-secondary" href="{{ route('tenants.index', app()->getLocale()) }}"> All Tenants</a>
         </div>
     </x-slot>
 
@@ -27,22 +27,40 @@
                     <div class="row">
                         <div class="col-xs-12 col-sm-12 col-md-12">
                             <div class="form-group">
-                                <strong>Role Name:</strong>
-                                {{ $role->name }}
+                                <strong>Name:</strong>
+                                {{ $tenant->name }}
                             </div>
                         </div>
-                        @if(isset($rolePermissions) && !empty($rolePermissions))
                         <div class="col-xs-12 col-sm-12 col-md-12">
                             <div class="form-group">
-                                <strong>Permissions:</strong>
-                                <ul>
-                                    @foreach($rolePermissions as $v)
-                                    <li>{{ $v->name }}</li>
-                                    @endforeach
-                                </ul>
+                                <strong>Domain:</strong>
+                                {{ $tenant->domain }}
                             </div>
                         </div>
-                        @endif
+                        <div class="col-xs-12 col-sm-12 col-md-12">
+                            <div class="form-group">
+                                <strong>Database:</strong>
+                                {{ $tenant->database }}
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12">
+                            <div class="form-group">
+                                <strong>User:</strong>
+                                {{ $tenant->user->name }}
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12">
+                            <div class="form-group">
+                                <strong>Plan:</strong>
+                                {{ $tenant->plan->name }}
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12">
+                            <div class="form-group">
+                                <strong>Expire at (day):</strong>
+                                {{ $tenant->plan_expire_datetime->diffInDays(now()) }}
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

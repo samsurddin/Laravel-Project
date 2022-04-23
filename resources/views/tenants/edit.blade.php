@@ -2,14 +2,14 @@
     <x-slot name="header">
         <div class="flex-item">
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                {{ __('Edit Role') }}
+                {{ __('Edit Tenant') }}
             </h2>
         </div>
         <div class="flex-item">
             {{-- <a class="btn-rounded" href="{{ route('users.create') }}"> Create New User</a>
             <a class="btn" href="{{ route('users.create') }}"> Create New User</a> --}}
-            <a class="btn-primary" href="{{ route('roles.show', [app()->getLocale(), $role->id]) }}"> Show Role</a>
-            <a class="btn-sm" href="{{ route('roles.index', app()->getLocale()) }}"> All Roles</a>
+            <a class="btn-primary" href="{{ route('tenants.show', [app()->getLocale(), $tenant->id]) }}"> Show Tenant</a>
+            <a class="btn-sm" href="{{ route('tenants.index', app()->getLocale()) }}"> All Tenants</a>
         </div>
     </x-slot>
 
@@ -43,7 +43,7 @@
                         </div>
                     </div>
                     <div class="mt-5 md:mt-0 md:col-span-2">
-                        <form action="{{ route('roles.update', [app()->getLocale(), $role->id]) }}" method="POST">
+                        <form action="{{ route('tenants.update', [app()->getLocale(), $tenant->id]) }}" method="POST">
                             @method('PATCH')
                             @csrf
 
@@ -51,33 +51,51 @@
                                 <div class="px-4 py-5 bg-white sm:p-6">
                                     <div class="grid grid-cols-6 gap-6">
                                         <div class="col-span-6">
-                                            <label for="name" class="block text-sm font-medium text-gray-700">Role Name</label>
-                                            <input type="text" name="name" id="name" autocomplete="name" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" value="{{ old('name', $role->name) }}">
+                                            <label for="name" class="block text-sm font-medium text-gray-700">Tenant Name</label>
+                                            <input type="text" name="name" id="name" autocomplete="name" class="input" value="{{ old('name', $tenant->name) }}">
                                         </div>
-
-                                        @if (isset($permissions) && !empty($permissions))
                                         <div class="col-span-6">
-                                            <label for="permission[]" class="block text-sm font-medium text-gray-700">Permissions</label>
-
-                                            {{-- @foreach($permission as $value)
-                                                <label>{{ Form::checkbox('permission[]', $value->id, in_array($value->id, $rolePermissions) ? true : false, array('class' => 'name')) }}
-                                                {{ $value->name }}</label>
-                                            <br/>
-                                            @endforeach --}}
-
-                                            @foreach ($permissions as $permission)
-                                            <div class="flex items-start my-2">
-                                                <div class="flex items-center h-5">
-                                                    <input id="{{ $permission->id }}" name="permission[]" type="checkbox" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" value="{{ $permission->id }}" @if (in_array($permission->id, $rolePermissions)) checked @endif>
-                                                </div>
-                                                <div class="ml-3 text-sm">
-                                                    <label for="{{ $permission->id }}" class="font-medium text-gray-700">{{ $permission->name }}</label>
-                                                    <p class="text-gray-500"><span class="text-gray-300">Guard</span> {{ $permission->guard_name }}</p>
-                                                </div>
-                                            </div>
-                                            @endforeach
+                                            <label for="domain" class="block text-sm font-medium text-gray-700">Domain Name</label>
+                                            <input type="text" name="domain" id="domain" autocomplete="domain" class="input" value="{{ old('domain', $tenant->domain) }}">
                                         </div>
-                                        @endif
+                                        <div class="col-span-3">
+                                            <label for="plan" class="block text-sm font-medium text-gray-700">Plan</label>
+                                            <select name="plan_id" id="plan_id" class="input">
+                                                @foreach ($plans as $plan)
+                                                    <option value="{{ $plan->id }}" {{ old('plan_id', $tenant->plan_id)==$plan->id?"selected":"" }}>{{ $plan->name }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                        <div class="col-span-3">
+                                            <label for="user_id" class="block text-sm font-medium text-gray-700">Choose User</label>
+                                            <select name="user_id" id="user_id" class="input">
+                                                @foreach ($users as $user)
+                                                    <option value="{{ $user->id }}" {{ old('user_id', $tenant->user_id)==$user->id?"selected":"" }}>{{ $user->name }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                        <div class="col-span-6">
+                                            <fieldset>
+                                                <div>
+                                                    <legend class="text-base font-medium text-gray-900">Tenant Status</legend>
+                                                    <p class="text-sm text-gray-500">Inactive tenant's data will not be removed</p>
+                                                </div>
+                                                <div class="mt-4 space-y-4">
+                                                    <div class="flex items-center">
+                                                        <input id="status-active" name="status" type="radio" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300" value="active" {{ null!==old('status', $tenant->status)?(old('status', $tenant->status)=='active'?'checked':''):'checked' }}>
+                                                        <label for="status-active" class="ml-3 block text-sm font-medium text-gray-700">
+                                                            Active
+                                                        </label>
+                                                    </div>
+                                                    <div class="flex items-center">
+                                                        <input id="status-inactive" name="status" type="radio" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300" value="inactive" {{ old('status', $tenant->status)=='inactive'?'checked':'' }}>
+                                                        <label for="status-inactive" class="ml-3 block text-sm font-medium text-gray-700">
+                                                            Inactive
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </fieldset>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="px-4 py-3 bg-gray-50 text-right sm:px-6">
