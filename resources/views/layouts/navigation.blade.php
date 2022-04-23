@@ -15,7 +15,7 @@
                     <x-nav-link :href="route('dashboard', app()->getLocale())" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
-                    <x-nav-link :href="route('tenants.index', app()->getLocale())" :active="request()->routeIs('tenants.index')">
+                    <x-nav-link :href="route('tenants.index', app()->getLocale())" :active="request()->routeIs('tenants.*')">
                         {{ __('Tenants') }}
                     </x-nav-link>
                     <x-nav-link :href="route('plans.index', app()->getLocale())" :active="request()->routeIs('plans.*')">
