@@ -16,7 +16,7 @@ class TenantController extends Controller
      */
     public function index()
     {
-        $tenants = Tenant::with('user')->orderBy('id','DESC')->paginate(5);
+        $tenants = Tenant::with('user')->with('plan')->orderBy('id','DESC')->paginate(5);
         return view('tenants.index', compact('tenants'));
     }
 
