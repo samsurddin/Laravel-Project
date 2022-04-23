@@ -38,10 +38,13 @@
                                                     Domain
                                                 </th>
                                                 <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                                    Database
+                                                    Status
                                                 </th>
                                                 <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                                     User
+                                                </th>
+                                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                                    Plan
                                                 </th>
                                                 <th scope="col" class="relative px-6 py-3">
                                                     <span class="sr-only">Edit</span>
@@ -60,11 +63,12 @@
                                                             <img class="h-10 w-10 rounded-full" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=4&w=256&h=256&q=60" alt="">
                                                         </div>
                                                         <div class="ml-4">
+                                                            <x-plan-tag plan_id="{{ $tenant->plan->id }}" plan_name="{{ $tenant->plan->name }}" />
+
                                                             <div class="text-sm font-medium text-gray-900">
                                                                 {{ $tenant->name }}
                                                             </div>
                                                             <div class="text-sm text-gray-500">
-                                                                {{-- updated at {{ \Carbon\Carbon->diffForHumans($tenant->updated_at) }} --}}
                                                                 {{ $tenant->updated_at->diffForHumans() }}
                                                             </div>
                                                         </div>
@@ -77,15 +81,19 @@
                                                     </div>
                                                 </td>
                                                 <td class="px-6 py-4 whitespace-nowrap">
-                                                    <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
-                                                        Active
-                                                    </span>
+                                                    <x-status status="{{ $tenant->status }}" />
                                                 </td>
                                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                                    <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full text-violet-800">{{ $tenant->user->name }}</span>
+                                                    <span class="text-xs font-semibold text-violet-800">
+                                                        <a href="{{ route('users.show', [app()->getLocale(), $tenant->user->id]) }}">{{ $tenant->user->name }}</a>
+                                                    </span>
                                                 </td>
+                                                {{-- <td class="px-6 py-4 whitespace-nowrap text-sm">
+                                                    <span class="text-xs font-semibold text-green-600">
+                                                        <a href="{{ route('plans.show', [app()->getLocale(), $tenant->plan->id]) }}">{{ $tenant->plan->name }}</a>
+                                                    </span>
+                                                </td> --}}
                                                 <td class="px-6 py-4 whitespace-nowrap text-right text-xs font-semibold">
-                                                    {{-- <a href="#" class="text-indigo-600 hover:text-indigo-900">Edit</a> --}}
                                                     <a class="text-purple-600 hover:text-purple-900 border border-purple-600 hover:border-purple-900 rounded-full px-1" href="{{ route('tenants.show', [app()->getLocale(), $tenant->id]) }}">Show</a>
                                                     <a class="text-indigo-600 hover:text-indigo-900 border border-indigo-600 hover:border-indigo-900 rounded-full px-1" href="{{ route('tenants.edit', [app()->getLocale(), $tenant->id]) }}">Edit</a>
                                                     <form method="POST" action="{{ route('tenants.destroy', [app()->getLocale(), $tenant->id]) }}" class="inline">
