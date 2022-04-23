@@ -41,7 +41,7 @@ class TenantController extends Controller
     public function store($lang, TenantRequest $request)
     {
         $input = $request->validated();
-        $input['plan_expire_datetime'] = now();
+        $input['plan_expire_datetime'] = now()->subDays(30);
         $input['database'] = preg_replace('/[^A-Za-z0-9\-]/', '', str_replace(' ', '-', str_replace('.', '-', $input['domain'])));
     
         $tenant = Tenant::create($input);
@@ -58,7 +58,7 @@ class TenantController extends Controller
      */
     public function show($lang, Tenant $tenant)
     {
-        dd($tenant);
+        return view('tenants.show', compact('tenant'));
     }
 
     /**
@@ -69,7 +69,9 @@ class TenantController extends Controller
      */
     public function edit($lang, Tenant $tenant)
     {
-        //
+        $users = User::all();
+        $plans = Plan::all();
+        return view('tenants.edit', compact('tenant', 'users', 'plans'));
     }
 
     /**
@@ -79,9 +81,16 @@ class TenantController extends Controller
      * @param  \App\Models\Tenant  $tenant
      * @return \Illuminate\Http\Response
      */
-    public function update(TenantRequest $request, Tenant $tenant)
+    public function update($lang, TenantRequest $request, Tenant $tenant)
     {
-        //
+        $input = $request->validated();
+        // $input['plan_expire_datetime'] = now();
+        $input['database'] = preg_replace('/[^A-Za-z0-9\-]/', '', str_replace(' ', '-', str_replace('.', '-', $input['domain'])));
+
+        $tenant->update($input);
+    
+        return redirect()->route('tenants.index', app()->getLocale())
+                        ->with('success','Tenant updated successfully');
     }
 
     /**
@@ -90,8 +99,10 @@ class TenantController extends Controller
      * @param  \App\Models\Tenant  $tenant
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Tenant $tenant)
+    public function destroy($lang, Tenant $tenant)
     {
-        //
+        $tenant->delete();
+        return redirect()->route('tenants.index', app()->getLocale())
+                        ->with('success','Tenant deleted successfully');
     }
 }
