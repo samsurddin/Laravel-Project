@@ -13,6 +13,13 @@ class Tenant extends Model
     protected $connection = 'landlord';
 
     /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = ['name', 'domain', 'status', 'user_id', 'plan_id', 'plan_expire_datetime', 'database'];
+
+    /**
      * Get the user that owns the Tenant
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
