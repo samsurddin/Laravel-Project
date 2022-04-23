@@ -20,6 +20,15 @@ class Tenant extends Model
     protected $fillable = ['name', 'domain', 'status', 'user_id', 'plan_id', 'plan_expire_datetime', 'database'];
 
     /**
+     * The attributes that should be cast.
+     *
+     * @var array<string, string>
+     */
+    protected $casts = [
+        'plan_expire_datetime' => 'datetime',
+    ];
+
+    /**
      * Get the user that owns the Tenant
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
