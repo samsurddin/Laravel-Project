@@ -39,7 +39,7 @@ class TenantRequest extends FormRequest
                 'required',
                 'string',
                 'max:255',
-                'regex:(?=^.{4,253}\.?$)(^((?!-)[a-zA-Z0-9-]{1,63}(?<!-)\.)+[a-zA-Z]{2,63}\.?$)',
+                'regex:/^(?!:\/\/)(?=.{1,255}$)((.{1,63}\.){1,127}(?![0-9]*$)[a-z0-9-]+\.?)$/i',
                 Rule::unique('App\Models\Tenant')->ignore($tenant),
             ];
         }
