@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Tenant;
-use App\Http\Requests\StoreTenantRequest;
-use App\Http\Requests\UpdateTenantRequest;
+use App\Http\Requests\TenantRequest;
+use App\Models\Plan;
 use App\Models\User;
 
 class TenantController extends Controller
@@ -28,18 +28,26 @@ class TenantController extends Controller
     public function create()
     {
         $users = User::all();
-        return view('tenants.create', compact('users'));
+        $plans = Plan::all();
+        return view('tenants.create', compact('users', 'plans'));
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \App\Http\Requests\StoreTenantRequest  $request
+     * @param  \App\Http\Requests\TenantRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreTenantRequest $request)
+    public function store($lang, TenantRequest $request)
     {
-        //
+        $input = $request->validated();
+        $input['plan_expire_datetime'] = now();
+        $input['database'] = preg_replace('/[^A-Za-z0-9\-]/', '', str_replace(' ', '-', str_replace('.', '-', $input['domain'])));
+    
+        $tenant = Tenant::create($input);
+    
+        return redirect()->route('tenants.index', app()->getLocale())
+                        ->with('success','Tenant created successfully');
     }
 
     /**
@@ -67,11 +75,11 @@ class TenantController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \App\Http\Requests\UpdateTenantRequest  $request
+     * @param  \App\Http\Requests\TenantRequest  $request
      * @param  \App\Models\Tenant  $tenant
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateTenantRequest $request, Tenant $tenant)
+    public function update(TenantRequest $request, Tenant $tenant)
     {
         //
     }
