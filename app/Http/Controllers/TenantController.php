@@ -5,7 +5,13 @@ namespace App\Http\Controllers;
 use App\Models\Tenant;
 use App\Http\Requests\TenantRequest;
 use App\Models\Plan;
+use App\Models\TenantPermission;
+use App\Models\TenantRole;
 use App\Models\User;
+use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Schema;
+use PDO;
 
 class TenantController extends Controller
 {
@@ -43,11 +49,73 @@ class TenantController extends Controller
         $input = $request->validated();
         $input['plan_expire_datetime'] = now()->subDays(30);
         $input['database'] = preg_replace('/[^A-Za-z0-9\-]/', '', str_replace(' ', '-', str_replace('.', '-', $input['domain'])));
-    
-        $tenant = Tenant::create($input);
-    
-        return redirect()->route('tenants.index', app()->getLocale())
+
+        $user = User::find((int) $input['user_id']);
+        
+        $db_created = $this->create_db($input['database']);
+        
+        if ($db_created === true) {
+            $this->tenant_db_migration($input['database']);
+            $user = User::find($input['user_id']);
+            $this->create_tenant_admin($input['database'], $user);
+
+            $tenant = Tenant::create($input);
+            return redirect()->route('tenants.index', app()->getLocale())
                         ->with('success','Tenant created successfully');
+        }
+        return redirect()->back()
+                        ->with('error', $db_created);
+    }
+
+    public function create_db($db_name)
+    {
+        try{
+            $connection = 'tenant';
+   
+            $hasDb = DB::connection($connection)->select("SELECT SCHEMA_NAME FROM INFORMATION_SCHEMA.SCHEMATA WHERE SCHEMA_NAME = " . "'" . $db_name . "'");
+   
+            if(empty($hasDb)) {
+                DB::connection($connection)->select('CREATE DATABASE `'. $db_name . '`');
+                $this->tenant_db_migration($db_name);
+
+                return true;
+            }
+            else {
+                return "Database `$db_name` already exists for $connection connection";
+            }
+        }
+        catch (\Exception $e){
+            return $e->getMessage();
+        }
+    }
+
+    public function tenant_db_migration($db_name, $connection='tenant')
+    {
+        config(['database.connections.'.$connection.'.database' => $db_name]);
+        Schema::connection($connection)->getConnection()->reconnect();
+        Artisan::call('migrate:fresh --path=database/migrations/tenant --database='. $connection);
+        Artisan::call('db:seed --class=PermissionTableSeeder');
+        return;
+    }
+
+    public function create_tenant_admin($db_name, $user, $connection='tenant')
+    {
+        config(['database.connections.'.$connection.'.database' => $db_name]);
+        $user = DB::connection('tenant')->table('users')->create([
+            'name' => 'Admin', 
+            'email' => $user->email,
+            'password' => bcrypt('password')
+        ]);
+    
+        $role = TenantRole::create(['name' => 'admin']);
+     
+        $permissions = TenantPermission::pluck('id','id')->all();
+        // dd($permissions);
+   
+        // $role->syncPermissions($permissions);
+        $role->permissions()->sync($permissions);
+     
+        $user->assignRole([$role->id]);
     }
 
     /**
