@@ -8,8 +8,9 @@ use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\TenantController;
 use App\Http\Controllers\PlanController;
-
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Schema;
 use Spatie\Multitenancy\Models\Tenant;
 
 /*
@@ -70,6 +71,31 @@ Route::group(['prefix' => '{locale}', 'where' => ['locale' => '[a-zA-Z]{2}']], f
             {
                 Route::resource('tenants', TenantController::class);
                 Route::resource('plans', PlanController::class);
+
+                Route::get('create/db/{db_name}', function ($lang, $db_name) {
+                    try{
+                        $connection = 'tenant';
+               
+                        $hasDb = DB::connection($connection)->select("SELECT SCHEMA_NAME FROM INFORMATION_SCHEMA.SCHEMATA WHERE SCHEMA_NAME = " . "'" . $db_name . "'");
+               
+                        if(empty($hasDb)) {
+                            DB::connection($connection)->select('CREATE DATABASE '. $db_name);
+                            config(['database.connections.tenant.database' => $db_name]);
+                            // DB::purge('tenant');
+                            // DB::reconnect('tenant');
+                            Schema::connection('tenant')->getConnection()->reconnect();
+                            Artisan::call('migrate --database=tenant');
+                            Artisan::call('db:seed --class=PermissionTableSeeder');
+                            echo "Database '$db_name' created for '$connection' connection";
+                        }
+                        else {
+                            echo "Database $db_name already exists for $connection connection";
+                        }
+                    }
+                    catch (\Exception $e){
+                        dd($e->getMessage());
+                    }
+                });
             });
         });
 
