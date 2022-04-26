@@ -20,6 +20,8 @@ return new class extends Migration
             $table->string('features')->nullable();
             $table->integer('price');
             $table->integer('price_yearly')->nullable();
+            $table->integer('discount')->default(0);
+            $table->integer('discount_yearly')->default(0);
             $table->timestamps();
         });
     }
