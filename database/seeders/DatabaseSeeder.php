@@ -41,11 +41,11 @@ class DatabaseSeeder extends Seeder
         ]);
 
         DB::table('tenants')->insert([
-            ['name' => 'KaCom', 'domain' => 'ka.com', 'database' => 'kacom', 'user_id' => 1, 'plan_id'=>2],
-            ['name' => 'AhMad', 'domain' => 'ah.mad', 'database' => 'ahmad', 'user_id' => 2, 'plan_id'=>1],
-            ['name' => 'TenantTest', 'domain' => 'tenant.test', 'database' => 'tenant_test', 'user_id' => 2, 'plan_id'=>2]
+            ['name' => 'KaCom', 'domain' => 'ka.com', 'database' => 'kacom', 'user_id' => 1, 'plan_id'=>2, 'plan_expire_datetime'=>now(),  'created_at'=>now(), 'updated_at'=>now()],
+            ['name' => 'AhMad', 'domain' => 'ah.mad', 'database' => 'ahmad', 'user_id' => 2, 'plan_id'=>1, 'plan_expire_datetime'=>now(),  'created_at'=>now(), 'updated_at'=>now()],
+            ['name' => 'TenantTest', 'domain' => 'tenant.test', 'database' => 'tenant_test', 'user_id' => 2, 'plan_id'=>2, 'plan_expire_datetime'=>now(),  'created_at'=>now(), 'updated_at'=>now()]
         ]);
-
+        
         $this->call([
             PermissionTableSeeder::class,
             CreateAdminUserSeeder::class,
