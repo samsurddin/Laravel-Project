@@ -11,7 +11,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
-use PDO;
+use Illuminate\Support\Str;
 
 class TenantController extends Controller
 {
@@ -57,7 +57,7 @@ class TenantController extends Controller
         if ($db_created === true) {
             $this->tenant_db_migration($input['database']);
             $user = User::find($input['user_id']);
-            $this->create_tenant_admin($input['database'], $user);
+            $this->create_tenant_admin($input['database'], $user->email);
 
             $tenant = Tenant::create($input);
             return redirect()->route('tenants.index', app()->getLocale())
@@ -94,28 +94,99 @@ class TenantController extends Controller
         config(['database.connections.'.$connection.'.database' => $db_name]);
         Schema::connection($connection)->getConnection()->reconnect();
         Artisan::call('migrate:fresh --path=database/migrations/tenant --database='. $connection);
-        Artisan::call('db:seed --class=PermissionTableSeeder');
+        // Artisan::call('db:seed --class=CreateAdminUserSeeder');
+        // Artisan::call('db:seed --class=PermissionTableSeeder');
         return;
     }
 
-    public function create_tenant_admin($db_name, $user, $connection='tenant')
+    public function create_tenant_admin($db_name, $admin_email, $connection='tenant')
     {
-        config(['database.connections.'.$connection.'.database' => $db_name]);
-        $user = DB::connection('tenant')->table('users')->create([
-            'name' => 'Admin', 
-            'email' => $user->email,
-            'password' => bcrypt('password')
-        ]);
-    
-        $role = TenantRole::create(['name' => 'admin']);
+        $connection = 'tenant';
+        $database_host = config('database.connections.'.$connection.'.host');
+        $database_user = config('database.connections.'.$connection.'.username');
+        $database_password = config('database.connections.'.$connection.'.password');
+
+        $mysqli = new \mysqli($database_host, $database_user, $database_password, $db_name);
+        if (mysqli_connect_errno()) {
+            printf("Connect failed: %s\n", mysqli_connect_error());
+            exit();
+        }
+
+        $token = Str::random(10);
+        $password = bcrypt('password');
+        $sql = "INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES (NULL, 'Admin', ?, now(), ?, ?, now(), now())";
+        $stmt = $mysqli->prepare($sql);
+
+        $stmt->bind_param('sss', $admin_email, $password, $token);
+        $stmt->execute();
+
+        $user_id = $mysqli->insert_id;
+        
+        print_r(mysqli_error($mysqli));
+
+        printf ("\n\n New user added. ID: %d.\n", $user_id);
+
+        $query = "INSERT INTO `permissions` VALUES (NULL, 'create', 'web', now(), now()), (NULL, 'read', 'web', now(), now()), (NULL, 'update', 'web', now(), now()), (NULL, 'delete', 'web', now(), now())";
+        $mysqli->query($query);
+        printf ("\n\n Permission added.\n");
+
+        $query = "INSERT INTO `roles` VALUES (NULL, 'admin', 'web', now(), now())";
+        $mysqli->query($query);
+
+        $role_id = $mysqli->insert_id;
+
+        printf ("New role added. ID: %d.\n", $role_id);
+        
+        // $query = "INSERT INTO `role_has_permissions` VALUES (NULL, 'admin', 'web', now(), now())";
+        // $mysqli->query($query);
+
+        $stmt = $mysqli->prepare("SELECT `id` FROM `permissions`");
+        $stmt->execute();
+
+        $data = $stmt->get_result();
+
+        while($row = mysqli_fetch_array($data)){
+            $permission_id = $row['id'];
+            $query = "INSERT INTO `role_has_permissions` VALUES ($permission_id, $role_id)";
+            $mysqli->query($query);
+            
+            printf ("New role permission added. Role ID: %d and Permission ID: %d.\n", $role_id, $permission_id);
+        }
+
+        $query = "INSERT INTO `model_has_roles` VALUES ($role_id, 'App\Models\User', $user_id)";
+        $mysqli->query($query);
+
+        printf ("New model_has_roles added. Role ID: %d and User ID: %d.\n", $role_id, $user_id);
+
+        $mysqli->close();
+
+        // config(['database.connections.'.$connection.'.database' => $db_name]);
+        // DB::purge($connection);
+        // DB::reconnect($connection);
+        // $user = new User();
+        // $user = $user->setConnection($connection)->create([
+        // // $user = DB::connection($connection)->table('users')->insert([
+        //     'name' => 'Admin', 
+        //     'email' => $admin_user->email,
+        //     'password' => bcrypt('password')
+        // ]);
+
+        // $role = new TenantRole();
+        // // config(['database.connections.'.$connection.'.database' => $db_name]);
+        // $role = $role->setConnection($connection)->create(['name' => 'admin']);
+        // // dd(config('database.connections.'.$connection.'.database'), DB::connection());
      
-        $permissions = TenantPermission::pluck('id','id')->all();
-        // dd($permissions);
+        // $permissions = new TenantPermission();
+        // // config(['database.connections.'.$connection.'.database' => $db_name]);
+        // $permissions = $permissions->setConnection($connection)->pluck('id','id')->all();
+        // // dd($permissions);
    
-        // $role->syncPermissions($permissions);
-        $role->permissions()->sync($permissions);
+        // // $role->syncPermissions($permissions);
+        // // config(['database.connections.'.$connection.'.database' => $db_name]);
+        // $role->permissions()->sync($permissions);
      
-        $user->assignRole([$role->id]);
+        // // config(['database.connections.'.$connection.'.database' => $db_name]);
+        // $user->assignRole([$role->id]);
     }
 
     /**
