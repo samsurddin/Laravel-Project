@@ -40,6 +40,9 @@
                         <x-dropdown-link :href="route('roles.index', app()->getLocale())" :active="request()->routeIs('roles.index')">
                             {{ __('Role Manager') }}
                         </x-dropdown-link>
+                        <x-dropdown-link :href="route('settings.index', app()->getLocale())" :active="request()->routeIs('settings.index')">
+                            {{ __('Settings') }}
+                        </x-dropdown-link>
 
                         <!-- Authentication -->
                         <form method="POST" action="{{ route('logout', app()->getLocale()) }}">
