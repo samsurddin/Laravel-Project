@@ -13,6 +13,9 @@ use App\Http\Controllers\SettingController;
 use Illuminate\Support\Facades\Route;
 use Spatie\Multitenancy\Models\Tenant;
 
+// landlord-frontend
+use App\Http\Controllers\Frontend\FrontendPlanController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -43,6 +46,7 @@ Route::group(['prefix' => '{locale}', 'where' => ['locale' => '[a-zA-Z]{2}']], f
     // landlord public routes
     Route::middleware('landlord')->group(function ()
     {
+        Route::get('plan', [FrontendPlanController::class, 'index']);
     });
 
     Route::group(['middleware' => ['auth']], function()
