@@ -40,11 +40,11 @@
                             </div>
                             <div class="form-group">
                                 <strong>Price:</strong>
-                                {{ $plan->price }}
+                                {{ $plan->price }} - {{ $plan->discount }}% discount = {{ $plan->price - ($plan->price/100*$plan->discount) }}
                             </div>
                             <div class="form-group">
                                 <strong>Price Yearly:</strong>
-                                {{ $plan->price_yearly }}
+                                {{ $plan->price_yearly }} - {{ $plan->discount_yearly }}% discount = {{ $plan->price_yearly - ($plan->price_yearly/100*$plan->discount_yearly) }}
                             </div>
                         </div>
                     </div>

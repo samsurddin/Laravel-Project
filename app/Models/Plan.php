@@ -16,7 +16,7 @@ class Plan extends Model
      *
      * @var array
      */
-    protected $fillable = ['name', 'description', 'features', 'price', 'price_yearly'];
+    protected $fillable = ['name', 'description', 'features', 'price', 'discount', 'price_yearly', 'discount_yearly'];
 
     protected $connection = 'tenant';
 

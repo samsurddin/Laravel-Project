@@ -42,23 +42,31 @@
                                     <div class="grid grid-cols-6 gap-6">
                                         <div class="col-span-6">
                                             <label for="name" class="block text-sm font-medium text-gray-700">Plan Name</label>
-                                            <input type="text" name="name" id="name" autocomplete="name" class="input">
+                                            <input type="text" name="name" value="{{ old('name') }}" id="name" autocomplete="name" class="input">
                                         </div>
                                         <div class="col-span-6">
                                             <label for="description" class="block text-sm font-medium text-gray-700">Description</label>
-                                            <textarea name="description" id="description" cols="30" rows="3" class="input"></textarea>
+                                            <textarea name="description" id="description" cols="30" rows="3" class="input">{{ old('description') }}</textarea>
                                         </div>
                                         <div class="col-span-6">
                                             <label for="features" class="block text-sm font-medium text-gray-700">Features</label>
-                                            <textarea name="features" id="features" cols="30" rows="3" class="input"></textarea>
+                                            <textarea name="features" id="features" cols="30" rows="3" class="input">{{ old('features') }}</textarea>
                                         </div>
                                         <div class="col-span-3">
-                                            <label for="price" class="block text-sm font-medium text-gray-700">Price</label>
-                                            <input type="number" name="price" id="price" autocomplete="price" class="input">
+                                            <label for="price" class="block text-sm font-medium text-gray-700">Normal Price</label>
+                                            <input type="number" name="price" value="{{ old('price') }}" id="price" autocomplete="price" class="input">
+                                        </div>
+                                        <div class="col-span-3">
+                                            <label for="discount" class="block text-sm font-medium text-gray-700">Normal Discount (%)</label>
+                                            <input type="number" name="discount" value="{{ old('discount') }}" id="discount" autocomplete="discount" class="input" min="0" max="100">
                                         </div>
                                         <div class="col-span-3">
                                             <label for="price_yearly" class="block text-sm font-medium text-gray-700">Price Yearly Format</label>
-                                            <input type="number" name="price_yearly" id="price_yearly" autocomplete="price_yearly" class="input">
+                                            <input type="number" name="price_yearly" value="{{ old('price_yearly') }}" id="price_yearly" autocomplete="price_yearly" class="input">
+                                        </div>
+                                        <div class="col-span-3">
+                                            <label for="discount_yearly" class="block text-sm font-medium text-gray-700">Discount Yearly (%)</label>
+                                            <input type="number" name="discount_yearly" value="{{ old('discount_yearly') }}" id="discount_yearly" autocomplete="discount_yearly" class="input" min="0" max="100">
                                         </div>
                                     </div>
                                 </div>

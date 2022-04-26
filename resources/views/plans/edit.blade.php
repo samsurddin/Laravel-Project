@@ -67,8 +67,16 @@
                                             <input type="number" name="price" id="price" autocomplete="price" class="input" value="{{ old('price', $plan->price) }}">
                                         </div>
                                         <div class="col-span-3">
+                                            <label for="discount" class="block text-sm font-medium text-gray-700">Discount</label>
+                                            <input type="number" name="discount" id="discount" autocomplete="discount" class="input" value="{{ old('discount', $plan->discount) }}">
+                                        </div>
+                                        <div class="col-span-3">
                                             <label for="price_yearly" class="block text-sm font-medium text-gray-700">Price Yearly Format</label>
                                             <input type="number" name="price_yearly" id="price_yearly" autocomplete="price_yearly" class="input" value="{{ old('price_yearly', $plan->price_yearly) }}">
+                                        </div>
+                                        <div class="col-span-3">
+                                            <label for="discount_yearly" class="block text-sm font-medium text-gray-700">Discount Yearly Format</label>
+                                            <input type="number" name="discount_yearly" id="discount_yearly" autocomplete="discount_yearly" class="input" value="{{ old('discount_yearly', $plan->discount_yearly) }}">
                                         </div>
                                     </div>
                                 </div>

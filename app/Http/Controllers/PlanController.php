@@ -80,7 +80,7 @@ class PlanController extends Controller
         $plan->update($input);
     
         return redirect()->route('plans.index', app()->getLocale())
-                        ->with('success','Plan updated successfully');
+                        ->with('success','The plan has been updated successfully');
     }
 
     /**
@@ -93,6 +93,6 @@ class PlanController extends Controller
     {
         $plan->delete();
         return redirect()->route('plans.index', app()->getLocale())
-                        ->with('success','Plan deleted successfully');
+                        ->with('success','The plan has been deleted successfully');
     }
 }

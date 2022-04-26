@@ -25,11 +25,13 @@ class PlanRequest extends FormRequest
     public function rules()
     {
         $rules = [
-            'name' => 'required|unique:App\Models\Plan,name',
-            'description' => 'nullable',
-            'features' => 'nullable',
-            'price' => 'required',
-            'price_yearly' => 'nullable'
+            'name' => 'required|string|max:255|unique:App\Models\Plan,name',
+            'description' => 'nullable|string',
+            'features' => 'nullable|string',
+            'price' => 'required|integer',
+            'discount' => 'nullable|integer|min:0|max:100',
+            'price_yearly' => 'nullable|integer',
+            'discount_yearly' => 'nullable|integer|min:0|max:100'
         ];
 
         if (in_array($this->method(), ['PUT', 'PATCH'])) {
@@ -55,6 +57,8 @@ class PlanRequest extends FormRequest
     {
         return [
             'name' => 'plan name',
+            'discount_yearly' => 'yearly discount',
+            'price_yearly' => 'yearly price',
         ];
     }
 }
