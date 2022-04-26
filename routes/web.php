@@ -9,6 +9,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\TenantController;
 use App\Http\Controllers\PlanController;
 
+use App\Http\Controllers\SettingController;
 use Illuminate\Support\Facades\Route;
 use Spatie\Multitenancy\Models\Tenant;
 
@@ -63,6 +64,10 @@ Route::group(['prefix' => '{locale}', 'where' => ['locale' => '[a-zA-Z]{2}']], f
             // tenants admin routes
             Route::middleware('tenant')->group(function ()
             {
+                Route::resource('settings', SettingController::class)->except([
+                    'show'
+                ]);
+                // Route::get('settings/edit', [SettingController::class, 'edit'])->name('settings.edit');
             });
 
             // landlord admin routes
