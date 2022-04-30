@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Models\Plan;
 use Illuminate\Http\Request;
 
 class FrontendPlanController extends Controller
@@ -14,7 +15,16 @@ class FrontendPlanController extends Controller
      */
     public function index()
     {
-        return view('frontend.plans.index');
+        $plans = Plan::all();
+        $max_discount = $plans->max('discount');
+        $max_discount_yearly = $plans->max('discount_yearly');
+        // dd($max_discount, $max_discount_yearly);
+        return view('frontend.plans.index', compact('plans', 'max_discount', 'max_discount_yearly'));
+    }
+
+    public function signup($lang, Request $request, $plan)
+    {
+        dd($lang, $request, $plan);
     }
 
     /**

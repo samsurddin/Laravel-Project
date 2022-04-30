@@ -47,6 +47,7 @@ Route::group(['prefix' => '{locale}', 'where' => ['locale' => '[a-zA-Z]{2}']], f
     Route::middleware('landlord')->group(function ()
     {
         Route::get('plan', [FrontendPlanController::class, 'index']);
+        Route::get('signup/{plan}', [FrontendPlanController::class, 'signup'])->name('signup');
     });
 
     Route::group(['middleware' => ['auth']], function()
