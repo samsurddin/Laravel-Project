@@ -4,7 +4,12 @@ namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
 use App\Models\Plan;
+use App\Models\User;
+use App\Providers\RouteServiceProvider;
+use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class FrontendPlanController extends Controller
 {
@@ -24,7 +29,12 @@ class FrontendPlanController extends Controller
 
     public function signup($lang, Request $request, $plan)
     {
-        dd($lang, $request, $plan);
+        // dd($lang, $request, (int) $plan);
+        $bill_type = $request->bill_type;
+        $plans = Plan::all()->map->only(['id', 'name', 'price', 'price_yearly', 'discount', 'discount_yearly']);
+        $plan = Plan::find((int) $plan);
+        // dd($plan);
+        return view('frontend.plans.signup', compact('plans', 'plan', 'bill_type'));
     }
 
     /**
@@ -45,7 +55,26 @@ class FrontendPlanController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        dd($request);
+        
+        // register
+        $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'password' => ['required', 'confirmed', Rules\Password::defaults()],
+        ]);
+
+        $user = User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+        ]);
+
+        event(new Registered($user));
+
+        Auth::login($user);
+
+        return redirect(RouteServiceProvider::HOME);
     }
 
     /**
