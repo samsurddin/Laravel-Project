@@ -82,6 +82,17 @@
                                                 </td>
                                                 <td class="px-6 py-4 whitespace-nowrap">
                                                     <x-status status="{{ $tenant->status }}" />
+                                                    <div class="text-sm text-gray-500">
+                                                        @php
+                                                        $expire = $tenant->plan_expire_datetime->diffInDays(now(), false);
+                                                        @endphp
+                                                        @if ($expire >= 0)
+                                                            Expired {{ $expire }} days ago
+                                                        @else
+                                                            {{ abs($expire) }} days remaining
+                                                        @endif
+                                                    </div>
+                                                        
                                                 </td>
                                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                                                     <span class="text-xs font-semibold text-violet-800">
