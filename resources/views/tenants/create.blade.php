@@ -17,6 +17,11 @@
                 <p>{{ $message }}</p>
             </div>
             @endif
+            @if ($message = Session::get('error'))
+            <div class="alert alert-error">
+                <p>{{ $message }}</p>
+            </div>
+            @endif
 
             <div class="mt-10 sm:mt-0">
                 <div class="md:grid md:grid-cols-3 md:gap-6">
