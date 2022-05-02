@@ -68,21 +68,23 @@
                                                             <div class="text-sm font-medium text-gray-900">
                                                                 {{ $tenant->name }}
                                                             </div>
-                                                            <div class="text-sm text-gray-500">
+                                                            <div class="text-xs text-gray-500">
                                                                 {{ $tenant->updated_at->diffForHumans() }}
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </td>
                                                 <td class="px-6 py-4 whitespace-nowrap">
-                                                    <div class="text-sm text-gray-900">{{ $tenant->domain }}</div>
+                                                    <div class="text-sm text-gray-900">
+                                                        <a class="text-blue-900" href="http://{{ $tenant->domain }}">{{ $tenant->domain }}</a>
+                                                    </div>
                                                     <div class="text-sm text-gray-500">
                                                         DB: <strong>{{ $tenant->database }}</strong>
                                                     </div>
                                                 </td>
                                                 <td class="px-6 py-4 whitespace-nowrap">
                                                     <x-status status="{{ $tenant->status }}" />
-                                                    <div class="text-sm text-gray-500">
+                                                    <div class="text-xs text-gray-500">
                                                         @php
                                                         $expire = $tenant->plan_expire_datetime->diffInDays(now(), false);
                                                         @endphp
