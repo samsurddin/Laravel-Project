@@ -30,6 +30,7 @@ class CreateLandlordTenantsTable extends Migration
                         strtotime('+30 day', time())
                     )
                 );
+            $table->enum('bill_type', ['monthly', 'annually'])->default('monthly');
             $table->timestamps();
         });
     }
