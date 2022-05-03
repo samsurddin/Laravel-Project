@@ -18,7 +18,7 @@
             <div class="card-header">
                 <div class="head position-relative overflow-hidden">
                     <h5 class="pt-2 float-start">Add New Product</h5>
-                    <a href="{{ route('products.index', app()->getLocale()) }}" class="btn btn-warning float-end">Go Back</a>
+                    <a href="{{ route('admin.products.index', app()->getLocale()) }}" class="btn btn-warning float-end">Go Back</a>
                 </div>
                 {{-- <span>Product list will sho</span> --}}
 
@@ -40,7 +40,7 @@
                 </div>
             </div>
             <span id="temp_img_response" class="d-none"></span>
-            <form class="theme-form product-create" method="post" action="{{ route('products.store', app()->getLocale()) }}">
+            <form class="theme-form product-create" method="post" action="{{ route('admin.products.store', app()->getLocale()) }}">
                 @csrf
                 <input type="hidden" id="featured_img" name="featured_img" value="">
                     

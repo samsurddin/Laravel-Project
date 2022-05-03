@@ -16,7 +16,7 @@
             <div class="card-header">
                 <div class="head position-relative overflow-hidden">
                     <h5 class="mb-3 float-start">Category List</h5>
-                    <a href="{{-- {{ route('categories.create', app()->getLocale()) }} --}}" class="btn btn-primary float-end" data-bs-toggle="modal" data-bs-target="#exampleModal1">Add New</a>
+                    <a href="{{-- {{ route('admin.categories.create', app()->getLocale()) }} --}}" class="btn btn-primary float-end" data-bs-toggle="modal" data-bs-target="#exampleModal1">Add New</a>
                 </div>
                 {{-- <span>Category list will sho</span> --}}
 
@@ -104,10 +104,10 @@
                                 <td></td> --}}
                                 {{-- <td><a href="{{ $shop->slug }}">{{ $shop->name }}</a></td> --}}
                                 <td>
-                                    <form method="post" action="{{ route('categories.destroy', [app()->getLocale(), $category->id]) }}" class="d-inline"> @csrf @method('DELETE')
+                                    <form method="post" action="{{ route('admin.categories.destroy', [app()->getLocale(), $category->id]) }}" class="d-inline"> @csrf @method('DELETE')
                                     <button class="btn btn-danger btn-xs delete" type="submit">Delete</button>
                                     </form>
-									<a href="{{ route('categories.edit', [app()->getLocale(), $category->id]) }}" class="btn btn-success btn-xs edit" title="">Edit</a>
+									<a href="{{ route('admin.categories.edit', [app()->getLocale(), $category->id]) }}" class="btn btn-success btn-xs edit" title="">Edit</a>
 								</td>
                             </tr>
                         	@endforeach
@@ -129,7 +129,7 @@
                     <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close" data-bs-original-title="" title=""></button>
                 </div>
                 <div class="modal-body">
-                    <form class="form-bookmark" method="post" action="{{ route('categories.store', app()->getLocale()) }}">
+                    <form class="form-bookmark" method="post" action="{{ route('admin.categories.store', app()->getLocale()) }}">
                         @csrf
                         
                         <div class="row g-2">

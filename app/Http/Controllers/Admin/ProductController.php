@@ -88,7 +88,7 @@ class ProductController extends Controller
 
         // dd($product);
         if ($product) {
-            return redirect(route('products.index', app()->getLocale()))->with('success', 'A new product is added successfully!');
+            return redirect(route('admin.products.index', app()->getLocale()))->with('success', 'A new product is added successfully!');
         }
 
 
@@ -140,7 +140,7 @@ class ProductController extends Controller
         // dd($request->all());
         $product = Product::find($id);
         if (empty($product)) {
-            return redirect(route('products.index'))->with('error', 'Product not found!');
+            return redirect(route('admin.products.index'))->with('error', 'Product not found!');
         }
 
         if ($request['slug'] == '') {
@@ -191,7 +191,7 @@ class ProductController extends Controller
         // dd($request['image']);
 
         // dd($product);
-        return redirect(route('products.index', app()->getLocale()))->with('success', 'A new product is updated successfully!');
+        return redirect(route('admin.products.index', app()->getLocale()))->with('success', 'A new product is updated successfully!');
     }
 
     /**
@@ -205,8 +205,8 @@ class ProductController extends Controller
         $deletedRows = Product::where('id', $id)->delete();
 
         if ($deletedRows) {
-            return redirect(route('products.index', app()->getLocale()))->with('success', 'Product is deleted successfully!');
+            return redirect(route('admin.products.index', app()->getLocale()))->with('success', 'Product is deleted successfully!');
         }
-        return redirect(route('products.index', app()->getLocale()))->with('error', 'Somethong went wrong! Product cannot be deleted! Please try again!');
+        return redirect(route('admin.products.index', app()->getLocale()))->with('error', 'Somethong went wrong! Product cannot be deleted! Please try again!');
     }
 }

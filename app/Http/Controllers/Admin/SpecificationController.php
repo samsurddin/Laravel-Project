@@ -54,7 +54,7 @@ class SpecificationController extends Controller
         // dd($validated);
         $specification = Specification::create($validated);
         if ($specification) {
-            return redirect(route('specifications.index', app()->getLocale()))->with('success', 'A new specification is added successfully!');
+            return redirect(route('admin.specifications.index', app()->getLocale()))->with('success', 'A new specification is added successfully!');
         }
     }
 
@@ -101,7 +101,7 @@ class SpecificationController extends Controller
             'head_id' => 'numeric|min:1|nullable',
         ]);
         if ($validated['type'] == 'key' && $validated['head_id'] == $id) {
-            return redirect(route('specifications.index', app()->getLocale()))->with('error', 'A head can not be converted when it is a head!');
+            return redirect(route('admin.specifications.index', app()->getLocale()))->with('error', 'A head can not be converted when it is a head!');
         }
 
         // dd($request->all());
@@ -110,7 +110,7 @@ class SpecificationController extends Controller
         $update = Specification::where('id', $id)->update($validated);
 
         if ($update) {
-            return redirect(route('specifications.index', app()->getLocale()))->with('success', 'Specification is updated successfully!');
+            return redirect(route('admin.specifications.index', app()->getLocale()))->with('success', 'Specification is updated successfully!');
         }
     }
 
@@ -125,8 +125,8 @@ class SpecificationController extends Controller
         $deletedRows = Specification::where('id', $id)->delete();
 
         if ($deletedRows) {
-            return redirect(route('specifications.index', app()->getLocale()))->with('success', 'Specification is deleted successfully!');
+            return redirect(route('admin.specifications.index', app()->getLocale()))->with('success', 'Specification is deleted successfully!');
         }
-        return redirect(route('specifications.index', app()->getLocale()))->with('error', 'Somethong went wrong! Specification cannot be deleted! Please try again!');
+        return redirect(route('admin.specifications.index', app()->getLocale()))->with('error', 'Somethong went wrong! Specification cannot be deleted! Please try again!');
     }
 }

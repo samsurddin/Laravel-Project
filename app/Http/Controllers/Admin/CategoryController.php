@@ -56,7 +56,7 @@ class CategoryController extends Controller
         // dd($validated);
         $category = Category::create($validated);
         if ($category) {
-            return redirect(route('categories.index', app()->getLocale()))->with('success', 'A new category is added successfully!');
+            return redirect(route('admin.categories.index', app()->getLocale()))->with('success', 'A new category is added successfully!');
         }
     }
 
@@ -109,7 +109,7 @@ class CategoryController extends Controller
         $update = Category::where('id', $id)->update($validated);
 
         if ($update) {
-            return redirect(route('categories.index', app()->getLocale()))->with('success', 'Category is updated successfully!');
+            return redirect(route('admin.categories.index', app()->getLocale()))->with('success', 'Category is updated successfully!');
         }
     }
 
@@ -124,8 +124,8 @@ class CategoryController extends Controller
         $deletedRows = Category::where('id', $id)->delete();
 
         if ($deletedRows) {
-            return redirect(route('categories.index', app()->getLocale()))->with('success', 'Category is deleted successfully!');
+            return redirect(route('admin.categories.index', app()->getLocale()))->with('success', 'Category is deleted successfully!');
         }
-        return redirect(route('categories.index', app()->getLocale()))->with('error', 'Somethong went wrong! Category cannot be deleted! Please try again!');
+        return redirect(route('admin.categories.index', app()->getLocale()))->with('error', 'Somethong went wrong! Category cannot be deleted! Please try again!');
     }
 }
