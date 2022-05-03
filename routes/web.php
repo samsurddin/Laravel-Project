@@ -51,6 +51,9 @@ Route::group(['prefix' => '{locale}', 'where' => ['locale' => '[a-zA-Z]{2}']], f
         return view('welcome');
     });
 
+    Route::get('/images/image-upload', [ImageController::class, 'createForm']);
+    Route::post('/images/image-upload', [ImageController::class, 'fileUpload'])->name('imageUpload');
+
     // tenants public routes
     Route::middleware('tenant')->group(function ()
     {
@@ -66,19 +69,19 @@ Route::group(['prefix' => '{locale}', 'where' => ['locale' => '[a-zA-Z]{2}']], f
 
     Route::group(['middleware' => ['auth']], function()
     {
-        Route::get('/dashboard', function () {
-            return view('dashboard');
-        })->name('dashboard');
-
-        Route::get('/profile', function () {
-            return view('dashboard');
-        })->name('profile');
-        
         // admin routes for all
-        Route::prefix('admin')->group(function()
+        Route::prefix('admin')->name('admin.')->group(function()
         {
             Route::resource('users', UserController::class);
             Route::resource('roles', RoleController::class);
+            
+            Route::get('/dashboard', function () {
+                return view('dashboard');
+            })->name('dashboard');
+
+            Route::get('/profile', function () {
+                return view('dashboard');
+            })->name('profile');
 
             // tenants admin routes
             Route::middleware('tenant')->group(function ()
@@ -97,6 +100,37 @@ Route::group(['prefix' => '{locale}', 'where' => ['locale' => '[a-zA-Z]{2}']], f
                     'images' => ImageController::class,
                     'question-answers' => QuestionAnswerController::class,
                 ]);
+
+                // order addresses
+                Route::post('orders/billing/{order}', [OrderController::class, 'update_billing'])
+                    ->name('order.update_billing');
+                Route::post('orders/shipping/{order}', [OrderController::class, 'update_shipping'])
+                    ->name('order.update_shipping');
+            
+                // order trackings
+                Route::get('orders/trackings/{order}', [OrderController::class, 'get_tracking'])
+                    ->name('order.get_tracking');
+                Route::post('orders/trackings/{order}', [OrderController::class, 'add_tracking'])
+                    ->name('order.add_tracking');
+                Route::get('orders/trackings/delete/{order}', [OrderController::class, 'delete_tracking'])
+                    ->name('order.delete_tracking');
+            
+                // order notes
+                Route::get('orders/notes/{order}', [OrderController::class, 'get_notes'])
+                    ->name('order.get_notes');
+                Route::post('orders/notes/{order}', [OrderController::class, 'add_note'])
+                    ->name('order.add_note');
+                Route::get('orders/notes/delete/{order}', [OrderController::class, 'delete_note'])
+                    ->name('order.delete_note');
+            
+                Route::get('clear_cache', function () {
+                    Artisan::call('cache:clear');
+                    dd("Cache is cleared");
+                });
+                Route::get('/linkstorage', function () {
+                    Artisan::call('storage:link');
+                    dd("storage link generated");
+                });
             });
 
             // landlord admin routes
