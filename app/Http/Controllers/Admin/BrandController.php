@@ -51,7 +51,7 @@ class BrandController extends Controller
         // dd($validated);
         $brand = Brand::create($validated);
         if ($brand) {
-            return redirect(route('brands.index'))->with('success', 'A new brand is added successfully!');
+            return redirect(route('brands.index', app()->getLocale()))->with('success', 'A new brand is added successfully!');
         }
     }
 
@@ -99,9 +99,9 @@ class BrandController extends Controller
         $update = Brand::where('id', $id)->update($validated);
 
         if ($update) {
-            return redirect(route('brands.index'))->with('success', 'Brand is updated successfully!');
+            return redirect(route('brands.index', app()->getLocale()))->with('success', 'Brand is updated successfully!');
         }
-        return redirect(route('brands.index'))->with('error', 'Brand is not updated, please try again!');
+        return redirect(route('brands.index', app()->getLocale()))->with('error', 'Brand is not updated, please try again!');
     }
 
     /**
@@ -115,8 +115,8 @@ class BrandController extends Controller
         $deletedRows = Brand::where('id', $id)->delete();
 
         if ($deletedRows) {
-            return redirect(route('brands.index'))->with('success', 'Brand is deleted successfully!');
+            return redirect(route('brands.index', app()->getLocale()))->with('success', 'Brand is deleted successfully!');
         }
-        return redirect(route('brands.index'))->with('error', 'Somethong went wrong! Brand cannot be deleted! Please try again!');
+        return redirect(route('brands.index', app()->getLocale()))->with('error', 'Somethong went wrong! Brand cannot be deleted! Please try again!');
     }
 }

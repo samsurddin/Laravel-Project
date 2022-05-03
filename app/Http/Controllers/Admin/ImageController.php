@@ -227,7 +227,7 @@ class ImageController extends Controller
         $update = Image::where('id', $id)->update($validated);
 
         if ($update) {
-            return redirect(route('images.index'))->with('success', 'Image data is updated successfully!');
+            return redirect(route('images.index', app()->getLocale()))->with('success', 'Image data is updated successfully!');
         }
     }
 
@@ -255,9 +255,9 @@ class ImageController extends Controller
                     @unlink($thumbnail);
                 }
 
-                return redirect(route('images.index'))->with('success', 'Image is deleted successfully!');
+                return redirect(route('images.index', app()->getLocale()))->with('success', 'Image is deleted successfully!');
             }
         }
-        return redirect(route('images.index'))->with('error', 'Somethong went wrong! Image cannot be deleted! Please try again!');
+        return redirect(route('images.index', app()->getLocale()))->with('error', 'Somethong went wrong! Image cannot be deleted! Please try again!');
     }
 }

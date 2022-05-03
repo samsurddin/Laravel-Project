@@ -48,7 +48,7 @@ class QuestionAnswerController extends Controller
         // dd($validated);
         $brand = QuestionAnswer::create($validated);
         if ($brand) {
-            return redirect(route('question-answers.index'))->with('success', 'A new question is added successfully!');
+            return redirect(route('question-answers.index', app()->getLocale()))->with('success', 'A new question is added successfully!');
         }
     }
 
