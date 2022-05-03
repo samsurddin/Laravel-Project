@@ -4,10 +4,10 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Product;
-use App\Models\Category;
-use App\Models\Brand;
-use App\Models\Specification;
+use App\Models\Tenant\Product;
+use App\Models\Tenant\Category;
+use App\Models\Tenant\Brand;
+use App\Models\Tenant\Specification;
 use Illuminate\Support\Str;
 
 class ProductController extends Controller

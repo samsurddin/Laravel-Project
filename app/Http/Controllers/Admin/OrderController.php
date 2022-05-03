@@ -5,12 +5,12 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Rules\PhoneNumber;
-use App\Models\Order;
-use App\Models\OrderStatus;
-use App\Models\District;
-use App\Models\Division;
-use App\Models\Postcode;
-use App\Models\PaymentMethod;
+use App\Models\Tenant\Order;
+use App\Models\Tenant\OrderStatus;
+use App\Models\Tenant\District;
+use App\Models\Tenant\Division;
+use App\Models\Tenant\Postcode;
+use App\Models\Tenant\PaymentMethod;
 // use Illuminate\Support\Str;
 
 class OrderController extends Controller
