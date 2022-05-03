@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Schema;
 use Spatie\Multitenancy\Models\Tenant;
 
 // landlord-frontend
-use App\Http\Controllers\Frontend\FrontendPlanController;
+use App\Http\Controllers\Frontend\Landlord\FrontendPlanController;
 
 use Illuminate\Support\Str;
 
