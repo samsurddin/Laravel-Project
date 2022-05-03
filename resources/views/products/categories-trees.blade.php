@@ -7,7 +7,7 @@ if (isset($is_child) && $is_child) {
 
 <ul class="cat-tree {{ $cls }}">
 	@foreach ($category_tree as $all_cat)
-		<li><a href="{{ route('categories.show', $all_cat['slug']) }}">{{ $all_cat['name'] }}</a>
+		<li><a href="{{ route('categories.show', [app()->getLocale(), $all_cat['slug']]) }}">{{ $all_cat['name'] }}</a>
 			@if (!empty($all_cat['child']))
 				@include('products.categories-trees', ['category_tree' => $all_cat['child'], 'is_child'=> true])
 			@endif

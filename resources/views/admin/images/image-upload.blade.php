@@ -27,7 +27,7 @@
 
     <div class="container mt-5">
         <h3 class="text-center mb-5">Image Upload in Laravel</h3>
-        <form action="{{ route('imageUpload') }}" method="post" enctype="multipart/form-data">
+        <form action="{{ route('imageUpload', app()->getLocale()) }}" method="post" enctype="multipart/form-data">
             @csrf
             @if ($message = Session::get('success'))
                 <div class="alert alert-success">

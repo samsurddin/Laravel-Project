@@ -15,7 +15,7 @@
             <div class="card-header">
                 <div class="head position-relative overflow-hidden">
                     <h5 class="mb-3 float-start">Product List</h5>
-                    <a href="{{ route('products.create') }}" class="btn btn-primary float-end">Add New</a>
+                    <a href="{{ route('products.create', app()->getLocale()) }}" class="btn btn-primary float-end">Add New</a>
                 </div>
 
                 <div class="alert-box">
@@ -68,7 +68,7 @@
                             <tr>
                                 <th scope="row">{{ $product->id }}</th>
                                 <td>
-                                	<a href="{{ route('product.single', $product->slug) }}" class="d-flex">
+                                	<a href="{{ route('product.single', [app()->getLocale(), $product->slug]) }}" class="d-flex">
                                 		<div class="rounded">
                                 			<img src="{{ $product->featured_img }}" width="50px" height="50px">
                                 		</div>
@@ -94,10 +94,10 @@
                                 <td></td>
                                 {{-- <td><a href="{{ $shop->slug }}">{{ $shop->name }}</a></td> --}}
                                 <td>
-                                    <form method="post" action="{{ route('products.destroy', $product->id) }}" class="d-inline"> @csrf @method('DELETE')
+                                    <form method="post" action="{{ route('products.destroy', [app()->getLocale(), $product->id]) }}" class="d-inline"> @csrf @method('DELETE')
                                     <button class="btn btn-danger btn-xs delete" type="submit">Delete</button>
                                     </form>
-                                    <a href="{{ route('products.edit', $product->id) }}" class="btn btn-success btn-xs edit" title="">Edit</a>
+                                    <a href="{{ route('products.edit', [app()->getLocale(), $product->id]) }}" class="btn btn-success btn-xs edit" title="">Edit</a>
 								</td>
                             </tr>
                         	@endforeach

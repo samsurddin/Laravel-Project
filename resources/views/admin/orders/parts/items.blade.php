@@ -30,7 +30,7 @@
                     </div>
                 </td>
                 <td class="name" data-sort-value="{{ $item['name'] }}">
-                    <a href="{{ route('admin.products.edit', $item['product_id']) }}" class="order-item-name" title="Click to edit product">{{ $item['name'] }}</a>
+                    <a href="{{ route('admin.products.edit', [app()->getLocale(), $item['product_id']]) }}" class="order-item-name" title="Click to edit product">{{ $item['name'] }}</a>
                     @if (!empty($item['sale_price']))
                     <div class="order-item-sku">
                         <strong>Regular Price:</strong> <del>@money_tag($item['regular_price'])</del>

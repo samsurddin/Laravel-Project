@@ -79,7 +79,7 @@
                                 @endphp
                                     <tr id="cart-{{ $row['id'] }}">
                                         <td>
-                                            <a class="btn btn-light btn-sm text-danger delete" href="{{ route('cart.index').'?remove='.$row['id'] }}"><i class="fas fa-trash"></i></a>
+                                            <a class="btn btn-light btn-sm text-danger delete" href="{{ route('cart.index', app()->getLocale()).'?remove='.$row['id'] }}"><i class="fas fa-trash"></i></a>
                                         </td>
                                         <td>
                                             @php
@@ -100,7 +100,7 @@
                                         </td>
                                         <td>@money($row['price'])</td>
                                         <td width="130px">
-                                            <form action="{{ route('cart.update', $row['id']) }}" method="POST">
+                                            <form action="{{ route('cart.update', [app()->getLocale(), $row['id']]) }}" method="POST">
                                                 @csrf
                                                 @method('PUT')
                                                 <div class="qty-input">
@@ -149,7 +149,7 @@
                             </tfoot>
                         </table>
                         <div class="checkout-btn text-end my-5">
-                            <a href="{{route('cart.checkout')}}" class="btn tz-info">Proceed to checkout <i class="fas fa-arrow-right ms-2"></i></a>
+                            <a href="{{route('cart.checkout', app()->getLocale())}}" class="btn tz-info">Proceed to checkout <i class="fas fa-arrow-right ms-2"></i></a>
                         </div>
                     @else
                         <div class="col-md-12">

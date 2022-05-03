@@ -22,7 +22,7 @@
                             Export to Excel
                         </a>
                     </div>
-                    {{-- <a href="{{ route('admin.orders.create') }}" class="btn btn-primary float-end">Add New</a> --}}
+                    {{-- <a href="{{ route('admin.orders.create', app()->getLocale()) }}" class="btn btn-primary float-end">Add New</a> --}}
                 </div>
 
                 <x-alert/>
@@ -65,7 +65,7 @@
                                         <small><i data-feather="map-pin"></i> {{ $order['shipping_city_name'] }}</small>
                                     </div>
                                     
-                                	<a href="{{ route('admin.users.show', $order['user_id']) }}" class="d-flex">
+                                	<a href="{{ route('admin.users.show', [app()->getLocale(), $order['user_id']]) }}" class="d-flex">
                                 		User
                                 	</a>
                                 </td>
@@ -82,10 +82,10 @@
                                 <td></td>
                                 {{-- <td><a href="{{ $shop->slug }}">{{ $shop->name }}</a></td> --}}
                                 <td>
-                                    <form method="post" action="{{ route('admin.orders.destroy', $order['id']) }}" class="d-inline"> @csrf @method('DELETE')
+                                    <form method="post" action="{{ route('admin.orders.destroy', [app()->getLocale(), $order['id']]) }}" class="d-inline"> @csrf @method('DELETE')
                                     <button class="btn btn-danger btn-xs delete" type="submit">Delete</button>
                                     </form>
-                                    <a href="{{ route('admin.orders.show', $order['id']) }}" class="btn btn-success btn-xs edit" title="">View</a>
+                                    <a href="{{ route('admin.orders.show', [app()->getLocale(), $order['id']]) }}" class="btn btn-success btn-xs edit" title="">View</a>
 								</td>
                             </tr>
                         	@endforeach
@@ -172,7 +172,7 @@
                             @endphp
                             <tr>
                                 <td>
-                                    <a href="{{ route('admin.orders.show', $order->id) }}" title="Order #{{ $order->short_order_number }}" data-toggle="tooltip">{{ $order->id }}</a>
+                                    <a href="{{ route('admin.orders.show', [app()->getLocale(), $order->id]) }}" title="Order #{{ $order->short_order_number }}" data-toggle="tooltip">{{ $order->id }}</a>
                                 </td>
                                 <td>
                                     <a href="#">
@@ -190,7 +190,7 @@
                                 <td><span class="status text-success">&bull;</span> {{ $order->status }}</td>
                                 <td>@money($order->grand_total)</td>
                                 <td class="action-links">
-                                    <a href="{{ route('admin.orders.show', $order->id) }}" title="View Details" data-toggle="tooltip">
+                                    <a href="{{ route('admin.orders.show', [app()->getLocale(), $order->id]) }}" title="View Details" data-toggle="tooltip">
                                         {{-- <i data-feather="eye"></i> --}}
                                         {{-- <i class="fa fa-caret-right"></i> --}}
                                         <i class="fa fa-chevron-right"></i>

@@ -16,8 +16,8 @@
                 @endphp
                 <img src="{{ $img_src }}" alt="{{ empty($img['alt'])?$img['name']:$img['alt'] }}" data-bs-toggle="modal" data-bs-target="#image_details">
                 <div class="img-info d-none">
-                    <p class="form-action-link">{{ route('images.update', $img['id']) }}</p>
-                    <p class="img-del-link">{{ route('images.destroy', $img['id']) }}</p>
+                    <p class="form-action-link">{{ route('images.update', [app()->getLocale(), $img['id']]) }}</p>
+                    <p class="img-del-link">{{ route('images.destroy', [app()->getLocale(), $img['id']]) }}</p>
                     <p class="name">{{ $img['name'] }}</p>
                     <p class="caption">{{ $img['caption'] }}</p>
                     <p class="description">{{ $img['description'] }}</p>
@@ -33,7 +33,7 @@
         </div>
     @else
         <div class="col-md-12 text-muted">
-            File not found, please <a href="{{ route('images.create') }}">upload now</a>!
+            File not found, please <a href="{{ route('images.create', app()->getLocale()) }}">upload now</a>!
         </div>
     @endif
 </div>

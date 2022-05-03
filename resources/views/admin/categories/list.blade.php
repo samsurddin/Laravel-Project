@@ -16,7 +16,7 @@
             <div class="card-header">
                 <div class="head position-relative overflow-hidden">
                     <h5 class="mb-3 float-start">Category List</h5>
-                    <a href="{{-- {{ route('categories.create') }} --}}" class="btn btn-primary float-end" data-bs-toggle="modal" data-bs-target="#exampleModal1">Add New</a>
+                    <a href="{{-- {{ route('categories.create', app()->getLocale()) }} --}}" class="btn btn-primary float-end" data-bs-toggle="modal" data-bs-target="#exampleModal1">Add New</a>
                 </div>
                 {{-- <span>Category list will sho</span> --}}
 
@@ -78,7 +78,7 @@
 				            @endphp
                             <tr data-cat="{{ $category->id }}">
                                 <th scope="row">{{ $category->id }}</th>
-                                <td>{{-- {{ route('product.single', $category->id) }} --}}
+                                <td>{{-- {{ route('product.single', [app()->getLocale(), $category->id]) }} --}}
                                 	<a href="{{ $category->slug }}" class="d-flex">
                                 		{{-- <div class="rounded">
                                 			<img src="{{ $category->name }}" width="50px" height="50px">
@@ -104,10 +104,10 @@
                                 <td></td> --}}
                                 {{-- <td><a href="{{ $shop->slug }}">{{ $shop->name }}</a></td> --}}
                                 <td>
-                                    <form method="post" action="{{ route('categories.destroy', $category->id) }}" class="d-inline"> @csrf @method('DELETE')
+                                    <form method="post" action="{{ route('categories.destroy', [app()->getLocale(), $category->id]) }}" class="d-inline"> @csrf @method('DELETE')
                                     <button class="btn btn-danger btn-xs delete" type="submit">Delete</button>
                                     </form>
-									<a href="{{ route('categories.edit', $category->id) }}" class="btn btn-success btn-xs edit" title="">Edit</a>
+									<a href="{{ route('categories.edit', [app()->getLocale(), $category->id]) }}" class="btn btn-success btn-xs edit" title="">Edit</a>
 								</td>
                             </tr>
                         	@endforeach
@@ -129,7 +129,7 @@
                     <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close" data-bs-original-title="" title=""></button>
                 </div>
                 <div class="modal-body">
-                    <form class="form-bookmark" method="post" action="{{ route('categories.store') }}">
+                    <form class="form-bookmark" method="post" action="{{ route('categories.store', app()->getLocale()) }}">
                         @csrf
                         
                         <div class="row g-2">

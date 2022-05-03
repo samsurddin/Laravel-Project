@@ -84,7 +84,7 @@
                             {!! $product->short_description !!}
                         </div>
 
-                        <form class="cart my-2 py-2 text-center" action="{{ route('cart.store') }}" method="post">
+                        <form class="cart my-2 py-2 text-center" action="{{ route('cart.store', app()->getLocale()) }}" method="post">
                             @csrf
                             <input type="hidden" name="product_id" value="{{ $product->id }}">
                             

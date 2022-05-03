@@ -16,11 +16,11 @@
             <div class="card-header">
                 <div class="head position-relative overflow-hidden">
                     <h5 class="pt-2 float-start">Upload New Image</h5>
-                    <a href="{{ route('admin.images.index') }}" class="btn btn-warning float-end">Go Back</a>
+                    <a href="{{ route('admin.images.index', app()->getLocale()) }}" class="btn btn-warning float-end">Go Back</a>
                 </div>
             </div>
             <div class="card-body">
-                <form action="{{ route('admin.images.store') }}" method="post" enctype="multipart/form-data">
+                <form action="{{ route('admin.images.store', app()->getLocale()) }}" method="post" enctype="multipart/form-data">
                     @csrf
                     @if ($message = Session::get('success'))
                         <div class="alert alert-success">

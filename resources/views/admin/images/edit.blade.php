@@ -16,7 +16,7 @@
             <div class="card-header">
                 <div class="head position-relative overflow-hidden">
                     <h5 class="mb-3 float-start">Category Update</h5>
-                    <a href="{{ route('admin.images.index') }}" class="btn btn-warning float-end">Go Back</a>
+                    <a href="{{ route('admin.images.index', app()->getLocale()) }}" class="btn btn-warning float-end">Go Back</a>
                 </div>
 
                 <div class="alert-box">
@@ -36,7 +36,7 @@
                     @endif
                 </div>
             </div>
-            <form class="theme-form" method="post" action="{{ route('categories.update', $category->id) }}">
+            <form class="theme-form" method="post" action="{{ route('categories.update', [app()->getLocale(), $category->id]) }}">
                 @csrf
                 @method('PUT')
                     

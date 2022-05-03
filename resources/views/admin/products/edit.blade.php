@@ -14,7 +14,7 @@
             <div class="card-header">
                 <div class="head position-relative overflow-hidden">
                     <h5 class="pt-2 float-start">Update Product</h5>
-                    <a href="{{ route('products.index') }}" class="btn btn-warning float-end">Go Back</a>
+                    <a href="{{ route('products.index', app()->getLocale()) }}" class="btn btn-warning float-end">Go Back</a>
                 </div>
                 {{-- <span>Product list will sho</span> --}}
 
@@ -36,7 +36,7 @@
                 </div>
             </div>
             <span id="temp_img_response" class="d-none"></span>
-            <form class="theme-form product-create" method="post" action="{{ route('products.update', $product->id) }}">
+            <form class="theme-form product-create" method="post" action="{{ route('products.update', [app()->getLocale(), $product->id]) }}">
                 @csrf
                 @method('PUT')
                 <input type="hidden" id="featured_img" name="featured_img" value="{{ $product->featured_img }}">
@@ -410,7 +410,7 @@
 
         function uploadFile(file, i) {
             // var url = 'https://api.cloudinary.com/v1_1/joezimim007/image/upload'
-            var url = '{{ route('imageUpload') }}'
+            var url = '{{ route('imageUpload', app()->getLocale()) }}'
             var xhr = new XMLHttpRequest()
             var formData = new FormData()
             xhr.open('POST', url, true)
@@ -467,7 +467,7 @@
             event.preventDefault();
 
             $.ajax({
-                url: '{{ route('admin.images.index') }}',
+                url: '{{ route('admin.images.index', app()->getLocale()) }}',
                 type: 'GET',
                 dataType: 'html'
             })

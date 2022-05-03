@@ -38,7 +38,7 @@
                             // dd($all_cat)
                         @endphp
                         <div>
-                            <a href="{{ route('categories.show', $all_cat['slug']) }}">
+                            <a href="{{ route('categories.show', [app()->getLocale(), $all_cat['slug']]) }}">
                                 <img src="https://images.unsplash.com/photo-1551739440-5dd934d3a94a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=4&w=100&h=100&q=60" alt="{{ $all_cat['name'] }}">
                                 <span class="cat-name">{{ $all_cat['name'] }}</span>
                             </a>
@@ -225,7 +225,7 @@
                                 <div class="sidebar-body my-3">
                                     <ul class="brands">
                                         @foreach ($brands as $brand)
-                                        <li class="brand {{ (!empty($selected_brand) && $selected_brand==$brand->id)?'active':'' }}"><a href="{{ route('shop.brand', $brand->id) }}">{{ $brand->name }}</a></li>
+                                        <li class="brand {{ (!empty($selected_brand) && $selected_brand==$brand->id)?'active':'' }}"><a href="{{ route('shop.brand', [app()->getLocale(), $brand->id]) }}">{{ $brand->name }}</a></li>
                                         @endforeach
                                     </ul>
                                     {{-- <a href="">
@@ -252,11 +252,11 @@
                                 <div class="sidebar-body">
                                     <ul class="pricing-filter mb-4">
                                     @foreach ($price_filter as $pfk => $pf)
-                                        <li><a href="{{ route('shop.index').'?min='.$pf['min'] . '&max=' . $pf['max'] }}" data-min="{{ $pf['min'] }}" data-max="{{ $pf['max'] }}">{{ $pf['label'] }}</a></li>
+                                        <li><a href="{{ route('shop.index', app()->getLocale()).'?min='.$pf['min'] . '&max=' . $pf['max'] }}" data-min="{{ $pf['min'] }}" data-max="{{ $pf['max'] }}">{{ $pf['label'] }}</a></li>
                                     @endforeach
                                     </ul>
                                     <input type="text" min="{{ $product_min_max_price[0] }}" max="{{ $product_min_max_price[1] }}" id="sampleSlider" />
-                                    <a id="price_filter_btn" href="{{ route('shop.index').'?min='.$product_min_max_price[0] . '&max=' . $product_min_max_price[1] }}" class="btn btn-brand btn-sm">Apply price filter</a>
+                                    <a id="price_filter_btn" href="{{ route('shop.index', app()->getLocale()).'?min='.$product_min_max_price[0] . '&max=' . $product_min_max_price[1] }}" class="btn btn-brand btn-sm">Apply price filter</a>
                                 </div>
                             </section>
                             <section class="bg-white rounded p-4 mb-4 pt-0 pb-2">
@@ -285,14 +285,14 @@
                             <div class="col-md-4">
                                 <div class="product-item">
                                     <div class="img-box position-relative">
-                                        <a href="{{ route('product.single', $product->slug) }}" class="single-product-link"><img src="http://localhost:8000/admin/assets/images/login/1.jpg" alt="{{ $product->name }}"></a>
+                                        <a href="{{ route('product.single', [app()->getLocale(), $product->slug]) }}" class="single-product-link"><img src="http://localhost:8000/admin/assets/images/login/1.jpg" alt="{{ $product->name }}"></a>
                                         {{-- {{ $product->featured_img }} --}}
                                         <div class="hidden-btns overflow-hidden">
                                             <a href="{{ $product->featured_img }}" class="wishlist float-start btn btn-sm btn-brand" title="Add to Wishlist"><i class="fas fa-heart"></i></a>
                                             <a href="{{ $product->featured_img }}" class="compare float-end btn btn-sm btn-brand" title="Share it"><i class="fas fa-retweet"></i></a>
                                         </div>
                                     </div>
-                                    <h5 class="title"><a href="{{ route('product.single', $product->slug) }}" class="single-product-link">{{ $product->name }}</a></h5>
+                                    <h5 class="title"><a href="{{ route('product.single', [app()->getLocale(), $product->slug]) }}" class="single-product-link">{{ $product->name }}</a></h5>
                                     <div class="short-desc">{!! $product->short_description !!}</div>
                                     <div class="price-review overflow-hidden">
                                         <div class="price float-start">
@@ -302,7 +302,7 @@
                                         <div class="review float-end">{!! str_repeat('<i class="fas fa-star"></i>', 5) !!}</div>
                                     </div>
                                     <div class="d-grid gap-2">
-                                        <a href="{{ route('cart.index').'?add-to-cart='.$product->id }}" class="btn fw-bold tz-info d-inline-block">Add to cart</a>
+                                        <a href="{{ route('cart.index', app()->getLocale()).'?add-to-cart='.$product->id }}" class="btn fw-bold tz-info d-inline-block">Add to cart</a>
                                     </div>
                                 </div>
                             </div>

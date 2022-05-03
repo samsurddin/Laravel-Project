@@ -16,7 +16,7 @@
             <div class="card-header">
                 <div class="head position-relative overflow-hidden">
                     <h5 class="mb-3 float-start">Category List</h5>
-                    <a href="{{ route('categories.create') }}" class="btn btn-primary float-end">Add New</a>
+                    <a href="{{ route('categories.create', app()->getLocale()) }}" class="btn btn-primary float-end">Add New</a>
                 </div>
                 {{-- <span>Category list will sho</span> --}}
             </div>
@@ -52,7 +52,7 @@
 				            @endphp
                             <tr>
                                 <th scope="row">{{ $categorie->id }}</th>
-                                <td>{{-- {{ route('product.single', $categorie->id) }} --}}
+                                <td>{{-- {{ route('product.single', [app()->getLocale(), $categorie->id]) }} --}}
                                 	<a href="{{ $categorie->slug }}" class="d-flex">
                                 		{{-- <div class="rounded">
                                 			<img src="{{ $categorie->name }}" width="50px" height="50px">

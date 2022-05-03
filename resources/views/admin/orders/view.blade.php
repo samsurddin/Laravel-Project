@@ -15,7 +15,7 @@
             <div class="card-header">
                 <div class="head position-relative overflow-hidden">
                     <h5 class="pt-2 float-start">#{{ $order['order_number'] }}</h5>
-                    <a href="{{ route('products.index') }}" class="btn btn-warning float-end"><i data-feather="eye"></i> Invoice</a>
+                    <a href="{{ route('products.index', app()->getLocale()) }}" class="btn btn-warning float-end"><i data-feather="eye"></i> Invoice</a>
                 </div>
 
                 <x-alert/>

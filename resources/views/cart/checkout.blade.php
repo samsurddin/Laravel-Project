@@ -16,7 +16,7 @@
                     @endphp
 
                     @if ($cartItems)
-                        <form action="{{route('orders.store')}}" method="post" class="row checkout-form">
+                        <form action="{{route('orders.store', app()->getLocale())}}" method="post" class="row checkout-form">
                             @csrf
                             <div class="col-lg-8">
                                 <div class="shipping-info mb-4">
@@ -47,7 +47,7 @@
                                                     <label for="">Confirm Password</label>
                                                     <input type="password" name="password_confirmation" value="{{ old('password_confirmation') }}" class="form-control" placeholder="Write your password again">
                                                 </div>
-                                                <div class="col-md-12 mt-3 text-center">Do you have an account? <a class="btn btn-sm tz-info ms-2" href="{{ route('login') }}">Login now</a></div>
+                                                <div class="col-md-12 mt-3 text-center">Do you have an account? <a class="btn btn-sm tz-info ms-2" href="{{ route('login', app()->getLocale()) }}">Login now</a></div>
                                             </div>
                                         </div>
                                     </div>
@@ -209,7 +209,7 @@
                                     <section class="coupon mb-4">
                                         <div class="input-group">
                                             <input id="coupon_code" class="form-control" name="coupon_code" placeholder="Coupon code" type="text">
-                                            <a id="apply_coupon" href="{{route('cart.applycoupon')}}" class="btn btn-brand fw-bold text-light">Apply Coupon</a>
+                                            <a id="apply_coupon" href="{{route('cart.applycoupon', app()->getLocale())}}" class="btn btn-brand fw-bold text-light">Apply Coupon</a>
                                         </div>
                                     </section>
 
@@ -311,7 +311,7 @@
                     // console.log(csrf);
                     // return false;
                     $.ajax({
-                        url: "{{ route('cart.addshipping') }}",
+                        url: "{{ route('cart.addshipping', app()->getLocale()) }}",
                         type: 'POST',
                         dataType: 'html',
                         data: {city: city},
@@ -338,7 +338,7 @@
                     event.stopImmediatePropagation();
 
                     $.ajax({
-                        url: "{{ route('cart.applycoupon') }}",
+                        url: "{{ route('cart.applycoupon', app()->getLocale()) }}",
                         type: 'GET',
                         dataType: 'html',
                         data: {code: $(this).prev('input').val()},

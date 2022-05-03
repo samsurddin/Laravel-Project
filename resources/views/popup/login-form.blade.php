@@ -2,7 +2,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="login-main p-3 rounded-bottom mx-0 my-auto bg-white shadow-lg">
-                <form class="brand-form theme-form p-3" method="POST" action="{{ route('login') }}">
+                <form class="brand-form theme-form p-3" method="POST" action="{{ route('login', app()->getLocale()) }}">
                     @csrf
                     
                     <h4 class="fw-bold">Sign in to account</h4>
@@ -22,7 +22,7 @@
                         </div>
                         @if (Route::has('password.request'))
                         <div class="forgot-link py-2 ">
-                            <a class="underline text-sm" href="{{ route('password.request') }}">
+                            <a class="underline text-sm" href="{{ route('password.request', app()->getLocale()) }}">
                                 {{ __('Forgot your password?') }}
                             </a>
                         </div>
@@ -31,7 +31,7 @@
                     <div class="form-group mb-2 d-grid">
                         <button class="btn btn-block btn-brand" type="submit">Sign in</button>
                     </div>
-                    <p class="mt-4 mb-0">Don't have account?<a class="ms-2 fw-bold" href="{{ route('register') }}">Create Account</a></p>
+                    <p class="mt-4 mb-0">Don't have account?<a class="ms-2 fw-bold" href="{{ route('register', app()->getLocale()) }}">Create Account</a></p>
                 </form>
             </div>
         </div>

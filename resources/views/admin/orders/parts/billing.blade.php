@@ -22,7 +22,7 @@
     </div>
 
     <div class="edit_address">
-        <form class="submit_form" action="{{ route('admin.order.update_billing', $order['id']) }}" data-click="edit">
+        <form class="submit_form" action="{{ route('admin.order.update_billing', [app()->getLocale(), $order['id']]) }}" data-click="edit">
             <p class="form-field billing_fullname ">
                 <label for="billing_fullname">Name</label>
                 <input type="text" class="form-control form-control-sm" name="billing_fullname" id="billing_fullname" value="{{ $order['billing_fullname'] }}" placeholder="">

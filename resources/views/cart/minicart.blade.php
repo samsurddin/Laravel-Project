@@ -17,7 +17,7 @@ $cartItems = getCartItems();
             @foreach($cartItems as $row)
                 <tr id="cart-{{ $row['id'] }}">
                     <td>
-                        <a class="capsule text-danger delete" href="{{ route('cart.index').'?remove='.$row['id'] }}"><i class="fas fa-trash"></i></a>
+                        <a class="capsule text-danger delete" href="{{ route('cart.index', app()->getLocale()).'?remove='.$row['id'] }}"><i class="fas fa-trash"></i></a>
                     </td>
                     <td>
                         @php
@@ -65,7 +65,7 @@ $cartItems = getCartItems();
             @if ($charges)
             @foreach ($charges as $charge)
             <tr class="charges">
-                <td title="{{ $charge['name'] }}">{{ $charge['name'] }} @if ($charge['id'] == 'coupon') <a href="{{ route('cart.removecoupon') }}" class="text-danger">x</a> @endif</td>
+                <td title="{{ $charge['name'] }}">{{ $charge['name'] }} @if ($charge['id'] == 'coupon') <a href="{{ route('cart.removecoupon', app()->getLocale()) }}" class="text-danger">x</a> @endif</td>
                 <td>@money(getChargeAmount($charge['id']))</td>
             </tr>
             @endforeach

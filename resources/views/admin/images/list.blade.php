@@ -16,7 +16,7 @@
             <div class="card-header">
                 <div class="head position-relative overflow-hidden">
                     <h5 class="pt-2 float-start">Uploaded Images</h5>
-                    <a href="{{ route('admin.images.create') }}" class="btn btn-primary float-end">Upload New</a>
+                    <a href="{{ route('admin.images.create', app()->getLocale()) }}" class="btn btn-primary float-end">Upload New</a>
                 </div>
                 {{-- <span>Category list will sho</span> --}}
 
@@ -59,14 +59,14 @@
                                 @endphp
                                 <img src="{{ $img_src }}" alt="{{ empty($img['alt'])?$img['name']:$img['alt'] }}" data-bs-toggle="modal" data-bs-target="#image_details">
                                 <div class="img-info d-none">
-                                    <p class="form-action-link">{{ route('images.update', $img['id']) }}</p>
-                                    <p class="img-del-link">{{ route('images.destroy', $img['id']) }}</p>
+                                    <p class="form-action-link">{{ route('images.update', [app()->getLocale(), $img['id']]) }}</p>
+                                    <p class="img-del-link">{{ route('images.destroy', [app()->getLocale(), $img['id']]) }}</p>
                                     <p class="name">{{ $img['name'] }}</p>
                                     <p class="caption">{{ $img['caption'] }}</p>
                                     <p class="description">{{ $img['description'] }}</p>
                                 </div>
                                 <div class="img-delete">
-                                    <form method="post" action="{{ route('images.destroy', $img['id']) }}" class="d-inline"> @csrf @method('DELETE')
+                                    <form method="post" action="{{ route('images.destroy', [app()->getLocale(), $img['id']]) }}" class="d-inline"> @csrf @method('DELETE')
                                         <button class="btn btn-danger btn-xs delete" type="submit">Delete</button>
                                     </form>
                                 </div>
@@ -78,7 +78,7 @@
                         </div>
                     @else
                         <div class="col-md-12 text-muted">
-                            File not found, please <a href="{{ route('admin.images.create') }}">upload now</a>!
+                            File not found, please <a href="{{ route('admin.images.create', app()->getLocale()) }}">upload now</a>!
                         </div>
                     @endif
                 </div>
