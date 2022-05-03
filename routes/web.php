@@ -5,9 +5,18 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Request;
 
 use App\Http\Controllers\RoleController;
-use App\Http\Controllers\UserController;
 use App\Http\Controllers\TenantController;
 use App\Http\Controllers\PlanController;
+use App\Http\Controllers\UserController;
+
+// ecommerce admin
+use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Admin\OrderController;
+use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\BrandController;
+use App\Http\Controllers\Admin\SpecificationController;
+use App\Http\Controllers\Admin\ImageController;
+use App\Http\Controllers\Admin\QuestionAnswerController;
 
 use App\Http\Controllers\SettingController;
 use Illuminate\Support\Facades\Artisan;
@@ -78,6 +87,16 @@ Route::group(['prefix' => '{locale}', 'where' => ['locale' => '[a-zA-Z]{2}']], f
                     'show'
                 ]);
                 // Route::get('settings/edit', [SettingController::class, 'edit'])->name('settings.edit');
+
+                Route::resources([
+                    'products' => ProductController::class,
+                    'orders' => OrderController::class,
+                    'categories' => CategoryController::class,
+                    'brands' => BrandController::class,
+                    'specifications' => SpecificationController::class,
+                    'images' => ImageController::class,
+                    'question-answers' => QuestionAnswerController::class,
+                ]);
             });
 
             // landlord admin routes
