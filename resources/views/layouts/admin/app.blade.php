@@ -379,10 +379,10 @@
                                     {{-- <li><a href="#"><i data-feather="log-in"> </i><span>Log in</span></a></li> --}}
                                     <!-- Authentication -->
                                     <li>
-                                        <form method="POST" action="{{ route('logout') }}">
+                                        <form method="POST" action="{{ route('logout', app()->getLocale()) }}">
                                             @csrf
 
-                                            <a href="{{ route('logout') }}" onclick="event.preventDefault(); this.closest('form').submit();">
+                                            <a href="{{ route('logout', app()->getLocale()) }}" onclick="event.preventDefault(); this.closest('form').submit();">
                                                 <i data-feather="log-out"> </i> {{ __('Log Out') }}
                                             </a>
                                         </form>
@@ -444,22 +444,22 @@
                                     <li class="sidebar-list">
                                         <a class="sidebar-link sidebar-title" href="#"><i data-feather="airplay"></i><span class="">Images</span></a>
                                         <ul class="sidebar-submenu">
-                                            <li><a href="{{ route('admin.images.index') }}">Image List</a></li>
-                                            <li><a href="{{ route('admin.images.create') }}">Upload New Image</a></li>
+                                            <li><a href="{{ route('admin.images.index', app()->getLocale()) }}">Image List</a></li>
+                                            <li><a href="{{ route('admin.images.create', app()->getLocale()) }}">Upload New Image</a></li>
                                         </ul>
                                     </li>
                                     <li class="sidebar-list">
                                         <a class="sidebar-link sidebar-title" href="#"><i data-feather="airplay"></i><span class="">Products</span></a>
                                         <ul class="sidebar-submenu">
-                                            <li><a href="{{ route('admin.products.index') }}">Product List</a></li>
-                                            <li><a href="{{ route('admin.products.create') }}">Add New Product</a></li>
+                                            <li><a href="{{ route('admin.products.index', app()->getLocale()) }}">Product List</a></li>
+                                            <li><a href="{{ route('admin.products.create', app()->getLocale()) }}">Add New Product</a></li>
                                         </ul>
                                     </li>
                                     <li class="sidebar-list">
                                         <a class="sidebar-link sidebar-title" href="#"><i data-feather="layout"></i><span class="">Categories</span></a>
                                         <ul class="sidebar-submenu">
-                                            <li><a href="{{ route('admin.categories.index') }}">Category List</a></li>
-                                            {{-- <li><a href="{{ route('admin.categories.create') }}">Add New</a></li> --}}
+                                            <li><a href="{{ route('admin.categories.index', app()->getLocale()) }}">Category List</a></li>
+                                            {{-- <li><a href="{{ route('admin.categories.create', app()->getLocale()) }}">Add New</a></li> --}}
                                         </ul>
                                     </li>
                                     {{-- <li class="sidebar-main-title">
@@ -471,15 +471,15 @@
                                     <li class="sidebar-list">
                                         <label class="badge badge-danger">New</label><a class="sidebar-link sidebar-title" href="#"><i data-feather="box"></i><span>Brands</span></a>
                                         <ul class="sidebar-submenu">
-                                            <li><a href="{{ route('admin.brands.index') }}">Brand List</a></li>
-                                            {{-- <li><a href="{{ route('admin.brands.create') }}">Add new</a></li> --}}
+                                            <li><a href="{{ route('admin.brands.index', app()->getLocale()) }}">Brand List</a></li>
+                                            {{-- <li><a href="{{ route('admin.brands.create', app()->getLocale()) }}">Add new</a></li> --}}
                                         </ul>
                                     </li>
                                     <li class="sidebar-list">
                                         <a class="sidebar-link sidebar-title" href="#"><i data-feather="shopping-bag"></i><span>Specifications</span></a>
                                         <ul class="sidebar-submenu">
-                                            <li><a href="{{ route('admin.specifications.index') }}">Specification Keys</a></li>
-                                            {{-- <li><a href="{{ route('admin.specifications.index') }}">Add New</a></li> --}}
+                                            <li><a href="{{ route('admin.specifications.index', app()->getLocale()) }}">Specification Keys</a></li>
+                                            {{-- <li><a href="{{ route('admin.specifications.index', app()->getLocale()) }}">Add New</a></li> --}}
                                         </ul>
                                     </li>
                                     {{-- <li class="sidebar-list">
@@ -492,15 +492,15 @@
                                     <li class="sidebar-list">
                                         <a class="sidebar-link sidebar-title" href="#"><i data-feather="message-circle"></i><span>Questions Answers</span></a>
                                         <ul class="sidebar-submenu">
-                                            <li><a href="{{ route('admin.question-answers.index') }}">QA List</a></li>
-                                            <li><a href="{{ route('admin.question-answers.create') }}">Add New</a></li>
+                                            <li><a href="{{ route('admin.question-answers.index', app()->getLocale()) }}">QA List</a></li>
+                                            <li><a href="{{ route('admin.question-answers.create', app()->getLocale()) }}">Add New</a></li>
                                         </ul>
                                     </li>
                                     <li class="sidebar-list">
                                         <a class="sidebar-link sidebar-title" href="#"><i data-feather="users"></i><span>Users</span></a>
                                         <ul class="sidebar-submenu">
-                                            <li><a href="{{ route('admin.users.index') }}">User List</a></li>
-                                            <li><a href="{{ route('admin.users.create') }}">Add New</a></li>
+                                            <li><a href="{{ route('admin.users.index', app()->getLocale()) }}">User List</a></li>
+                                            <li><a href="{{ route('admin.users.create', app()->getLocale()) }}">Add New</a></li>
                                         </ul>
                                     </li>
                                 </ul>
@@ -522,7 +522,7 @@
                                 </div>
                                 <div class="col-6">
                                     <ol class="breadcrumb">
-                                        <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}"> <i data-feather="home"></i></a></li>
+                                        <li class="breadcrumb-item"><a href="{{ route('admin.dashboard', app()->getLocale()) }}"> <i data-feather="home"></i></a></li>
                                         @yield('breadcrumb-items')
                                     </ol>
                                 </div>

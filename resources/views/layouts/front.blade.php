@@ -53,11 +53,11 @@
                             <ul class="p-0 m-0">
                                 <li class="d-inline-block user-icon">
                                     @if ($user = Auth::user())
-                                    <a href="{{ route('profile.show') }}">
+                                    <a href="{{ route('profile.show', app()->getLocale()) }}">
                                         Hello, {{ $user->name }}<br><strong>My Account</strong>
                                     </a>
                                     @else
-                                    <a href="{{ route('login') }}">
+                                    <a href="{{ route('login', app()->getLocale()) }}">
                                         Hello, Friend<br><strong>Login Now</strong>
                                     </a>
                                     @endif
@@ -66,7 +66,7 @@
                                     <a href=""><i data-feather="heart"></i></a>
                                 </li>
                                 <li class="d-inline-block cart-icon">
-                                    <a href="{{ route('cart.index') }}" class=" position-relative">
+                                    <a href="{{ route('cart.index', app()->getLocale()) }}" class=" position-relative">
                                         <i data-feather="shopping-cart"></i>
                                         @php
                                         $total_qty = getTotalQuantity();
