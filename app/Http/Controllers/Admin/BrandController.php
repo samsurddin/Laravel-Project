@@ -37,7 +37,7 @@ class BrandController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store($lang, Request $request)
     {
         $validated = $request->validate([
             'name' => 'required|unique:brands|max:50',
@@ -61,7 +61,7 @@ class BrandController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($lang, $id)
     {
         //
     }
@@ -72,7 +72,7 @@ class BrandController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($lang, $id)
     {
         $brand = Brand::find($id);
         // dd($brand);
@@ -86,7 +86,7 @@ class BrandController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update($lang, Request $request, $id)
     {
         $validated = $request->validate([
             'name' => 'required|max:50',
@@ -110,7 +110,7 @@ class BrandController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($lang, $id)
     {
         $deletedRows = Brand::where('id', $id)->delete();
 

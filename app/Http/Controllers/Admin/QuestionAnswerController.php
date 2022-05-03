@@ -36,7 +36,7 @@ class QuestionAnswerController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store($lang, Request $request)
     {
         $validated = $request->validate([
             'question' => 'required|unique:question_answers',
@@ -58,7 +58,7 @@ class QuestionAnswerController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($lang, $id)
     {
         //
     }
@@ -69,7 +69,7 @@ class QuestionAnswerController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($lang, $id)
     {
         //
     }
@@ -81,7 +81,7 @@ class QuestionAnswerController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update($lang, Request $request, $id)
     {
         //
     }
@@ -92,7 +92,7 @@ class QuestionAnswerController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($lang, $id)
     {
         //
     }

@@ -49,7 +49,7 @@ class OrderController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store($lang, Request $request)
     {
         //
     }
@@ -60,7 +60,7 @@ class OrderController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($lang, $id)
     {
         $order = Order::with('user')
                     ->with('items')
@@ -117,7 +117,7 @@ class OrderController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($lang, $id)
     {
         //
     }
@@ -129,7 +129,7 @@ class OrderController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update($lang, Request $request, $id)
     {
         //
     }
@@ -140,7 +140,7 @@ class OrderController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($lang, $id)
     {
         //
     }
@@ -152,7 +152,7 @@ class OrderController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update_status(Request $request, $id)
+    public function update_status($lang, Request $request, $id)
     {
         //
     }
@@ -164,7 +164,7 @@ class OrderController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update_billing(Request $request, $id)
+    public function update_billing($lang, Request $request, $id)
     {
         $order = Order::find($id);
         if (empty($order)) {
@@ -213,7 +213,7 @@ class OrderController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function add_tracking(Request $request)
+    public function add_tracking($lang, Request $request)
     {
         //
     }
@@ -224,7 +224,7 @@ class OrderController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function delete_tracking($id)
+    public function delete_tracking($lang, $id)
     {
         //
     }
@@ -235,7 +235,7 @@ class OrderController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function add_note(Request $request)
+    public function add_note($lang, Request $request)
     {
         //
     }
@@ -246,7 +246,7 @@ class OrderController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function delete_note($id)
+    public function delete_note($lang, $id)
     {
         //
     }

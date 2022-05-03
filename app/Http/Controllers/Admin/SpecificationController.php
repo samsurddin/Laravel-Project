@@ -37,7 +37,7 @@ class SpecificationController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store($lang, Request $request)
     {
         if ($request['type'] == 'head') {
             $request['head_id'] = NULL;
@@ -64,7 +64,7 @@ class SpecificationController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($lang, $id)
     {
         //
     }
@@ -75,7 +75,7 @@ class SpecificationController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($lang, $id)
     {
         $specification = Specification::find($id);
         $spec_heads = Specification::where(['type'=>'head'])->get();
@@ -90,7 +90,7 @@ class SpecificationController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update($lang, Request $request, $id)
     {
         if ($request['type'] == 'head') {
             $request['head_id'] = NULL;
@@ -120,7 +120,7 @@ class SpecificationController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($lang, $id)
     {
         $deletedRows = Specification::where('id', $id)->delete();
 
