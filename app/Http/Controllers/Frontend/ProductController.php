@@ -36,7 +36,7 @@ class ProductController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store($lang, Request $request)
     {
         //
     }
@@ -48,7 +48,7 @@ class ProductController extends Controller
      * @return \Illuminate\Http\Response
      */
     // public function show(Product $product)
-    public function show(Product $product)
+    public function show($lang, Product $product)
     {
         $product = $product->with('images')->with('specifications')->with('categories')->with('brand')->first();
         // echo '<pre>';
@@ -67,7 +67,7 @@ class ProductController extends Controller
      * @param  \App\Models\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function edit(Product $product)
+    public function edit($lang, Product $product)
     {
         //
     }
@@ -79,7 +79,7 @@ class ProductController extends Controller
      * @param  \App\Models\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Product $product)
+    public function update($lang, Request $request, Product $product)
     {
         //
     }
@@ -90,7 +90,7 @@ class ProductController extends Controller
      * @param  \App\Models\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Product $product)
+    public function destroy($lang, Product $product)
     {
         //
     }

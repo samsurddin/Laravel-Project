@@ -16,7 +16,7 @@ class CategoryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request, Brand $brand)
+    public function index($lang, Request $request, Brand $brand)
     {
         $categories = Category::all()->toArray();
         $category_tree = Category::where(['parent_id' => NULL])->with('parent')->with('child')->get()->toArray();
@@ -62,7 +62,7 @@ class CategoryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store($lang, Request $request)
     {
         //
     }
@@ -73,7 +73,7 @@ class CategoryController extends Controller
      * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function show(Category $category)
+    public function show($lang, Category $category)
     {
         $categories = Category::all()->toArray();
         $category_tree = $category->where(['parent_id' => NULL])->with('parent')->with('child')->get()->toArray();
@@ -214,7 +214,7 @@ class CategoryController extends Controller
      * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function edit(Category $category)
+    public function edit($lang, Category $category)
     {
         //
     }
@@ -226,7 +226,7 @@ class CategoryController extends Controller
      * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Category $category)
+    public function update($lang, Request $request, Category $category)
     {
         //
     }
@@ -237,7 +237,7 @@ class CategoryController extends Controller
      * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Category $category)
+    public function destroy($lang, Category $category)
     {
         //
     }

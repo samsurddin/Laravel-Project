@@ -13,7 +13,7 @@ class CartController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index($lang, Request $request)
     {
         // dd(empty($request->get('add-to-cart')));
         // $userId = auth()->user();
@@ -72,7 +72,7 @@ class CartController extends Controller
         //
     }
 
-    public function add(Product $product)
+    public function add($lang, Product $product)
     {
         
     }
@@ -83,7 +83,7 @@ class CartController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store($lang, Request $request)
     {
         $validated = $request->validate([
             'product_id' => 'required|numeric',
@@ -137,7 +137,7 @@ class CartController extends Controller
         \Cart::condition($condition);
     }
 
-    public function addDeliveryCharge(Request $request, $city='dhaka')
+    public function addDeliveryCharge($lang, Request $request, $city='dhaka')
     {
         // dd($request->ajax());
         // dd($request);
@@ -192,7 +192,7 @@ class CartController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($lang, $id)
     {
         //
     }
@@ -203,7 +203,7 @@ class CartController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($lang, $id)
     {
         //
     }
@@ -215,7 +215,7 @@ class CartController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update($lang, Request $request, $id)
     {
         // dd($request->quantity);
         \Cart::update($id, [
@@ -233,7 +233,7 @@ class CartController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($lang, $id)
     {
         //
     }
