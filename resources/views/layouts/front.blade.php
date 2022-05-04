@@ -23,7 +23,7 @@
         @stack('style')
 
         <!-- Styles -->
-        <link rel="stylesheet" href="{{ mix('css/app.css') }}">
+        <link rel="stylesheet" href="{{ mix('css/style-front.css') }}">
         {{-- <link href="{{ asset('css/app.css') }}" rel="stylesheet"> --}}
 
         @livewireStyles
