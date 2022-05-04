@@ -1,6 +1,6 @@
 <?php
 
-use App\Models\Category;
+use App\Models\Tenant\Category;
 use Carbon\Carbon;
 
 function getCategoryTreeList($type='list', $category_tree=NULL)
