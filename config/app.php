@@ -167,6 +167,11 @@ return [
         Illuminate\View\ViewServiceProvider::class,
 
         /*
+         * Helper Providers...
+         */
+        App\Providers\HelperServiceProvider::class,
+
+        /*
          * Package Service Providers...
          */
         Spatie\Permission\PermissionServiceProvider::class,
