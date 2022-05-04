@@ -59,14 +59,14 @@
                                 @endphp
                                 <img src="{{ $img_src }}" alt="{{ empty($img['alt'])?$img['name']:$img['alt'] }}" data-bs-toggle="modal" data-bs-target="#image_details">
                                 <div class="img-info d-none">
-                                    <p class="form-action-link">{{ route('images.update', [app()->getLocale(), $img['id']]) }}</p>
-                                    <p class="img-del-link">{{ route('images.destroy', [app()->getLocale(), $img['id']]) }}</p>
+                                    <p class="form-action-link">{{ route('admin.images.update', [app()->getLocale(), $img['id']]) }}</p>
+                                    <p class="img-del-link">{{ route('admin.images.destroy', [app()->getLocale(), $img['id']]) }}</p>
                                     <p class="name">{{ $img['name'] }}</p>
                                     <p class="caption">{{ $img['caption'] }}</p>
                                     <p class="description">{{ $img['description'] }}</p>
                                 </div>
                                 <div class="img-delete">
-                                    <form method="post" action="{{ route('images.destroy', [app()->getLocale(), $img['id']]) }}" class="d-inline"> @csrf @method('DELETE')
+                                    <form method="post" action="{{ route('admin.images.destroy', [app()->getLocale(), $img['id']]) }}" class="d-inline"> @csrf @method('DELETE')
                                         <button class="btn btn-danger btn-xs delete" type="submit">Delete</button>
                                     </form>
                                 </div>
