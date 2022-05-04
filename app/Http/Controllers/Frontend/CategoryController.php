@@ -24,7 +24,7 @@ class CategoryController extends Controller
         $brands = Brand::all();
         $specs = Specification::all();
 
-        $products = Product::paginate(15);
+        $products = Product::with('images')->paginate(15);
 
         $filter = $request->toArray();
         if (!empty($filter)) {
