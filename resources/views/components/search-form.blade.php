@@ -1,4 +1,4 @@
-<form action="{{ route('shop.index') }}" class="form-group">
+<form action="{{ route('shop.index', app()->getLocale()) }}" class="form-group">
     <div class="input-group">
         {{-- <button class="input-group-text categories">Categories<i data-feather="chevron-down"></i></button> --}}
         {{-- {{ dd($_GET) }} --}}
