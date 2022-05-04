@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Frontend;
 
-use App\Models\Charge;
+use App\Http\Controllers\Controller;
+use App\Models\Tenant\Charge;
 use Illuminate\Http\Request;
 
 class ChargeController extends Controller

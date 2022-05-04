@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Frontend;
 
-use App\Models\Review;
+use App\Http\Controllers\Controller;
+use App\Models\Tenant\Review;
 use Illuminate\Http\Request;
 
 class ReviewController extends Controller

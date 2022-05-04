@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Frontend;
 
-use App\Models\AttributeValue;
+use App\Http\Controllers\Controller;
+use App\Models\Tenant\AttributeValue;
 use Illuminate\Http\Request;
 
 class AttributeValueController extends Controller

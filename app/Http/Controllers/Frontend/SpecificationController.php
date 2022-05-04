@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Frontend;
 
-use App\Models\Specification;
+use App\Http\Controllers\Controller;
+use App\Models\Tenant\Specification;
 use Illuminate\Http\Request;
 
 class SpecificationController extends Controller

@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Frontend;
 
-use App\Models\SubOrder;
+use App\Http\Controllers\Controller;
+use App\Models\Tenant\SubOrder;
 use Illuminate\Http\Request;
 
 class SubOrderController extends Controller

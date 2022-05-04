@@ -1,12 +1,13 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Frontend;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Category;
-use App\Models\Brand;
-use App\Models\Specification;
-use App\Models\Product;
+use App\Models\Tenant\Category;
+use App\Models\Tenant\Brand;
+use App\Models\Tenant\Specification;
+use App\Models\Tenant\Product;
 
 class CategoryController extends Controller
 {

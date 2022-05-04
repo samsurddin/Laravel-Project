@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Frontend;
 
-use App\Models\Product;
+use App\Http\Controllers\Controller;
+use App\Models\Tenant\Product;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller

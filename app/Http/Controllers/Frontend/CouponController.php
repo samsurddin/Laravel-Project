@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Frontend;
 
-use App\Models\Coupon;
+use App\Http\Controllers\Controller;
+use App\Models\Tenant\Coupon;
 use Illuminate\Http\Request;
 
 class CouponController extends Controller

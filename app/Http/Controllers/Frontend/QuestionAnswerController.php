@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Frontend;
 
-use App\Models\QuestionAnswer;
+use App\Http\Controllers\Controller;
+use App\Models\Tenant\QuestionAnswer;
 use Illuminate\Http\Request;
 
 class QuestionAnswerController extends Controller

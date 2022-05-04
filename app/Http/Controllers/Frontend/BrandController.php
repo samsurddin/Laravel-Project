@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Frontend;
 
-use App\Models\Brand;
+use App\Http\Controllers\Controller;
+use App\Models\Tenant\Brand;
 use Illuminate\Http\Request;
 
 class BrandController extends Controller

@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Frontend;
 
-use App\Models\Order;
+use App\Http\Controllers\Controller;
+use App\Models\Tenant\Order;
 use Illuminate\Http\Request;
 use App\Rules\PhoneNumber;
 use App\Actions\Fortify\CreateNewUser;
