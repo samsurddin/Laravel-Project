@@ -17,6 +17,7 @@ class AuthenticatedSessionController extends Controller
      */
     public function create()
     {
+        session(['url.intended' => url()->previous()]);
         return view('auth.login');
     }
 
