@@ -58,6 +58,15 @@ Route::group(['prefix' => '{locale}', 'where' => ['locale' => '[a-zA-Z]{2}']], f
 
     Route::get('/images/image-upload', [ImageController::class, 'createForm']);
     Route::post('/images/image-upload', [ImageController::class, 'fileUpload'])->name('imageUpload');
+            
+    Route::get('clear_cache', function () {
+        Artisan::call('cache:clear');
+        dd("Cache is cleared");
+    });
+    Route::get('/linkstorage', function () {
+        Artisan::call('storage:link');
+        dd("storage link generated");
+    });
 
     // tenants public routes
     Route::middleware('tenant')->group(function ()
@@ -144,15 +153,6 @@ Route::group(['prefix' => '{locale}', 'where' => ['locale' => '[a-zA-Z]{2}']], f
                     ->name('order.add_note');
                 Route::get('orders/notes/delete/{order}', [OrderController::class, 'delete_note'])
                     ->name('order.delete_note');
-            
-                Route::get('clear_cache', function () {
-                    Artisan::call('cache:clear');
-                    dd("Cache is cleared");
-                });
-                Route::get('/linkstorage', function () {
-                    Artisan::call('storage:link');
-                    dd("storage link generated");
-                });
             });
 
             // landlord admin routes
