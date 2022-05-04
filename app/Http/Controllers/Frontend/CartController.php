@@ -5,6 +5,9 @@ namespace App\Http\Controllers\Frontend;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Tenant\Product;
+use App\Models\Tenant\Division;
+use App\Models\Tenant\District;
+use App\Models\Tenant\Postcode;
 
 class CartController extends Controller
 {
@@ -190,7 +193,7 @@ class CartController extends Controller
         // $this->removeCharge();
         // exit;
         
-        $user = \Auth::user();
+        $user = auth()->user();
         // dd($user);
         $selected = ['division' => '', 'district' => ''];
         $user_info = [
@@ -228,8 +231,8 @@ class CartController extends Controller
         ];
         // dd($selected);
 
-        $loc_data['divisions'] = \App\Models\Division::select(['id', 'name'])->with('districts')->get()->toArray();
-        $loc_data['districts'] = \App\Models\District::get(['id', 'name'])->toArray();
+        $loc_data['divisions'] = Division::select(['id', 'name'])->with('districts')->get()->toArray();
+        $loc_data['districts'] = District::get(['id', 'name'])->toArray();
 
         // $districts = [];
         // foreach ($loc_data['districts'] as $dis) {
@@ -238,9 +241,9 @@ class CartController extends Controller
         // dd($districts, $loc_data['districts']);
         // dd(array_count_values($districts));
 
-        // $loc_data['postcodes'] = \App\Models\Postcode::select('postCode', 'upazila', 'district_id', 'division_id')->with('district:id,name')->with('division')->first()->toArray();
-        // $loc_data['postcodes'] = \App\Models\Postcode::select('postCode', 'postOffice', 'upazila', 'district_id', 'division_id')->with('district:id,name')->with('division:id,name')->get()->groupBy('district_id')->toArray();
-        $loc_data['postcodes'] = \App\Models\Postcode::select('postCode', 'postOffice', 'upazila', 'district_id', 'division_id')->with('district:id,name')->with('division:id,name')->get()->toArray();
+        // $loc_data['postcodes'] = Postcode::select('postCode', 'upazila', 'district_id', 'division_id')->with('district:id,name')->with('division')->first()->toArray();
+        // $loc_data['postcodes'] = Postcode::select('postCode', 'postOffice', 'upazila', 'district_id', 'division_id')->with('district:id,name')->with('division:id,name')->get()->groupBy('district_id')->toArray();
+        $loc_data['postcodes'] = Postcode::select('postCode', 'postOffice', 'upazila', 'district_id', 'division_id')->with('district:id,name')->with('division:id,name')->get()->toArray();
         // dd($loc_data);
         $dropdown = mk_loc_dd($loc_data['divisions'], $selected);
 
