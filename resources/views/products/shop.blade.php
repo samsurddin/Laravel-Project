@@ -282,10 +282,13 @@
                         @endphp
                         @if (!$products->isEmpty())
                             @foreach ($products as $product)
+                            @php
+                                // dd($product->featured_img, $product->images);
+                            @endphp
                             <div class="col-md-4">
                                 <div class="product-item">
                                     <div class="img-box position-relative">
-                                        <a href="{{ route('product.single', [app()->getLocale(), $product->slug]) }}" class="single-product-link"><img src="http://localhost:8000/admin/assets/images/login/1.jpg" alt="{{ $product->name }}"></a>
+                                        <a href="{{ route('product.single', [app()->getLocale(), $product->slug]) }}" class="single-product-link"><img src="{{ $product->featured_img }}" alt="{{ $product->name }}"></a>
                                         {{-- {{ $product->featured_img }} --}}
                                         <div class="hidden-btns overflow-hidden">
                                             <a href="{{ $product->featured_img }}" class="wishlist float-start btn btn-sm btn-brand" title="Add to Wishlist"><i class="fas fa-heart"></i></a>
