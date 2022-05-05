@@ -53,7 +53,16 @@
                             <ul class="p-0 m-0">
                                 <li class="d-inline-block user-icon">
                                     @if ($user = Auth::user())
-                                    <a href="{{ route('profile.show', app()->getLocale()) }}">
+                                    <!-- Authentication -->
+                                        <form method="POST" action="{{ route('logout', app()->getLocale()) }}">
+                                            @csrf
+
+                                            <a href="{{ route('logout', app()->getLocale()) }}" onclick="event.preventDefault(); this.closest('form').submit();">
+                                                <i data-feather="log-out"> </i> {{ __('Log Out') }}
+                                            </a>
+                                        </form>
+                                    {{-- {{ route('profile.show', app()->getLocale()) }} --}}
+                                    <a href="#">
                                         Hello, {{ $user->name }}<br><strong>My Account</strong>
                                     </a>
                                     @else
