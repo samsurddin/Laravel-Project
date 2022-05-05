@@ -73,7 +73,7 @@
                                         <textarea name="shipping_address" class="form-control" placeholder="Write your address">{{ old('shipping_address', $user_info['billing_address']) }}</textarea>
                                     </div>
 
-                                    <div class="row mb-4">
+                                    {{-- <div class="row mb-4">
                                         <div class="col-md-6">
                                             <label for="shipping_state" class="form-label">Division</label>
                                             <select name="shipping_state" class="select2 form-control" data-placeholder="Type a division name">
@@ -82,30 +82,28 @@
                                             </select>
                                         </div>
                                         <div class="col-md-6">
-                                            
-
                                             <label for="shipping_city" class="form-label">City</label>
                                             <select name="shipping_city" class="select2 form-control" data-placeholder="Type a city name">
                                                 <option></option>
                                                 {!! $dropdown['district_dd'] !!}
                                             </select>
                                         </div>
-                                    </div>
+                                    </div> --}}
 
                                     <div class="row mb-4">
-                                        <div class="col-md-6">
-                                            <label for="shipping_zipcode" class="form-label">Zip</label>
+                                        <div class="col-md-8">
+                                            <label for="shipping_zipcode" class="form-label">Post Code or Location</label>
                                             <select name="shipping_zipcode" class="select2 form-control" data-placeholder="Type a postcode or area name">
                                                 <option></option>
                                                 @foreach ($loc_data['postcodes'] as $postcode)
                                                     <option @if (old('shipping_zipcode', $user_info['billing_zipcode']) == $postcode['postCode']) selected @endif title="{{ $postcode['postOffice'] }}" value="{{ $postcode['postCode'] }}">
                                                         {{ $postcode['postCode'] }}, 
-                                                        {{-- {{ $postcode['postOffice'] }},  --}}{{ $postcode['upazila'] }}, {{ $postcode['district']['name'] }}, {{ $postcode['division']['name'] }}
+                                                        {{ $postcode['postOffice'] }}, {{ $postcode['upazila'] }}, {{ $postcode['district']['name'] }}, {{ $postcode['division']['name'] }}
                                                     </option>
                                                 @endforeach
                                             </select>
                                         </div>
-                                        <div class="col-md-6">
+                                        <div class="col-md-4">
                                             <label for="shipping_country" class="form-label">Country</label>
                                             <input type="text" name="shipping_country" class="form-control" placeholder="Write your country" id="shipping_country" value="{{ $user_info['billing_country'] }}" disabled>
                                         </div>
@@ -159,7 +157,7 @@
                                         <textarea name="billing_address" class="form-control" placeholder="Write your address">{{ $user_info['billing_address'] }}</textarea>
                                     </div>
 
-                                    <div class="row mb-4">
+                                    {{-- <div class="row mb-4">
                                         <div class="col-md-6">
                                             <label class="form-label">Division</label>
                                             <select name="billing_state" class="select2 form-control" data-placeholder="Type a division name">
@@ -174,22 +172,22 @@
                                                 {!! $dropdown['district_dd'] !!}
                                             </select>
                                         </div>
-                                    </div>
+                                    </div> --}}
 
                                     <div class="row mb-4">
-                                        <div class="col-md-6">
-                                            <label class="form-label">Zip</label>
+                                        <div class="col-md-8">
+                                            <label class="form-label">Post Code or Location</label>
                                             <select name="billing_zipcode" class="select2 form-control" data-placeholder="Type a postcode or area name">
                                                 <option></option>
                                                 @foreach ($loc_data['postcodes'] as $postcode)
                                                     <option @if ($user_info['billing_zipcode'] == $postcode['postCode']) selected @endif title="{{ $postcode['postOffice'] }}" value="{{ $postcode['postCode'] }}">
                                                         {{ $postcode['postCode'] }}, 
-                                                        {{-- {{ $postcode['postOffice'] }},  --}}{{ $postcode['upazila'] }}, {{ $postcode['district']['name'] }}, {{ $postcode['division']['name'] }}
+                                                        {{ $postcode['postOffice'] }}, {{ $postcode['upazila'] }}, {{ $postcode['district']['name'] }}, {{ $postcode['division']['name'] }}
                                                     </option>
                                                 @endforeach
                                             </select>
                                         </div>
-                                        <div class="col-md-6">
+                                        <div class="col-md-4">
                                             <label class="form-label">Country</label>
                                             <input type="text" name="billing_country" class="form-control" placeholder="Write your country" value="{{ $user_info['billing_country'] }}" disabled>
                                         </div>
