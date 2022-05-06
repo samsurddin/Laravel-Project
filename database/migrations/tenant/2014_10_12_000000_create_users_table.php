@@ -20,6 +20,16 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();
+            // $table->foreignId('current_team_id')->nullable();
+            $table->string('profile_photo_path', 2048)->nullable();
+
+            // $table->string('billing_fullname')->nullable();
+            $table->string('billing_address', 200)->nullable();
+            $table->integer('billing_city')->nullable();
+            $table->integer('billing_state')->nullable();
+            $table->integer('billing_zipcode')->nullable();
+            $table->string('billing_mobile', 15)->nullable();
+            $table->string('billing_alt_mobile', 15)->nullable();
             $table->timestamps();
         });
     }
