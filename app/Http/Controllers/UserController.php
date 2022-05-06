@@ -65,7 +65,24 @@ class UserController extends Controller
      */
     public function show($lang, User $user)
     {
+        // dd($lang, $user);
         return view('users.show', compact('user'));
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function profile($lang, User $user)
+    {
+        // dd($lang, $user);
+        // dd(is_null($user->id));
+        if (is_null($user->id)) {
+            $user = auth()->user();
+        }
+        return view('users.profile', compact('user'));
     }
 
     /**
