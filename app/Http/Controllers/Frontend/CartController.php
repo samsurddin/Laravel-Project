@@ -222,7 +222,7 @@ class CartController extends Controller
                 'billing_zipcode' => $user->billing_zipcode,
                 'billing_country' => 'Bangladesh',
             ];
-            $this->addDeliveryCharge($request, $user->billing_city);
+            $this->addDeliveryCharge($request, $user->billing_zipcode);
         }
 
         $selected = [
@@ -278,31 +278,34 @@ class CartController extends Controller
         return back()->with('success', 'You product is successfully added to the cart.');
     }
 
-    public function addDeliveryCharge(Request $request, $city='1')
+    public function addDeliveryCharge(Request $request, $zip='1000')
     {
-        if (empty($request['city'])) {
-            $request['city'] = $city;
+        if (!empty($request['zipcode'])) {
+            $zip = $request['zipcode'];
         }
-        if (is_numeric((int) $request['city']) && $request['city'] > 0) {
-            $shipping = [
-                'id' => 'delivery',
-                'name' => 'Delivery (Inside Dhaka)',
-                'type' => 'shipping',
-                'amount' => '40',
-                'amount_type' => 'plus',
-            ];
+        if (empty($zip)) {
+            $zip = '1000';
+        }
+        $postCode = Postcode::where('postCode', $zip)->first();
+        if (is_null($postCode)) {
+            return;
+        }
+        $city_id = $postCode->district_id;
 
-            // outside of Dhaka
-            if ($request['city'] != 1) {
-                $shipping['name'] = 'Delivery (Outside Dhaka)';
-                $shipping['amount'] = '100';
-            }
-            $this->addCharge($shipping, 'delivery');
+        $shipping = [
+            'id' => 'delivery',
+            'name' => 'Delivery (Inside Dhaka)',
+            'type' => 'shipping',
+            'amount' => '40',
+            'amount_type' => 'plus',
+        ];
+
+        // outside of Dhaka
+        if ($city_id != 1) {
+            $shipping['name'] = 'Delivery (Outside Dhaka)';
+            $shipping['amount'] = '100';
         }
-        // else {
-        //     return false;
-        //     exit;
-        // }
+        $this->addCharge($shipping, 'delivery');
 
         if ($request->ajax()) {
             return view('cart.minicart');

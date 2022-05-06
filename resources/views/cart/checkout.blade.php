@@ -302,8 +302,7 @@
                     }
                 });
 
-                $('form.checkout-form').find('select[name="shipping_city"]').change(function(event) {
-                    let city = $(this).val();
+                $('form.checkout-form').find('select[name="shipping_zipcode"]').change(function(event) {
                     // let csrf = $('meta[name="csrf-token"]').attr('content');
                     // console.log(city);
                     // console.log(csrf);
@@ -312,7 +311,7 @@
                         url: "{{ route('cart.addshipping', app()->getLocale()) }}",
                         type: 'POST',
                         dataType: 'html',
-                        data: {city: city},
+                        data: {zipcode: $(this).val()},
                         headers: {
                             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                         }
