@@ -60,10 +60,6 @@ Route::group(['prefix' => '{locale}', 'where' => ['locale' => '[a-zA-Z]{2}']], f
         Route::get('/dashboard', function () {
             return view('dashboard');
         })->name('dashboard');
-
-        Route::get('/profile', function () {
-            return view('dashboard');
-        })->name('profile');
         
         // admin routes for all
         Route::prefix('admin')->group(function()
@@ -183,6 +179,8 @@ Route::group(['prefix' => '{locale}', 'where' => ['locale' => '[a-zA-Z]{2}']], f
         Route::middleware('landlord')->group(function ()
         {
         });
+
+        Route::get('/profile', [UserController::class, 'profile'])->name('profile');
     });
 
     Route::get('media-test', function()
