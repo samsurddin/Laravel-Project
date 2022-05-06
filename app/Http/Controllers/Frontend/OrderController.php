@@ -6,8 +6,12 @@ use App\Http\Controllers\Controller;
 use App\Models\Tenant\Order;
 use Illuminate\Http\Request;
 use App\Rules\PhoneNumber;
-use App\Actions\Fortify\CreateNewUser;
-
+// use App\Actions\Fortify\CreateNewUser;
+use App\Models\Tenant\Postcode;
+use App\Models\User;
+use Illuminate\Auth\Events\Registered;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\Rules\Password;
 use LaravelDaily\Invoices\Invoice;
 use LaravelDaily\Invoices\Classes\Party;
 use LaravelDaily\Invoices\Classes\InvoiceItem;
@@ -56,8 +60,8 @@ class OrderController extends Controller
             "shipping_mobile" => ['required', new PhoneNumber, 'max:15', 'min:11'],
             "shipping_email" => ['nullable', 'string', 'email', 'max:255'],
             "shipping_address" => ['required', 'string', 'max:255'],
-            "shipping_state" => ['required', 'numeric'],
-            "shipping_city" => ['required', 'numeric'],
+            // "shipping_state" => ['required', 'numeric'],
+            // "shipping_city" => ['required', 'numeric'],
             "shipping_zipcode" => ['required', 'numeric'],
             "shipping_alt_contact" => ['nullable', 'string', 'max:255'],
             "shipping_alt_mobile" => ['nullable', 'required_with:shipping_alt_contact', new PhoneNumber, 'max:15', 'min:11'],
@@ -68,31 +72,67 @@ class OrderController extends Controller
             "billing_mobile" => ['nullable', 'required_if:has_billing_info,yes', new PhoneNumber, 'max:15', 'min:11'],
             "billing_email" => ['nullable', 'string', 'email', 'max:255'],
             "billing_address" => ['nullable', 'required_if:has_billing_info,yes', 'string', 'max:255'],
-            "billing_state" => ['nullable', 'required_if:has_billing_info,yes', 'numeric'],
-            "billing_city" => ['nullable', 'required_if:has_billing_info,yes', 'numeric'],
+            // "billing_state" => ['nullable', 'required_if:has_billing_info,yes', 'numeric'],
+            // "billing_city" => ['nullable', 'required_if:has_billing_info,yes', 'numeric'],
             "billing_zipcode" => ['nullable', 'required_if:has_billing_info,yes', 'numeric'],
             "coupon_code" => ['nullable', 'string'],
             "payment_method" => ['required'],
             "accept_tc" => ['required', 'accepted'],
         ]);
 
-        $user = \Auth::user();
+        $shipping_zip_info = Postcode::where('postCode', $request['shipping_zipcode'])->first();
+        // $shipping_zip_info = Postcode::where('postCode', $request['shipping_zipcode'])->with(['district', 'division'])->first();
+        // dd($shipping_zip_info->district->id);
+
+        if (is_null($shipping_zip_info)) {
+            return back()->with('error', 'Invalid Zipcode! Can not completed the order. Please contact authority.');
+        }
+        $order_data['shipping_state'] = $shipping_zip_info->division_id;
+        $order_data['shipping_city'] = $shipping_zip_info->district_id;
+        
+        
+        $billing_zipcode = $request['billing_zipcode']??$request['shipping_zipcode'];
+        
+        $billing_zip_info = Postcode::where('postCode', $billing_zipcode)->first();
+        $order_data['billing_state'] = $billing_zip_info->division_id;
+        $order_data['billing_city'] = $billing_zip_info->district_id;
+
+        $user = auth()->user();
         if (!$user) {
-            $new_user_info = [
-                'name' => $request['shipping_fullname'],
-                'email' => $request['shipping_email'],
-                'password' => $request['password'],
-                'password_confirmation' => $request['password_confirmation'],
+            // $new_user_info = [
+            //     'name' => $request['shipping_fullname'],
+            //     'email' => $request['shipping_email'],
+            //     'password' => $request['password'],
+            //     'password_confirmation' => $request['password_confirmation'],
+            //     'billing_mobile' => $request['billing_mobile']??$request['shipping_mobile'],
+            //     'billing_address' => $request['billing_address']??$request['shipping_address'],
+            //     'billing_state' => $shipping_zip_info->division_id,
+            //     'billing_city' => $shipping_zip_info->district_id,
+            //     'billing_zipcode' => $request['billing_zipcode']??$request['shipping_zipcode']
+            // ];
+            $request->validate([
+                'name' => ['required', 'string', 'max:255'],
+                'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+                'password' => ['required', 'confirmed', Password::defaults()],
+            ]);
+    
+            $user = User::create([
+                'name' => $request->name,
+                'email' => $request->email,
+                'password' => Hash::make($request->password),
                 'billing_mobile' => $request['billing_mobile']??$request['shipping_mobile'],
                 'billing_address' => $request['billing_address']??$request['shipping_address'],
-                'billing_state' => $request['billing_state']??$request['shipping_state'],
-                'billing_city' => $request['billing_city']??$request['shipping_city'],
+                'billing_state' => $shipping_zip_info->division_id,
+                'billing_city' => $shipping_zip_info->district_id,
                 'billing_zipcode' => $request['billing_zipcode']??$request['shipping_zipcode']
-            ];
-            $CreateNewUser = new CreateNewUser();
-            $user = $CreateNewUser->create($new_user_info);
-            $user->roles()->attach(4);
-            \Auth::login($user, true);
+            ]);
+    
+            event(new Registered($user));
+
+            // $CreateNewUser = new CreateNewUser();
+            // $user = $CreateNewUser->create($new_user_info);
+            // $user->roles()->attach(4);
+            auth()->login($user, true);
         }
 
         if ($request['has_billing_info'] != 'yes') {
@@ -101,8 +141,6 @@ class OrderController extends Controller
                 'billing_mobile' => $request['shipping_mobile'],
                 'billing_email' => $request['shipping_email'],
                 'billing_address' => $request['shipping_address'],
-                'billing_state' => $request['shipping_state'],
-                'billing_city' => $request['shipping_city'],
                 'billing_zipcode' => $request['shipping_zipcode']
             ];
             $order_data = array_merge($order_data, $billing_data);
@@ -131,7 +169,7 @@ class OrderController extends Controller
         // $order_data['coupon_id'] = 1;
         // $order_data['status_id'] = 1;
 
-        $order_data['status'] = 'Awaiting Fulfillment';
+        $order_data['status'] = 'Processing';
         $order_data['status_id'] = 3;
         $tracking_data = [ // 3 = Awaiting Fulfillment
             'note'=> 'Order created successfully, preparing for shipment.',
@@ -139,8 +177,8 @@ class OrderController extends Controller
         ];
 
         if ($order_data['payment_method'] != 'cash_on_delivery') {
-            $order_data['status'] = 'Pending';
-            $order_data['status_id'] = 3;
+            $order_data['status'] = 'Pending payment';
+            $order_data['status_id'] = 1;
             $tracking_data = [ // 3 = Pending
                 'note'=> 'Order created, pending for payment.',
                 'show_on_tracking'=> true,
@@ -175,7 +213,7 @@ class OrderController extends Controller
         // OrderPlaced::dispatch($order);
         // Mail::to($request->user())->send(new OrderPlacedMail($order));
 
-        return redirect()->route('shop.index')->withMessage('Order has been placed');
+        return redirect()->route('shop.index', app()->getLocale())->withMessage('Order has been placed');
     }
 
     private function order_created(Order $order)
