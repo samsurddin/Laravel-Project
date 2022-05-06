@@ -25,7 +25,7 @@ class CreateOrdersTable extends Migration
             $table->float('total_charges')->default(0);
             $table->integer('item_count');
             $table->boolean('is_paid')->default(false);
-            $table->enum('payment_method', ['cash_on_delivery', 'ssl_commerze','surjo_pay','aamar_pay', 'bkash', 'nagad', 'rocket', 'bank_cheque', 'bank_diposit'])->default('cash_on_delivery');
+            $table->enum('payment_method', ['cash_on_delivery', 'ssl_commerze', 'surjo_pay','aamar_pay', 'bkash', 'nagad', 'rocket', 'bank_cheque', 'bank_diposit', 'paypal'])->default('cash_on_delivery');
             $table->string('offer')->nullable();
             $table->string('status')->nullable();
 
