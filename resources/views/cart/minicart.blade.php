@@ -4,7 +4,7 @@
 $cartItems = getCartItems();
 @endphp
 @if ($cartItems)
-    <table class="cart minicart mb-4">
+    <table class="cart minicart mb-4 w-100">
         <thead>
             <tr>
                 <th></th>
