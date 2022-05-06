@@ -9,6 +9,16 @@ class Postcode extends Model
 {
     use HasFactory;
 
+    public function defaultKeyName()
+    {
+        return 'postCode';
+    }
+
+    public function getRouteKeyName()
+    {
+        return 'postCode';
+    }
+
     /**
      * Get associated districts
      *
