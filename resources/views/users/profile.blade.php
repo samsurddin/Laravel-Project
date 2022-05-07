@@ -6,7 +6,18 @@
             </h2>
         </div>
         <div class="flex-item">
-            <a class="btn-primary edit-btn" href="#">Edit Profile</a>
+            <a class="btn-primary edit-btn" href="#">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+                </svg>
+                Edit Profile
+            </a>
+            <a class="btn-secondary cancel-btn !hidden" href="#">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+                Cancel Edit
+            </a>
             {{-- <a class="btn-primary" href="{{ route('users.edit', [app()->getLocale(), $user->id]) }}"> Edit Profile</a> --}}
             {{-- <a class="btn-secondary" href="{{ route('users.index', app()->getLocale()) }}"> All Users</a> --}}
         </div>
@@ -62,7 +73,7 @@
             </div>
             <div class="col-span-5">
                 <div class="bg-white shadow overflow-hidden sm:rounded-lg">
-                    <form action="{{ route('users.update', [app()->getLocale(), $user->id]) }}" method="post">
+                    <form class="profile-edit-form" action="{{ route('profile_update', [app()->getLocale(), $user->id]) }}" method="post">
                         @csrf
                         @method('PATCH')
                         
@@ -70,62 +81,62 @@
                             <h3 class="text-lg leading-6 font-medium text-gray-900">My Profile</h3>
                             <p class="mt-1 max-w-2xl text-sm text-gray-500">Personal details and billing information.</p>
                         </div>
-                        <div class="border-t border-gray-200">
+                        <div class="border-t border-gray-200 profile-data">
                             <dl>
                                 <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                                     <dt class="text-sm font-medium text-gray-500">Full name</dt>
                                     <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
                                         <span class="value">{{ $user->name }}</span>
-                                        <input type="text" class="input edit" value="{{ $user->name }}">
+                                        <input type="text" class="input edit" name="name" value="{{ $user->name }}">
                                     </dd>
                                 </div>
                                 <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                                     <dt class="text-sm font-medium text-gray-500">Email address</dt>
                                     <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
                                         <span class="value">{{ $user->email }}</span>
-                                        <input type="text" class="input edit" value="{{ $user->email }}">
+                                        <input type="text" class="input edit" name="email" value="{{ $user->email }}">
                                     </dd>
                                 </div>
                                 <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                                     <dt class="text-sm font-medium text-gray-500">Billing Address</dt>
                                     <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
                                         <span class="value">{{ $user->billing_address }}</span>
-                                        <input type="text" class="input edit" value="{{ $user->billing_address }}">
+                                        <input type="text" class="input edit" name="billing_address" value="{{ $user->billing_address }}">
                                     </dd>
                                 </div>
                                 <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                                     <dt class="text-sm font-medium text-gray-500">Billing City</dt>
                                     <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
                                         <span class="value">{{ $user->billing_city }}</span>
-                                        <input type="text" class="input edit" value="{{ $user->billing_city }}">
+                                        <input type="text" class="input edit" name="billing_city" value="{{ $user->billing_city }}">
                                     </dd>
                                 </div>
                                 <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                                     <dt class="text-sm font-medium text-gray-500">Billing State</dt>
                                     <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
                                         <span class="value">{{ $user->billing_state }}</span>
-                                        <input type="text" class="input edit" value="{{ $user->billing_state }}">
+                                        <input type="text" class="input edit" name="billing_state" value="{{ $user->billing_state }}">
                                     </dd>
                                 </div>
                                 <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                                     <dt class="text-sm font-medium text-gray-500">Billing Zipcode</dt>
                                     <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
                                         <span class="value">{{ $user->billing_zipcode }}</span>
-                                        <input type="text" class="input edit" value="{{ $user->billing_zipcode }}">
+                                        <input type="text" class="input edit" name="billing_zipcode" value="{{ $user->billing_zipcode }}">
                                     </dd>
                                 </div>
                                 <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                                     <dt class="text-sm font-medium text-gray-500">Billing Mobile</dt>
                                     <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
                                         <span class="value">{{ $user->billing_mobile }}</span>
-                                        <input type="text" class="input edit" value="{{ $user->billing_mobile }}">
+                                        <input type="text" class="input edit" name="billing_mobile" value="{{ $user->billing_mobile }}">
                                     </dd>
                                 </div>
                                 <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                                     <dt class="text-sm font-medium text-gray-500">Billing Alt. Mobile</dt>
                                     <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
                                         <span class="value">{{ $user->billing_alt_mobile }}</span>
-                                        <input type="text" class="input edit" value="{{ $user->billing_alt_mobile }}">
+                                        <input type="text" class="input edit" name="billing_alt_mobile" value="{{ $user->billing_alt_mobile }}">
                                     </dd>
                                 </div>
                                 <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
@@ -165,7 +176,7 @@
                                 </div>
                             </dl>
                         </div>
-                        <div class="px-4 py-3 bg-gray-50 text-right sm:px-6">
+                        <div class="px-4 py-3 bg-gray-50 text-right sm:px-6 submit-btn-row hidden">
                             <button type="submit" class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                                 Save Profile
                             </button>
@@ -179,9 +190,38 @@
     <x-slot name="scripts">
         <script>
             window.addEventListener('DOMContentLoaded', (event) => {
+                $('.profile-edit-form').find('input, textarea, select, button').addClass('hidden');
                 $('.edit-btn').on('click', function () {
-                    alert('edit btn clicked');
+                    $(this).addClass('!hidden');
+                    $('.cancel-btn').removeClass('!hidden');
+                    $('.submit-btn-row').removeClass('hidden');
+                    $('.profile-edit-form').find('.value').addClass('hidden');
+                    $('.profile-edit-form').find('input, textarea, select, button').removeClass('hidden');
+                    // $('.profile-edit-form').find('input, textarea, select, button').first().focus();
+                    $('input:visible:first').focus()
                     return false;
+                });
+                $('.cancel-btn').on('click', function () {
+                    $(this).addClass('!hidden');
+                    $('.edit-btn').removeClass('!hidden');
+                    $('.submit-btn-row').addClass('hidden');
+                    $('.profile-edit-form').find('input, textarea, select, button').addClass('hidden');
+                    $('.profile-edit-form').find('.value').removeClass('hidden');
+                    return false;
+                });
+
+                $('.profile-edit-form').submit(function (e) { 
+                    e.preventDefault();
+                    $.ajax({
+                        type: "POST",
+                        url: $(this).attr('action'),
+                        data: $(this).serialize(),
+                        dataType: 'html',
+                        success: function (response) {
+                            $('.profile-data').html(response);
+                            console.log(response)
+                        }
+                    });
                 });
             });
         </script>
