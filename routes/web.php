@@ -181,6 +181,7 @@ Route::group(['prefix' => '{locale}', 'where' => ['locale' => '[a-zA-Z]{2}']], f
         });
 
         Route::get('/profile', [UserController::class, 'profile'])->name('profile');
+        Route::patch('/profile/{user}', [UserController::class, 'profile_update'])->name('profile_update');
     });
 
     Route::get('media-test', function()
