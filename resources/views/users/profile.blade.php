@@ -87,56 +87,56 @@
                                     <dt class="text-sm font-medium text-gray-500">Full name</dt>
                                     <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
                                         <span class="value">{{ $user->name }}</span>
-                                        <input type="text" class="input edit" name="name" value="{{ $user->name }}">
+                                        <input type="text" class="input edit !hidden" name="name" value="{{ $user->name }}">
                                     </dd>
                                 </div>
                                 <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                                     <dt class="text-sm font-medium text-gray-500">Email address</dt>
                                     <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
                                         <span class="value">{{ $user->email }}</span>
-                                        <input type="text" class="input edit" name="email" value="{{ $user->email }}">
+                                        <input type="text" class="input edit !hidden" name="email" value="{{ $user->email }}">
                                     </dd>
                                 </div>
                                 <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                                     <dt class="text-sm font-medium text-gray-500">Billing Address</dt>
                                     <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
                                         <span class="value">{{ $user->billing_address }}</span>
-                                        <input type="text" class="input edit" name="billing_address" value="{{ $user->billing_address }}">
+                                        <input type="text" class="input edit !hidden" name="billing_address" value="{{ $user->billing_address }}">
                                     </dd>
                                 </div>
                                 <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                                     <dt class="text-sm font-medium text-gray-500">Billing City</dt>
                                     <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
                                         <span class="value">{{ $user->billing_city }}</span>
-                                        <input type="text" class="input edit" name="billing_city" value="{{ $user->billing_city }}">
+                                        <input type="text" class="input edit !hidden" name="billing_city" value="{{ $user->billing_city }}">
                                     </dd>
                                 </div>
                                 <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                                     <dt class="text-sm font-medium text-gray-500">Billing State</dt>
                                     <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
                                         <span class="value">{{ $user->billing_state }}</span>
-                                        <input type="text" class="input edit" name="billing_state" value="{{ $user->billing_state }}">
+                                        <input type="text" class="input edit !hidden" name="billing_state" value="{{ $user->billing_state }}">
                                     </dd>
                                 </div>
                                 <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                                     <dt class="text-sm font-medium text-gray-500">Billing Zipcode</dt>
                                     <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
                                         <span class="value">{{ $user->billing_zipcode }}</span>
-                                        <input type="text" class="input edit" name="billing_zipcode" value="{{ $user->billing_zipcode }}">
+                                        <input type="text" class="input edit !hidden" name="billing_zipcode" value="{{ $user->billing_zipcode }}">
                                     </dd>
                                 </div>
                                 <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                                     <dt class="text-sm font-medium text-gray-500">Billing Mobile</dt>
                                     <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
                                         <span class="value">{{ $user->billing_mobile }}</span>
-                                        <input type="text" class="input edit" name="billing_mobile" value="{{ $user->billing_mobile }}">
+                                        <input type="text" class="input edit !hidden" name="billing_mobile" value="{{ $user->billing_mobile }}">
                                     </dd>
                                 </div>
                                 <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                                     <dt class="text-sm font-medium text-gray-500">Billing Alt. Mobile</dt>
                                     <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
                                         <span class="value">{{ $user->billing_alt_mobile }}</span>
-                                        <input type="text" class="input edit" name="billing_alt_mobile" value="{{ $user->billing_alt_mobile }}">
+                                        <input type="text" class="input edit !hidden" name="billing_alt_mobile" value="{{ $user->billing_alt_mobile }}">
                                     </dd>
                                 </div>
                                 <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
@@ -190,13 +190,13 @@
     <x-slot name="scripts">
         <script>
             window.addEventListener('DOMContentLoaded', (event) => {
-                $('.profile-edit-form').find('input, textarea, select, button').addClass('hidden');
+                // $('.profile-edit-form').find('input, textarea, select, button').addClass('hidden');
                 $('.edit-btn').on('click', function () {
                     $(this).addClass('!hidden');
                     $('.cancel-btn').removeClass('!hidden');
                     $('.submit-btn-row').removeClass('hidden');
                     $('.profile-edit-form').find('.value').addClass('hidden');
-                    $('.profile-edit-form').find('input, textarea, select, button').removeClass('hidden');
+                    $('.profile-edit-form').find('input, textarea, select, button').removeClass('!hidden');
                     // $('.profile-edit-form').find('input, textarea, select, button').first().focus();
                     $('input:visible:first').focus()
                     return false;
@@ -205,7 +205,7 @@
                     $(this).addClass('!hidden');
                     $('.edit-btn').removeClass('!hidden');
                     $('.submit-btn-row').addClass('hidden');
-                    $('.profile-edit-form').find('input, textarea, select, button').addClass('hidden');
+                    $('.profile-edit-form').find('input, textarea, select, button').addClass('!hidden');
                     $('.profile-edit-form').find('.value').removeClass('hidden');
                     return false;
                 });
