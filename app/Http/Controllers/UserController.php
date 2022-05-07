@@ -131,6 +131,38 @@ class UserController extends Controller
     }
 
     /**
+     * Update the profile data in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function profile_update($lang, Request $request, User $user)
+    {
+        // dd($request, $user);
+
+        $input = $this->validate($request, [
+            'name' => 'required',
+            'email' => 'required|email',
+            'billing_address' => 'nullable',
+            'billing_city' => 'nullable',
+            'billing_state' => 'nullable',
+            'billing_zipcode' => 'nullable',
+            'billing_mobile' => 'nullable',
+            'billing_alt_mobile' => 'nullable'
+        ]);
+    
+        $user->update($input);
+
+        if ($request->ajax()) {
+            return view('users.profile_ajax', compact('user'));
+        }
+    
+        return redirect()->route('profile', app()->getLocale())
+                        ->with('success', 'Your profile has been updated successfully');
+    }
+
+    /**
      * Remove the specified resource from storage.
      *
      * @param  int  $id
