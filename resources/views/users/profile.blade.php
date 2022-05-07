@@ -175,4 +175,15 @@
             </div>
         </div>
     </div>
+
+    <x-slot name="scripts">
+        <script>
+            window.addEventListener('DOMContentLoaded', (event) => {
+                $('.edit-btn').on('click', function () {
+                    alert('edit btn clicked');
+                    return false;
+                });
+            });
+        </script>
+    </x-slot>
 </x-app-layout>
