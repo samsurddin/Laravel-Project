@@ -13,6 +13,9 @@
         <!-- Styles -->
         <link rel="stylesheet" href="{{ asset('css/app.css') }}">
 
+        {{-- head slot --}}
+        {{ $head ?? '' }}
+
         <!-- Scripts -->
         <script src="{{ asset('js/app.js') }}" defer></script>
         <script>
