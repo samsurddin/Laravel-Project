@@ -110,10 +110,6 @@ Route::group(['prefix' => '{locale}', 'where' => ['locale' => '[a-zA-Z]{2}']], f
                 return view('dashboard');
             })->name('dashboard');
 
-            Route::get('/profile', function () {
-                return view('dashboard');
-            })->name('profile');
-
             // tenants admin routes
             Route::middleware('tenant')->group(function ()
             {
