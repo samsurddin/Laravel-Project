@@ -65,7 +65,24 @@ class UserController extends Controller
      */
     public function show($lang, User $user)
     {
+        // dd($lang, $user);
         return view('users.show', compact('user'));
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function profile($lang, User $user)
+    {
+        // dd($lang, $user);
+        // dd(is_null($user->id));
+        if (is_null($user->id)) {
+            $user = auth()->user();
+        }
+        return view('users.profile', compact('user'));
     }
 
     /**
@@ -111,6 +128,38 @@ class UserController extends Controller
     
         return redirect()->route('users.index', app()->getLocale())
                         ->with('success', 'User updated successfully');
+    }
+
+    /**
+     * Update the profile data in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function profile_update($lang, Request $request, User $user)
+    {
+        // dd($request, $user);
+
+        $input = $this->validate($request, [
+            'name' => 'required',
+            'email' => 'required|email',
+            'billing_address' => 'nullable',
+            'billing_city' => 'nullable',
+            'billing_state' => 'nullable',
+            'billing_zipcode' => 'nullable',
+            'billing_mobile' => 'nullable',
+            'billing_alt_mobile' => 'nullable'
+        ]);
+    
+        $user->update($input);
+
+        if ($request->ajax()) {
+            return view('users.profile_ajax', compact('user'));
+        }
+    
+        return redirect()->route('profile', app()->getLocale())
+                        ->with('success', 'Your profile has been updated successfully');
     }
 
     /**

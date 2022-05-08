@@ -22,3 +22,9 @@ mix.js('resources/js/app.js', 'public/js')
         require('postcss-import')
     ]);
 mix.copyDirectory('resources/fonts', 'public/fonts');
+
+// mix.webpackConfig({
+//     stats: {
+//         children: true,
+//     },
+// });
