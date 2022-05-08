@@ -105,18 +105,9 @@
                                     </dd>
                                 </div>
                                 <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                                    <dt class="text-sm font-medium text-gray-500">Billing City/State/Zip Code</dt>
+                                    <dt class="text-sm font-medium text-gray-500">Billing City</dt>
                                     <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
                                         <span class="value">{{ $user->billing_city }}</span>
-                                        <select name="shipping_zipcode" class="select2 form-control edit !hidden" data-placeholder="Type a postcode or area name">
-                                            <option></option>
-                                            @foreach ($loc_data['postcodes'] as $postcode)
-                                                <option @if (old('shipping_zipcode', $user_info['billing_zipcode']) == $postcode['postCode']) selected @endif title="{{ $postcode['postOffice'] }}" value="{{ $postcode['postCode'] }}">
-                                                    {{ $postcode['postCode'] }}, 
-                                                    {{-- {{ $postcode['postOffice'] }},  --}}{{ $postcode['upazila'] }}, {{ $postcode['district']['name'] }}, {{ $postcode['division']['name'] }}
-                                                </option>
-                                            @endforeach
-                                        </select>
                                     </dd>
                                 </div>
                                 <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
@@ -131,12 +122,6 @@
                                     <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
                                         <span class="value">{{ $user->billing_zipcode }}</span>
                                         {{-- <input type="text" class="input edit !hidden" name="billing_zipcode" value="{{ $user->billing_zipcode }}"> --}}
-                                    </dd>
-                                </div>
-                                <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6 edit-block !hidden">
-                                    <dt class="text-sm font-medium text-gray-500">Postal Code/Location</dt>
-                                    <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                                        
                                     </dd>
                                 </div>
                                 <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
