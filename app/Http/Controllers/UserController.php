@@ -71,34 +71,6 @@ class UserController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function profile($lang, User $user)
-    {
-        // dd($lang, $user);
-        // dd(is_null($user->id));
-        if (is_null($user->id)) {
-            $user = auth()->user();
-        }
-
-        // dd($user->billing_zipcode);
-
-        $user_postcode = null;
-        if ($user->billing_zipcode != NULL) {
-            // $user = User::find($user->id)->with('district:id,name')->with('division:id,name');
-            $user_postcode = Postcode::where('postCode', $user->billing_zipcode)->with('district:id,name')->with('division:id,name')->first();
-        }
-        
-        $postcodes = Postcode::with('district:id,name')->with('division:id,name')->get();
-
-        // dd($user_postcode);
-        return view('users.profile', compact('user', 'postcodes', 'user_postcode'));
-    }
-
-    /**
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
@@ -144,6 +116,47 @@ class UserController extends Controller
     }
 
     /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($lang, User $user)
+    {
+        $user->delete();
+        return redirect()->route('users.index', app()->getLocale())
+                        ->with('success', 'User deleted successfully');
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function profile($lang, User $user)
+    {
+        // dd($lang, $user);
+        // dd(is_null($user->id));
+        if (is_null($user->id)) {
+            $user = auth()->user();
+        }
+
+        // dd($user->billing_zipcode);
+
+        $user_postcode = null;
+        if ($user->billing_zipcode != NULL) {
+            // $user = User::find($user->id)->with('district:id,name')->with('division:id,name');
+            $user_postcode = Postcode::where('postCode', $user->billing_zipcode)->with('district:id,name')->with('division:id,name')->first();
+        }
+        
+        $postcodes = Postcode::with('district:id,name')->with('division:id,name')->get();
+
+        // dd($user_postcode);
+        return view('users.profile', compact('user', 'postcodes', 'user_postcode'));
+    }
+
+    /**
      * Update the profile data in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -173,18 +186,5 @@ class UserController extends Controller
     
         return redirect()->route('profile', app()->getLocale())
                         ->with('success', 'Your profile has been updated successfully');
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($lang, User $user)
-    {
-        $user->delete();
-        return redirect()->route('users.index', app()->getLocale())
-                        ->with('success', 'User deleted successfully');
     }
 }
