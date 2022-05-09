@@ -2,8 +2,12 @@
 
 namespace App\Models;
 
+use App\Models\Tenant\District;
+use App\Models\Tenant\Division;
+use App\Models\Tenant\Postcode;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -58,12 +62,32 @@ class User extends Authenticatable implements HasMedia
     }
 
     /**
-     * Get all of the tenants for the Plan
+     * Get the district that owns the user
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function tenants(): HasMany
+    public function district(): BelongsTo
     {
-        return $this->hasMany(Tenant::class);
+        return $this->belongsTo(District::class, 'billing_city');
+    }
+
+    /**
+     * Get the division that owns the user
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function division(): BelongsTo
+    {
+        return $this->belongsTo(Division::class, 'billing_state');
+    }
+
+    /**
+     * Get the postcode that owns the user
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function postcode(): BelongsTo
+    {
+        return $this->belongsTo(Postcode::class, 'billing_zipcode');
     }
 }
