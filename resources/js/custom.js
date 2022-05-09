@@ -1,5 +1,5 @@
 $(document).ready(function() {
-    feather.replace()
+    // feather.replace()
     
     // Store initial image size
     function setImageSize() {
