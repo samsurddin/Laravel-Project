@@ -20,4 +20,4 @@ window.bootstrap = require('bootstrap');
 
 Alpine.start();
 
-require('./custom');
+// require('./custom');
