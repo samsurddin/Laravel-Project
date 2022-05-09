@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Tenant\Postcode;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -82,7 +83,19 @@ class UserController extends Controller
         if (is_null($user->id)) {
             $user = auth()->user();
         }
-        return view('users.profile', compact('user'));
+
+        // dd($user->billing_zipcode);
+
+        $user_postcode = null;
+        if ($user->billing_zipcode != NULL) {
+            // $user = User::find($user->id)->with('district:id,name')->with('division:id,name');
+            $user_postcode = Postcode::where('postCode', $user->billing_zipcode)->with('district:id,name')->with('division:id,name')->first();
+        }
+        
+        $postcodes = Postcode::with('district:id,name')->with('division:id,name')->get();
+
+        // dd($user_postcode);
+        return view('users.profile', compact('user', 'postcodes', 'user_postcode'));
     }
 
     /**
