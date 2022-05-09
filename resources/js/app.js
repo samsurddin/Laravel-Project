@@ -19,3 +19,5 @@ window.Popper = require('@popperjs/core');
 window.bootstrap = require('bootstrap');
 
 Alpine.start();
+
+require('./custom');
