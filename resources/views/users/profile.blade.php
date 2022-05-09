@@ -104,24 +104,52 @@
                                         <textarea class="input edit !hidden" name="billing_address" cols="30" rows="3">{{ $user->billing_address }}</textarea>
                                     </dd>
                                 </div>
-                                <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                                    <dt class="text-sm font-medium text-gray-500">Billing City</dt>
+                                <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6 only-value-row">
+                                    <dt class="text-sm font-medium text-gray-500">Billing Post Office</dt>
                                     <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                                        <span class="value">{{ $user->billing_city }}</span>
+                                        <span class="value">{{ $user_postcode->postOffice }}</span>
                                     </dd>
                                 </div>
-                                <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                                    <dt class="text-sm font-medium text-gray-500">Billing State</dt>
+                                <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6 only-value-row">
+                                    <dt class="text-sm font-medium text-gray-500">Billing Upazila</dt>
                                     <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                                        <span class="value">{{ $user->billing_state }}</span>
+                                        <span class="value">{{ $user_postcode->upazila }}</span>
                                         {{-- <input type="text" class="input edit !hidden" name="billing_state" value="{{ $user->billing_state }}"> --}}
                                     </dd>
                                 </div>
-                                <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                                <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6 only-value-row">
+                                    <dt class="text-sm font-medium text-gray-500">Billing District</dt>
+                                    <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                                        <span class="value">{{ $user_postcode->district->name }}</span>
+                                    </dd>
+                                </div>
+                                <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6 only-value-row">
+                                    <dt class="text-sm font-medium text-gray-500">Billing Division</dt>
+                                    <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                                        <span class="value">{{ $user_postcode->division->name }}</span>
+                                        {{-- <input type="text" class="input edit !hidden" name="billing_state" value="{{ $user->billing_state }}"> --}}
+                                    </dd>
+                                </div>
+                                <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6 only-value-row">
                                     <dt class="text-sm font-medium text-gray-500">Billing Zipcode</dt>
                                     <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
                                         <span class="value">{{ $user->billing_zipcode }}</span>
                                         {{-- <input type="text" class="input edit !hidden" name="billing_zipcode" value="{{ $user->billing_zipcode }}"> --}}
+                                    </dd>
+                                </div>
+                                <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6 only-edit-row !hidden">
+                                    <dt class="text-sm font-medium text-gray-500">Billing City/State/Zipcode</dt>
+                                    <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                                        {{-- <span class="value">{{ $user_postcode->postOffice }}, {{ $user_postcode->upazila }}, {{ $user_postcode->district->name }}, {{ $user_postcode->division->name }} ({{ $user->billing_zipcode }})</span> --}}
+                                        <select name="billing_zipcode" class="select2 input" data-placeholder="Type a postcode or area name">
+                                            <option></option>
+                                            @foreach ($postcodes as $postcode)
+                                                <option @if (old('billing_zipcode', $user->billing_zipcode) == $postcode->postCode) selected @endif title="{{ $postcode->postOffice }}" value="{{ $postcode->postCode }}">
+                                                    {{ $postcode->postCode }}, 
+                                                    {{ $postcode->postOffice }}, {{ $postcode->upazila }}, {{ $postcode->district->name }}, {{ $postcode->division->name }}
+                                                </option>
+                                            @endforeach
+                                        </select>
                                     </dd>
                                 </div>
                                 <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
@@ -186,12 +214,19 @@
         </div>
     </div>
 
+    <x-slot name="head">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" />
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.1.1/dist/select2-bootstrap-5-theme.min.css" />
+    </x-slot>
+
     <x-slot name="scripts">
         <script>
             window.addEventListener('DOMContentLoaded', (event) => {
                 // $('.profile-edit-form').find('input, textarea, select, button').addClass('hidden');
                 $('.edit-btn').on('click', function () {
                     $(this).addClass('!hidden');
+                    $('.only-value-row').addClass('!hidden');
+                    $('.only-edit-row').removeClass('!hidden');
                     $('.cancel-btn').removeClass('!hidden');
                     $('.submit-btn-row').removeClass('hidden');
                     $('.profile-edit-form').find('.value').addClass('hidden');
@@ -202,6 +237,8 @@
                 });
                 $('.cancel-btn').on('click', function () {
                     $(this).addClass('!hidden');
+                    $('.only-value-row').removeClass('!hidden');
+                    $('.only-edit-row').addClass('!hidden');
                     $('.edit-btn').removeClass('!hidden');
                     $('.submit-btn-row').addClass('hidden');
                     $('.profile-edit-form').find('input, textarea, select, button').addClass('!hidden');
