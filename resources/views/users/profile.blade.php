@@ -268,6 +268,7 @@
                         success: function (response) {
                             $('.profile-data').html(response);
                             $('.cancel-btn').addClass('!hidden');
+                            $('.edit-btn').removeClass('!hidden');
                             $('.submit-btn-row').addClass('hidden');
                             console.log(response)
                         }

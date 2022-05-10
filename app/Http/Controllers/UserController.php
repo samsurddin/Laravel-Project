@@ -171,17 +171,35 @@ class UserController extends Controller
             'name' => 'required',
             'email' => 'required|email',
             'billing_address' => 'nullable',
-            'billing_city' => 'nullable',
-            'billing_state' => 'nullable',
+            // 'billing_city' => 'nullable',
+            // 'billing_state' => 'nullable',
             'billing_zipcode' => 'nullable',
             'billing_mobile' => 'nullable',
             'billing_alt_mobile' => 'nullable'
         ]);
+
+        $zipcode_details = null;
+        if (!empty($input['billing_zipcode'])) {
+            $zipcode_details = Postcode::where('postCode', $input['billing_zipcode'])->first();
+            if (!empty($zipcode_details)) {
+                $input['billing_city'] = $zipcode_details->district_id;
+                $input['billing_state'] = $zipcode_details->division_id;
+            }
+        }
     
         $user->update($input);
+        // dd($input, $user, $zipcode_details);
+
+        $user_postcode = null;
+        if ($user->billing_zipcode != NULL) {
+            // $user = User::find($user->id)->with('district:id,name')->with('division:id,name');
+            $user_postcode = Postcode::where('postCode', $user->billing_zipcode)->with('district:id,name')->with('division:id,name')->first();
+        }
+        
+        $postcodes = Postcode::with('district:id,name')->with('division:id,name')->orderBy('postCode')->get();
 
         if ($request->ajax()) {
-            return view('users.profile_ajax', compact('user'));
+            return view('users.profile_ajax', compact('user', 'postcodes', 'user_postcode'));
         }
     
         return redirect()->route('profile', app()->getLocale())
