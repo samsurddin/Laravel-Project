@@ -1,3 +1,4 @@
+
 <dl>
     <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
         <dt class="text-sm font-medium text-gray-500">Full name</dt>
@@ -17,28 +18,55 @@
         <dt class="text-sm font-medium text-gray-500">Billing Address</dt>
         <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
             <span class="value">{{ $user->billing_address }}</span>
-            <input type="text" class="input edit !hidden" name="billing_address" value="{{ $user->billing_address }}">
+            <textarea class="input edit !hidden" name="billing_address" cols="30" rows="3">{{ $user->billing_address }}</textarea>
         </dd>
     </div>
-    <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-        <dt class="text-sm font-medium text-gray-500">Billing City</dt>
+    <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6 only-value-row">
+        <dt class="text-sm font-medium text-gray-500">Billing Post Office</dt>
         <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-            <span class="value">{{ $user->billing_city }}</span>
-            <input type="text" class="input edit !hidden" name="billing_city" value="{{ $user->billing_city }}">
+            <span class="value">{{ $user_postcode->postOffice }}</span>
         </dd>
     </div>
-    <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-        <dt class="text-sm font-medium text-gray-500">Billing State</dt>
+    <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6 only-value-row">
+        <dt class="text-sm font-medium text-gray-500">Billing Upazila</dt>
         <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-            <span class="value">{{ $user->billing_state }}</span>
-            <input type="text" class="input edit !hidden" name="billing_state" value="{{ $user->billing_state }}">
+            <span class="value">{{ $user_postcode->upazila }}</span>
+            {{-- <input type="text" class="input edit !hidden" name="billing_state" value="{{ $user->billing_state }}"> --}}
         </dd>
     </div>
-    <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+    <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6 only-value-row">
+        <dt class="text-sm font-medium text-gray-500">Billing District</dt>
+        <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+            <span class="value">{{ $user_postcode->district->name }}</span>
+        </dd>
+    </div>
+    <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6 only-value-row">
+        <dt class="text-sm font-medium text-gray-500">Billing Division</dt>
+        <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+            <span class="value">{{ $user_postcode->division->name }}</span>
+            {{-- <input type="text" class="input edit !hidden" name="billing_state" value="{{ $user->billing_state }}"> --}}
+        </dd>
+    </div>
+    <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6 only-value-row">
         <dt class="text-sm font-medium text-gray-500">Billing Zipcode</dt>
         <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
             <span class="value">{{ $user->billing_zipcode }}</span>
-            <input type="text" class="input edit !hidden" name="billing_zipcode" value="{{ $user->billing_zipcode }}">
+            {{-- <input type="text" class="input edit !hidden" name="billing_zipcode" value="{{ $user->billing_zipcode }}"> --}}
+        </dd>
+    </div>
+    <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6 only-edit-row !hidden">
+        <dt class="text-sm font-medium text-gray-500">Billing City/State/Zipcode</dt>
+        <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+            {{-- <span class="value">{{ $user_postcode->postOffice }}, {{ $user_postcode->upazila }}, {{ $user_postcode->district->name }}, {{ $user_postcode->division->name }} ({{ $user->billing_zipcode }})</span> --}}
+            <select name="billing_zipcode" class="select2" data-placeholder="Type a postcode or area name">
+                <option></option>
+                @foreach ($postcodes as $postcode)
+                    <option @if (old('billing_zipcode', $user->billing_zipcode) == $postcode->postCode) selected @endif title="{{ $postcode->postOffice }}" value="{{ $postcode->postCode }}">
+                        {{ $postcode->postCode }}, 
+                        {{ $postcode->postOffice }}, {{ $postcode->upazila }}, {{ $postcode->district->name }}, {{ $postcode->division->name }}
+                    </option>
+                @endforeach
+            </select>
         </dd>
     </div>
     <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
