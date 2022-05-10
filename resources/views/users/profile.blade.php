@@ -141,7 +141,7 @@
                                     <dt class="text-sm font-medium text-gray-500">Billing City/State/Zipcode</dt>
                                     <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
                                         {{-- <span class="value">{{ $user_postcode->postOffice }}, {{ $user_postcode->upazila }}, {{ $user_postcode->district->name }}, {{ $user_postcode->division->name }} ({{ $user->billing_zipcode }})</span> --}}
-                                        <select name="billing_zipcode" class="select2 input" data-placeholder="Type a postcode or area name">
+                                        <select name="billing_zipcode" class="select2" data-placeholder="Type a postcode or area name">
                                             <option></option>
                                             @foreach ($postcodes as $postcode)
                                                 <option @if (old('billing_zipcode', $user->billing_zipcode) == $postcode->postCode) selected @endif title="{{ $postcode->postOffice }}" value="{{ $postcode->postCode }}">
@@ -216,12 +216,23 @@
 
     <x-slot name="head">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" />
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.1.1/dist/select2-bootstrap-5-theme.min.css" />
+        {{-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.1.1/dist/select2-bootstrap-5-theme.min.css" /> --}}
     </x-slot>
 
     <x-slot name="scripts">
+        <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.full.min.js" defer></script>
         <script>
             window.addEventListener('DOMContentLoaded', (event) => {
+                $(".select2").select2({
+                    // theme: "bootstrap-5",
+                    placeholder: 'Type to find quickly',
+                });
+
+                $('.select2').on('select2:select', function (e) {
+                    var data = e.params.data;
+                    console.log(data);
+                });
+
                 // $('.profile-edit-form').find('input, textarea, select, button').addClass('hidden');
                 $('.edit-btn').on('click', function () {
                     $(this).addClass('!hidden');
