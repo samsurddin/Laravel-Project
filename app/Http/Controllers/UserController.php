@@ -150,7 +150,7 @@ class UserController extends Controller
             $user_postcode = Postcode::where('postCode', $user->billing_zipcode)->with('district:id,name')->with('division:id,name')->first();
         }
         
-        $postcodes = Postcode::with('district:id,name')->with('division:id,name')->get();
+        $postcodes = Postcode::with('district:id,name')->with('division:id,name')->orderBy('postCode')->get();
 
         // dd($user_postcode);
         return view('users.profile', compact('user', 'postcodes', 'user_postcode'));
