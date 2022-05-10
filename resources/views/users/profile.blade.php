@@ -226,6 +226,7 @@
                 $(".select2").select2({
                     // theme: "bootstrap-5",
                     placeholder: 'Type to find quickly',
+                    allowClear: true,
                 });
 
                 $('.select2').on('select2:select', function (e) {
