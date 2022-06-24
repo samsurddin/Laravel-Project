@@ -89,36 +89,8 @@ Route::group(['prefix' => '{locale}', 'where' => ['locale' => '[a-zA-Z]{2}']], f
                 // Route::get('settings/edit', [SettingController::class, 'edit'])->name('settings.edit');
 
                 Route::resources([
-                    'products' => ProductController::class,
-                    'orders' => OrderController::class,
-                    'categories' => CategoryController::class,
-                    'brands' => BrandController::class,
-                    'specifications' => SpecificationController::class,
                     'images' => ImageController::class,
-                    'question-answers' => QuestionAnswerController::class,
                 ]);
-
-                // order addresses
-                Route::post('orders/billing/{order}', [OrderController::class, 'update_billing'])
-                    ->name('order.update_billing');
-                Route::post('orders/shipping/{order}', [OrderController::class, 'update_shipping'])
-                    ->name('order.update_shipping');
-            
-                // order trackings
-                Route::get('orders/trackings/{order}', [OrderController::class, 'get_tracking'])
-                    ->name('order.get_tracking');
-                Route::post('orders/trackings/{order}', [OrderController::class, 'add_tracking'])
-                    ->name('order.add_tracking');
-                Route::get('orders/trackings/delete/{order}', [OrderController::class, 'delete_tracking'])
-                    ->name('order.delete_tracking');
-            
-                // order notes
-                Route::get('orders/notes/{order}', [OrderController::class, 'get_notes'])
-                    ->name('order.get_notes');
-                Route::post('orders/notes/{order}', [OrderController::class, 'add_note'])
-                    ->name('order.add_note');
-                Route::get('orders/notes/delete/{order}', [OrderController::class, 'delete_note'])
-                    ->name('order.delete_note');
             });
 
             // landlord admin routes
