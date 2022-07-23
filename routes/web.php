@@ -212,23 +212,7 @@ Route::group(['prefix' => '{locale}', 'where' => ['locale' => '[a-zA-Z]{2}']], f
     // tenants public routes
     Route::middleware('tenant')->group(function ()
     {
-        Route::get('/products', [App\Http\Controllers\Frontend\ProductController::class, 'index']);
-
-        Route::resources([
-            'products' => App\Http\Controllers\Frontend\ProductController::class,
-            'categories' => App\Http\Controllers\Frontend\CategoryController::class,
-            'cart' => App\Http\Controllers\Frontend\CartController::class,
-            'orders' => App\Http\Controllers\Frontend\OrderController::class,
-        ]);
-        Route::get('shop', [App\Http\Controllers\Frontend\CategoryController::class, 'index'])->name('shop.index');
-        Route::get('shop/brand/{brand}', [App\Http\Controllers\Frontend\CategoryController::class, 'index'])->name('shop.brand');
-
-        Route::get('checkout', [App\Http\Controllers\Frontend\CartController::class, 'checkout'])->name('cart.checkout');
-        Route::post('checkout/add-shipping', [App\Http\Controllers\Frontend\CartController::class, 'addDeliveryCharge'])->name('cart.addshipping');
-        Route::get('checkout/apply-coupon', [App\Http\Controllers\Frontend\CartController::class, 'applyCoupon'])->name('cart.applycoupon');
-        Route::get('checkout/remove-coupon', [App\Http\Controllers\Frontend\CartController::class, 'removeCoupon'])->name('cart.removecoupon');
-
-        Route::get('/{product}', [App\Http\Controllers\Frontend\ProductController::class, 'show'])->name('product.single');
+        
     });
 
     Route::get('media-test', function()
