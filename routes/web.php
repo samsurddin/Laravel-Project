@@ -27,6 +27,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Schema;
 use Spatie\Multitenancy\Models\Tenant;
 
+use App\Http\Controllers\Admin\CountryController;
 // landlord-frontend
 use App\Http\Controllers\Frontend\Landlord\FrontendPlanController;
 
@@ -87,9 +88,7 @@ Route::group(['prefix' => '{locale}', 'where' => ['locale' => '[a-zA-Z]{2}']], f
                     'show'
                 ]);
 
-                Route::get('country',function(){
-                    return "hello";
-                });
+                Route::resource('country', CountryController::class);
                 // Route::get('settings/edit', [SettingController::class, 'edit'])->name('settings.edit');
 
                 Route::resources([
