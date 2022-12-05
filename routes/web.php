@@ -27,6 +27,11 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Schema;
 use Spatie\Multitenancy\Models\Tenant;
 
+
+use App\Http\Controllers\admin\InvoiceController;
+
+use App\Http\Controllers\admin\CustomerController;
+
 // landlord-frontend
 use App\Http\Controllers\Frontend\Landlord\FrontendPlanController;
 
@@ -42,6 +47,19 @@ use Illuminate\Support\Str;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+// Route::prefix('piyal')->group(function()
+// {
+//     Route::resource('customers');
+// });
+
+// Route::get('/',[CustomerController::class,'index'])
+// Route::get('/', 'CustomerController@index')
+// Route::get('/',function(){
+// })
+// Route::get('/', null)
+// Route::get('/')
+
 
 Route::group(['prefix' => '{locale}', 'where' => ['locale' => '[a-zA-Z]{2}']], function()
 {
@@ -83,6 +101,16 @@ Route::group(['prefix' => '{locale}', 'where' => ['locale' => '[a-zA-Z]{2}']], f
             // tenants admin routes
             Route::middleware('tenant')->group(function ()
             {
+                Route::resource('invoices', InvoiceController::class);
+                Route::resource('customers', CustomerController::class);
+                
+
+                // Route::get('check-segment',function(){
+                //     $segment1 =  Request::segment(1);
+                //     echo $segment1.'/'.app()->getLocale().'/'.request()->path();
+                // });
+               
+                
                 Route::resource('settings', SettingController::class)->except([
                     'show'
                 ]);
@@ -90,12 +118,22 @@ Route::group(['prefix' => '{locale}', 'where' => ['locale' => '[a-zA-Z]{2}']], f
 
                 Route::resources([
                     'images' => ImageController::class,
+                    // 'invoices', InvoiceController::class,
                 ]);
             });
 
             // landlord admin routes
             Route::middleware('landlord')->group(function ()
             {
+
+
+               
+               
+                Route::get('/samsur', function()
+                {
+                    echo "hi samsur";
+                });
+                
                 Route::resource('tenants', TenantController::class);
                 Route::resource('plans', PlanController::class);
 
@@ -236,3 +274,13 @@ Route::get('{any}', function ($any) {
         return redirect('/'.app()->getLocale().'/'.request()->path());
     }
 })->where('any', '.*');
+
+
+
+
+
+
+
+// Route::get('migrate', function() {
+//     \Illuminate\Support\Facades\Artisan::call('migrate:fresh -—seed');
+// });

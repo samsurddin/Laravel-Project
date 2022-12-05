@@ -6,6 +6,7 @@ use Illuminate\Support\ServiceProvider;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Event;
+// use Illuminate\Support\Facades\Schema;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -16,7 +17,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        // Schema::defaultStringLength(191);
+
+    
     }
 
     /**
@@ -26,8 +29,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        
         Paginator::useBootstrap();
-
         Blade::directive('money', function ($amount) {
             // list($amo, $name) = explode(', ', $expression);
             // if (!$decimal) {
@@ -49,5 +52,6 @@ class AppServiceProvider extends ServiceProvider
         //     print_r([$_SESSION['x']+=1, $query->sql, $query->bindings, $query->time]);
         //     echo '</pre>';
         // });
+        
     }
 }

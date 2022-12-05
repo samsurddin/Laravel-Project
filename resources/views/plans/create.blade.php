@@ -8,7 +8,7 @@
         <div class="flex-item">
             {{-- <a class="btn-rounded" href="{{ route('users.create') }}"> Create New User</a>
             <a class="btn" href="{{ route('users.create') }}"> Create New User</a> --}}
-            <a class="btn-sm" href="{{ route('plans.index', app()->getLocale()) }}"> All Plans</a>
+            <a class="btn-sm" href="{{ route('admin.plans.index', app()->getLocale()) }}"> All Plans</a>
         </div>
     </x-slot>
 
@@ -34,7 +34,7 @@
                         </div>
                     </div>
                     <div class="mt-5 md:mt-0 md:col-span-2">
-                        <form action="{{ route('plans.store', app()->getLocale()) }}" method="POST">
+                        <form action="{{ route('admin.plans.store', app()->getLocale()) }}" method="POST">
                             @csrf
 
                             <div class="shadow overflow-hidden sm:rounded-md">

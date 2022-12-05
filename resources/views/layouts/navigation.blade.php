@@ -50,6 +50,15 @@
                             {{ __('Settings') }}
                         </x-dropdown-link>
 
+                        <!-- Customers Link -->
+
+                        <x-dropdown-link :href="route('admin.customers.index', app()->getLocale())" :active="request()->routeIs('admin.customers.*')">
+                            {{ __('Customers Manager') }}
+                        </x-dropdown-link>
+
+                        <!-- Customers Link -->
+
+
                         <!-- Authentication -->
                         <form method="POST" action="{{ route('logout', app()->getLocale()) }}">
                             @csrf

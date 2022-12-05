@@ -12,6 +12,7 @@ class Tenant extends Model
 
     protected $connection = 'landlord';
 
+    // protected $table="tenant";
     /**
      * The attributes that are mass assignable.
      *
