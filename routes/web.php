@@ -86,6 +86,10 @@ Route::group(['prefix' => '{locale}', 'where' => ['locale' => '[a-zA-Z]{2}']], f
                 Route::resource('settings', SettingController::class)->except([
                     'show'
                 ]);
+
+                Route::get('country',function(){
+                    return "hello";
+                });
                 // Route::get('settings/edit', [SettingController::class, 'edit'])->name('settings.edit');
 
                 Route::resources([
