@@ -13,9 +13,16 @@ return new class extends Migration
      */
     public function up()
     {
+        
         Schema::create('countries', function (Blueprint $table) {
             $table->id();
-            $table->string('countrys');
+            $table->string('iso');
+            $table->string('name');
+            $table->string('nicename');
+            $table->string('iso3');
+            $table->integer('numcode');
+            $table->integer('phonecode');
+           
             $table->timestamps();
         });
     }

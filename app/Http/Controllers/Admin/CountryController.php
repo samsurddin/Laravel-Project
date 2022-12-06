@@ -4,7 +4,7 @@ namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-
+use App\Models\Tenant\Countrie;
 class CountryController extends Controller
 {
     /**
@@ -14,7 +14,8 @@ class CountryController extends Controller
      */
     public function index()
     {
-        return view('country.index');
+        $coun = Countrie::all();
+        return view('country.index',compact($coun));
     }
 
     /**
@@ -24,7 +25,10 @@ class CountryController extends Controller
      */
     public function create()
     {
+   
         return view('country.create');
+        
+
     }
 
     /**
@@ -35,7 +39,16 @@ class CountryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $country = new Countrie();
+        $country->iso = $request->iso;
+        $country->name = $request->name;
+        $country->nicename = $request->nicename;
+        $country->iso3 = $request->iso3;
+        $country->numcode = $request->numcode;
+        $country->phonecode = $request->phonecode;
+
+        $country->save();
+        // return view('country.create')
     }
 
     /**
