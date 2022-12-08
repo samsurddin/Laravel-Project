@@ -9,12 +9,9 @@ class Countrie extends Model
 {
     use HasFactory;
 
-    protected $fillable  =[
-        'iso', 
-        'name', 
-        'nicename', 
-        'iso3', 
-        'numcode', 
-        'phonecode',
+    protected $connection = 'tenant';
+
+    protected $fillable = [
+        
     ];
 }

@@ -15,7 +15,7 @@ class CountryController extends Controller
     public function index()
     {
         $coun = Countrie::all();
-        return view('country.index',compact($coun));
+        return view('country.index',['coun'=>$coun]);
     }
 
     /**
@@ -48,7 +48,8 @@ class CountryController extends Controller
         $country->phonecode = $request->phonecode;
 
         $country->save();
-        // return view('country.create')
+        return redirect()->route('admin.country.index', app()->getLocale());
+         
     }
 
     /**
@@ -59,7 +60,7 @@ class CountryController extends Controller
      */
     public function show($id)
     {
-        //
+        return view('country.show');
     }
 
     /**
@@ -68,9 +69,10 @@ class CountryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($lang, $id)
     {
-        //
+        $country = Countrie::find($id);
+        return view('country.edit', ["country"=>$country]);
     }
 
     /**
@@ -80,9 +82,18 @@ class CountryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update($lang ,Request $request, $id)
     {
-        //
+        $country = Countrie::find($id);
+        $country->iso = $request->iso;
+        $country->name = $request->name;
+        $country->nicename = $request->nicename;
+        $country->iso3 = $request->iso3;
+        $country->numcode = $request->numcode;
+        $country->phonecode = $request->phonecode;
+
+        $country->save();
+        return  redirect()->route('admin.country.index', app()->getLocale());
     }
 
     /**
@@ -91,8 +102,11 @@ class CountryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($lang, $id)
     {
-        //
+        $country = Countrie::find($id);
+        $country->delete();
+        return redirect()->route('admin.country.index', app()->getLocale());
+        
     }
 }
