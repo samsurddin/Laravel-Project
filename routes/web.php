@@ -14,6 +14,7 @@ use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\BrandController;
+use App\Http\Controllers\admin\CityController;
 use App\Http\Controllers\Admin\SpecificationController;
 use App\Http\Controllers\Admin\ImageController;
 use App\Http\Controllers\Admin\QuestionAnswerController;
@@ -88,7 +89,13 @@ Route::group(['prefix' => '{locale}', 'where' => ['locale' => '[a-zA-Z]{2}']], f
                     'show'
                 ]);
 
+                // City Controller
+                Route::resource('city',CityController::class);
+                // ------------------
+                // Country Controller
                 Route::resource('country', CountryController::class);
+                // -----------------
+
                 // Route::get('settings/edit', [SettingController::class, 'edit'])->name('settings.edit');
 
                 Route::resources([

@@ -14,8 +14,20 @@ class CountryController extends Controller
      */
     public function index()
     {
+        $jsonurl = "https://raw.githubusercontent.com/hiiamrohit/Countries-States-Cities-database/master/countries.json";
+
+        $json = file_get_contents($jsonurl);
+        $data = json_decode($json, TRUE);
+        $countries = $data['countries'];
+        $name = $countries;
+
         $coun = Countrie::all();
-        return view('country.index',['coun'=>$coun]);
+        return view('country.index',
+        [
+            'coun'=>$coun,
+            'data'=>$name
+        ]
+    );
     }
 
     /**

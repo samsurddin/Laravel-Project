@@ -23,25 +23,17 @@
                     <!-- This example requires Tailwind CSS v2.0+ -->
                     <div class="flex flex-col">
                         <div class="my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
-                        <div class="w-64 px-8" >
-                          
-                        <label for="underline_select" class="sr-only">Underline select</label>
-                        <select id="underline_select" class="block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer">
-                            <option value="">Country</option>
-                            @foreach ($coun as $item)
-                               <option value="US">{{ $item->nicename }}</option>
-                            @endforeach
-                            
-                            {{-- <option selected>Choose a country</option>
-                            <option value="US">United States</option>
-                            <option value="CA">Canada</option>
-                            <option value="FR">France</option>
-                            <option value="DE">Germany</option> --}}
-                        </select>
-
-                        </div>
-                           
-
+                            <div class="w-64 px-8" >
+                                <label for="underline_select" class="sr-only">Underline select</label>
+                                <select id="underline_select" class="block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer">
+                                <option value="">Country</option>
+                                @if (is_array($data) || is_object($data))
+                                    @foreach ($data as $user)
+                                        <option value="{{ $user['id'] }}" name="sortnamRe">{{ $user['name'] }}</option>
+                                    @endforeach
+                                @endif
+                                </select>
+                            </div>
                         </div>
                         
                     </div>
@@ -103,7 +95,6 @@
                                         {{ $item->phonecode }}
                                     </td>
                                     <td class="py-4 px-6 flex">
-                                        {{-- <a class="bg-red-600 text-white px-5 py-2 rounded-full font-semibold" href="{{ route('admin.country.show', [app()->getLocale(), $item->id]) }}">Show</a> --}}
                                         <a class="bg-purple-700 text-white mx-1 px-5 py-2 rounded-full font-semibold" href="{{ route('admin.country.edit', [app()->getLocale(), $item->id]) }}">Edit</a>
                                         <form  method="POST" action="{{ route('admin.country.destroy',[app()->getLocale(),$item->id]) }}">
                                             @csrf 
